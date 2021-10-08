@@ -16,13 +16,17 @@ const fontConfig = {
             fontFamily: "sans-serif-thin",
             fontWeight: "normal",
         },
-        title: {
-            fontFamily: "Arial",
-            fontSize: 500,
-            fontWeight: 500
+        title1: {
+            fontSize: 20,
+            fontFamily: "sans-serif",
+            fontWeight: "bold"
         }
     },
 };
+
+fontConfig.ios = fontConfig.default;
+fontConfig.android = fontConfig.default;
+fontConfig.web = fontConfig.default;
 
 
 export default fontConfig;
