@@ -1,15 +1,15 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import { useTheme } from 'react-native-paper'
+import React from 'react';
+import { View, Text } from 'react-native';
 import { withTheme } from 'react-native-paper';
 
- function MainScreen(props) {
-    const { colors } = useTheme();
-    return (
-        <View>
-            <Text style={{ color: colors.primary}}>Hellasas world</Text>
-        </View>
-    )
+function MainScreen(props) {
+  const { theme } = props;
+  const { colors } = theme;
+  return (
+    <View>
+      <Text style={{ color: colors.primary }}>Hellasas world</Text>
+    </View>
+  );
 }
 
 export default withTheme(MainScreen);

@@ -1,15 +1,15 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-//import { useTheme } from 'react-native-paper';
-import { withTheme, Appbar } from 'react-native-paper';
+import React from 'react';
+import { Appbar, withTheme } from 'react-native-paper';
 
- function TopBar(props) {
-    const { colors, fonts } = props.theme;
-    return (
-        <View>
-            <Text style={fonts.title1} >dasassd world</Text>
-        </View>
-    )
+function TopBar() {
+  return (
+    <Appbar.Header>
+      <Appbar.BackAction />
+      <Appbar.Content title="Title" subtitle="Subtitle" />
+      <Appbar.Action icon="magnify" />
+      <Appbar.Action icon="dots-vertical" />
+    </Appbar.Header>
+  );
 }
 
 export default withTheme(TopBar);
