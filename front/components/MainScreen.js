@@ -4,10 +4,11 @@ import { withTheme } from 'react-native-paper';
 
 function MainScreen(props) {
   const { theme } = props;
-  const { colors } = theme;
+  const { colors, fonts } = theme;
   return (
     <View>
-      <Text style={{ color: colors.primary }}>Hellasas world</Text>
+      <Text style={fonts.title1}>Texto con fuente title1</Text>
+      <Text style={{ color: colors.primary }}>Texto con color</Text>
     </View>
   );
 }
