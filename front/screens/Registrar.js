@@ -1,10 +1,11 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
+import style from '../customProperties/Styles';
 
-
-
-const Registrar = () => (<View>aaaaaaaa</View>
-
+const Registrar = () => (
+  <View style={style.formsContainer}>
+    <Text>aaaaaaaa</Text>
+  </View>
 );
 
 export default Registrar;
