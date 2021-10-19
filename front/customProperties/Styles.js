@@ -15,6 +15,24 @@ const style = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f0f9fd',
   },
+  buttonPrimary: {
+    backgroundColor:'#1A4472',
+    borderColor:'#1A4472',
+    borderWidth: 2,
+    borderRadius: 5,
+    padding: 5,
+  },
+  buttonLogIn: {
+    borderColor: 'white',
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 5,
+  },
+  primaryText:{
+    fontSize: 15,
+    fontFamily: 'sans-serif',
+  },
+
 });
 
 export default style;

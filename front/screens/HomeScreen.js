@@ -16,9 +16,9 @@ function MainScreen(props) {
       <Text style={fonts.title1}>MiVecindario</Text>
       <Text style={{ color: colors.primary }}>Texto con color</Text>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Registrar')}>
+      <TouchableOpacity style={style.buttonPrimary } onPress={() => navigation.navigate('Registrar')}>
         <Text style={{
-          color: 'white', fontSize: 15, borderColor: 'white', borderWidth: 2, borderRadius: 10, padding: 5,
+          color: 'white', fontSize: 15,
         }}
         >
           Continuar como invitado
@@ -28,7 +28,7 @@ function MainScreen(props) {
       <TouchableOpacity style={{ marginTop: 5, backgroundColor: 'white' }} onPress={() => navigation.navigate('Registrar')}>
         <Text style={{
           color: colors.primary, fontSize: 15, borderColor: 'white', borderWidth: 2, borderRadius: 10, padding: 5,
-        }}
+        },style.primaryText}
         >
           Iniciar sesion
         </Text>
