@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import theme from './customProperties/Themes';
 import HomeScreen from './screens/HomeScreen';
 import Registrar from './screens/Registrar';
+import Login from './screens/Login';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,7 @@ export default function App() {
             // })}
           />
           <Stack.Screen name="Registrar" component={Registrar} />
+          <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
