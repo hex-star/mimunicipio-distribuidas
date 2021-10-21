@@ -45,6 +45,9 @@ const style = StyleSheet.create({
     padding: 5,
     
   },
+
+// FONTS
+
   whiteFont:{
     color:'#fff',
     marginTop:20
@@ -53,6 +56,31 @@ const style = StyleSheet.create({
     color:'#fff',
     fontSize:10,
     top:80,
+  },
+  blueFont:{
+    color:'#34bdeb',
+    fontSize:10,
+  },
+
+  menuImage:{
+    backgroundColor:'#1a4472',
+    padding:13,
+    marginBottom:5,
+    marginLeft:30,
+    marginRight:30,
+    borderRadius:20
+  },
+  menuContainer:{
+    marginTop:130,
+    flexDirection:'row',
+    flexWrap:'wrap',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  menuItem:{
+    flexDirection: 'column',
+     alignItems: 'center',
+     marginBottom:20,
   }
 
 });

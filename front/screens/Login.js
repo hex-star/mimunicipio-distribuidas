@@ -5,7 +5,9 @@ import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
 
 
-const Login = () => (
+function Login (props)  { 
+    const { navigation } = props;
+    return(
 
      <View style={{
         flexDirection: 'column',
@@ -19,12 +21,12 @@ const Login = () => (
         <Text style={{alignSelf:'center',marginTop:20}}>Por favor, Ingresá tus datos para continuar</Text>
         <TextInput style={{marginTop:20,borderRadius:0}} placeholder="Email/Legajo" />
         <TextInput style={{marginTop:20,marginBottom:20}} placeholder="Contraseña" />
-        <TouchableOpacity style={style.buttonPrimary} >
+        <TouchableOpacity onPress={()=>navigation.navigate('Menu')} style={style.buttonPrimary} >
             <Text style={{
                 color: 'white', fontSize: 15,alignSelf:'center'
             }}
             >
-                Continuar como invitado
+                Ingresar
             </Text>
         </TouchableOpacity>
         <Text style={{alignSelf:'center',marginTop:20}}>Olvidé mi contraseña</Text>
@@ -32,5 +34,5 @@ const Login = () => (
 
     </View>
 );
-
+        }
 export default Login;
