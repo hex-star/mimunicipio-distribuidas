@@ -2,10 +2,13 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import style from '../customProperties/Styles';
 
-const Registrar = () => (
+function Registrar (props) {
+  return (
   <View style={style.formsContainer}>
-    <Text>aaaaaaaa</Text>
+    <Text>registrar</Text>
   </View>
-);
+);}
 
-export default Registrar;
+
+
+export default (Registrar);

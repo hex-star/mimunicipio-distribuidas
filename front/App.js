@@ -6,7 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import theme from './customProperties/Themes';
 import HomeScreen from './screens/HomeScreen';
 import Registrar from './screens/Registrar';
-
+import Login from './screens/Login';
+import Menu from './screens/Menu';
+import Denuncia from './screens/Denuncia';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -27,6 +29,9 @@ export default function App() {
             // })}
           />
           <Stack.Screen name="Registrar" component={Registrar} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Menu" component={Menu}/>
+          <Stack.Screen name="Denuncia" component={Denuncia}/>
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
