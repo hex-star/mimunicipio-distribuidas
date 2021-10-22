@@ -3,6 +3,9 @@ import { Text, View,TouchableOpacity,Image } from 'react-native'
 
 import style from './../customProperties/Styles'
 import cartelera from './../assets/cartelera.png'
+import reclamo from './../assets/reclamo.png'
+import denuncia from './../assets/denuncia.png'
+import historial from './../assets/historial.png'
 
 function Menu(props) {
     const {  navigation } = props;
@@ -18,24 +21,24 @@ function Menu(props) {
             </View>
             <View style={style.menuItem}>
                 <TouchableOpacity style={style.menuImage}>
-                    <Image source={cartelera} />
+                    <Image source={reclamo} />
                 
                 </TouchableOpacity>
-                <Text>Cartelera</Text>
+                <Text>Nuevo reclamo</Text>
             </View>
             <View style={style.menuItem}  >
                 <TouchableOpacity  style={style.menuImage} onPress={()=> navigation.navigate('Denuncia')}>
-                    <Image source={cartelera} />
+                    <Image source={denuncia} />
                 
                 </TouchableOpacity>
-                <Text>Cartelera</Text>
+                <Text>Nueva Denuncia</Text>
             </View>
             <View style={style.menuItem}>
                 <TouchableOpacity style={style.menuImage}>
-                    <Image source={cartelera} />
+                    <Image source={historial} />
                 
                 </TouchableOpacity>
-                <Text>Cartelera</Text>
+                <Text>Historial</Text>
             </View>
 
         </View>

@@ -6,7 +6,7 @@ import style from '../customProperties/Styles';
 
 function Denuncia (props) {
   return (
-  <View >
+  <View style={{marginTop:10}} >
       <MiVecindario/>
     <FormularioDenuncia/>
   </View>

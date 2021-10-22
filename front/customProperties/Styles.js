@@ -61,13 +61,18 @@ const style = StyleSheet.create({
     color:'#34bdeb',
     fontSize:10,
   },
+  greyFont:{
+    color:'#6e6e6e',
+    fontSize:12,
+    marginTop:10,
+  },
 
   menuImage:{
     backgroundColor:'#1a4472',
     padding:13,
     marginBottom:5,
-    marginLeft:30,
-    marginRight:30,
+    marginLeft:35,
+    marginRight:35,
     borderRadius:20
   },
   menuContainer:{
@@ -81,6 +86,7 @@ const style = StyleSheet.create({
     flexDirection: 'column',
      alignItems: 'center',
      marginBottom:20,
+    
   }
 
 });
