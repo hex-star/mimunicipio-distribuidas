@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(250),
       allowNull: true
     },
-    codigoBarrio: {
+    idBarrio: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {

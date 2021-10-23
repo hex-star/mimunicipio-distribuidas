@@ -1,38 +1,76 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import { Formik } from 'formik';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
 
-
-function Login (props)  { 
+function Login(props) {
     const { navigation } = props;
-    return(
 
-     <View style={{
-        flexDirection: 'column',
-        flex: 1,
-        justifyContent: 'center',
-        marginLeft:10,
-        marginRight:10
-    }}>
-        <MiVecindario/>
-        <Text style={{alignSelf:'center',fontSize:20}}>¡Bienvenido a Mi Vecindario!</Text>
-        <Text style={{alignSelf:'center',marginTop:20}}>Por favor, Ingresá tus datos para continuar</Text>
-        <TextInput style={{marginTop:20,borderRadius:0}} placeholder="Email/Legajo" />
-        <TextInput style={{marginTop:20,marginBottom:20}} placeholder="Contraseña" />
-        <TouchableOpacity onPress={()=>navigation.navigate('Menu')} style={style.buttonPrimary} >
-            <Text style={{
-                color: 'white', fontSize: 15,alignSelf:'center'
-            }}
+    const initialValues = {
+        email: '',
+        password: '',
+    };
+
+    return (
+        <>
+            <MiVecindario />
+            <Formik
+                initialValues={initialValues}
+                onSubmit={(values) => {
+                    console.log(values);
+                    navigation.navigate('Menu');
+                }}
             >
-                Ingresar
-            </Text>
-        </TouchableOpacity>
-        <Text style={{alignSelf:'center',marginTop:20}}>Olvidé mi contraseña</Text>
-        <Text style={{alignSelf:'center',marginTop:20}} onPress={() => navigation.navigate('Registrar')}>¿No estás registrado? Registraté acá</Text>
+                {({
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    values,
+                }) => (
+                    <View style={style.formsContainer}>
+                        <Text style={style.subtitle1}>
+                            ¡Bienvenido a Mi Vecindario!
+                        </Text>
+                        <Text style={style.subtitle2}>
+                            Por favor, Ingresá tus datos para continuar
+                        </Text>
+                        <TextInput
+                            style={style.primaryTextInput}
+                            placeholder="Email/Legajo"
+                            onChangeText={handleChange('email')}
+                            onBlur={handleBlur('email')}
+                            value={values.email}
+                        />
+                        <TextInput
+                            style={style.primaryTextInput}
+                            placeholder="Contraseña"
+                            onChangeText={handleChange('password')}
+                            onBlur={handleBlur('password')}
+                            value={values.password}
+                            secureTextEntry
+                        />
+                        <TouchableOpacity
+                            onPress={handleSubmit}
+                            // onPress={() => navigation.navigate('Menu')}
+                            style={style.primaryNavigationButton}
+                        >
+                            <Text style={style.primaryNavigationButtonText}>
+                                Ingresar
+                            </Text>
+                        </TouchableOpacity>
+                        <Text style={style.subtitle2}>
+                            Olvidé mi contraseña
+                        </Text>
+                        <Text style={style.subtitle2} onPress={() => navigation.navigate('Registrar')}>
+                            ¿No estás registrado? Registraté acá
+                        </Text>
 
-    </View>
-);
-        }
+                    </View>
+                )}
+            </Formik>
+        </>
+    );
+}
 export default Login;
