@@ -14,10 +14,6 @@ module.exports = function(sequelize, DataTypes) {
     idImagen: {
       type: DataTypes.INTEGER,
       allowNull: false
-    },
-    url: {
-      type: DataTypes.STRING(300),
-      allowNull: false
     }
   }, {
     sequelize,

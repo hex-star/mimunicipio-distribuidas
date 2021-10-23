@@ -1,16 +1,12 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-import style from '../customProperties/Styles';
 import logo from '../assets/miVecindario.png';
 
 const MiVecindario = () => (
-  <View style={{
-    flexDirection: 'row', alignItems: 'center', marginBottom: 30, marginLeft: 10,
-  }}
-  >
-    <Text style={{ fontSize: 25, fontWeight: '400' }}>MiVecindario</Text>
-    <Image source={logo} />
-  </View>
+    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={{ fontSize: 25, fontWeight: '400', margin: 20 }}>MiVecindario</Text>
+        <Image source={logo} />
+    </View>
 );
 
 export default MiVecindario;

@@ -11,17 +11,24 @@
     "@react-native-community/datetimepicker": "^3.5.2",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
-    "DatePicker": "^2.0.0",
+    "babel-preset-react-native": "^4.0.1",
+    "date-fns": "^2.25.0",
     "expo": "^42.0.4",
     "expo-cli": "^4.12.1",
+    "expo-location": "~12.1.2",
     "expo-status-bar": "~1.0.4",
+    "formik": "^2.2.9",
+    "metro-react-native-babel-preset": "^0.66.2",
+    "qs": "^6.5.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-    "react-native-datepicker": "^1.7.2",
     "react-native-document-picker": "^7.1.1",
+    "react-native-dotenv": "^3.2.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-google-place-picker": "^1.2.1",
+    "react-native-google-places-autocomplete": "^2.4.1",
+    "react-native-maps": "0.28.0",
     "react-native-paper": "^4.9.2",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "^0.17.5"
@@ -33,7 +40,9 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.26.1",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "metro-react-native-babel-preset": "^0.66.2",
+    "react-native-dotenv": "^3.2.0"
   },
   "private": true
 }
