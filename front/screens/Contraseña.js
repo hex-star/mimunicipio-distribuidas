@@ -4,13 +4,11 @@ import { TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
+import ModalContraseña from '../components/ModalContraseña';
 
-function Login(props) {
-    const { navigation } = props;
-
+function Contraseña() {
     const initialValues = {
         email: '',
-        password: '',
     };
 
     return (
@@ -20,7 +18,8 @@ function Login(props) {
                 initialValues={initialValues}
                 onSubmit={(values) => {
                     console.log(values);
-                    navigation.navigate('Menu');
+                    // eslint-disable-next-line indent
+                        <ModalContraseña visible />;
                 }}
             >
                 {({
@@ -31,10 +30,10 @@ function Login(props) {
                 }) => (
                     <View style={style.formsContainer}>
                         <Text style={style.subtitle1}>
-                            ¡Bienvenido a Mi Vecindario!
+                            Recuperar contraseña
                         </Text>
                         <Text style={style.subtitle2}>
-                            Por favor, Ingresá tus datos para continuar
+                            Por favor, Ingresá los datos para recuperar tu contraseña
                         </Text>
                         <TextInput
                             style={style.primaryTextInput}
@@ -43,29 +42,15 @@ function Login(props) {
                             onBlur={handleBlur('email')}
                             value={values.email}
                         />
-                        <TextInput
-                            style={style.primaryTextInput}
-                            placeholder="Contraseña"
-                            onChangeText={handleChange('password')}
-                            onBlur={handleBlur('password')}
-                            value={values.password}
-                            secureTextEntry
-                        />
                         <TouchableOpacity
                             onPress={handleSubmit}
                             // onPress={() => navigation.navigate('Menu')}
                             style={style.primaryNavigationButton}
                         >
                             <Text style={style.primaryNavigationButtonText}>
-                                Ingresar
+                                Aceptar
                             </Text>
                         </TouchableOpacity>
-                        <Text style={style.subtitle2} onPress={() => navigation.navigate('Contraseña')}>
-                            Olvidé mi contraseña
-                        </Text>
-                        <Text style={style.subtitle2} onPress={() => navigation.navigate('Registrar')}>
-                            ¿No estás registrado? Registraté acá
-                        </Text>
 
                     </View>
                 )}
@@ -73,4 +58,4 @@ function Login(props) {
         </>
     );
 }
-export default Login;
+export default Contraseña;

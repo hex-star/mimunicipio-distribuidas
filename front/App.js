@@ -10,6 +10,7 @@ import Registrar from './screens/Registrar';
 import Login from './screens/Login';
 import Menu from './screens/Menu';
 import Denuncia from './screens/Denuncia';
+import Contraseña from './screens/Contraseña';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ export default function App() {
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Menu" component={Menu} />
                     <Stack.Screen name="Denuncia" component={Denuncia} />
+                    <Stack.Screen name="Contraseña" component={Contraseña} />
                 </Stack.Navigator>
             </NavigationContainer>
         </PaperProvider>
