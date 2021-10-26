@@ -205,6 +205,11 @@ const style = StyleSheet.create({
         marginTop: 5,
     },
 
+    errorText: {
+        color: 'red',
+        fontSize: 10,
+    },
+
 });
 
 export default style;
