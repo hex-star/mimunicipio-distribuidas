@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import {
+    View, Text, TouchableOpacity, Alert,
+} from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
 import MiVecindario from '../components/MiVecindario';
@@ -18,7 +20,7 @@ function Contraseña() {
                 initialValues={initialValues}
                 onSubmit={(values) => {
                     console.log(values);
-                    Alert.alert("Solicitud confirmada", "Revise su cuenta de correo electrónico para proceder con el recupero de contraseña");
+                    Alert.alert('Solicitud confirmada', 'Revise su cuenta de correo electrónico para proceder con el recupero de contraseña');
                     // eslint-disable-next-line indent
                         <ModalContraseña visible />;
                 }}
