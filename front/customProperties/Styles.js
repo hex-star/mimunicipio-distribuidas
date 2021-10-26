@@ -109,7 +109,7 @@ const style = StyleSheet.create({
     primaryTextInput: {
         color: '#000000',
         fontSize: 16,
-        marginBottom: 2,
+        marginBottom: 1,
         backgroundColor: 'transparent',
     },
 
@@ -122,6 +122,7 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         width: 200,
         marginTop: 20,
+     
     },
 
     primaryNavigationButtonText: {

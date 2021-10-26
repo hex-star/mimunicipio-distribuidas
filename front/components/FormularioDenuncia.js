@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import {
+    Alert,
     Dimensions,
+    ImagePickerIOS,
     ScrollView,
     Text,
     TouchableOpacity,
     View,
+    Image,
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -15,6 +18,9 @@ import { GOOGLE_PLACES_API_KEY } from '@env';
 import Qs from 'qs';
 import style from '../customProperties/Styles';
 import MiVecindario from './MiVecindario';
+import * as ImagePicker from 'expo-image-picker';
+import tick from "./../assets/tick.png"
+
 
 function FormularioDenuncia(props) {
     const { navigation } = props;
@@ -22,6 +28,7 @@ function FormularioDenuncia(props) {
     const [datePickerMode, setDatePickerMode] = useState('date');
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [coordinates, setCoordinates] = useState();
+    const [picture, setPicture] = useState(null)
     //   const [showMapPicker, setShowMapPicker] = useState(false);
 
     const onChange = (event, selectedDate) => {
@@ -34,7 +41,7 @@ function FormularioDenuncia(props) {
         }
 
         if (datePickerMode === 'time') {
-        // setDatePickerMode('date');
+            // setDatePickerMode('date');
             setShowDatePicker(false);
         }
 
@@ -56,12 +63,11 @@ function FormularioDenuncia(props) {
 
     const getPlaceDetails = async function (data) {
         try {
-            const request = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?${
-                Qs.stringify({
-                    key: GOOGLE_PLACES_API_KEY,
-                    placeid: data.place_id,
-                    language: 'es',
-                })}`, {
+            const request = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?${Qs.stringify({
+                key: GOOGLE_PLACES_API_KEY,
+                placeid: data.place_id,
+                language: 'es',
+            })}`, {
                 method: 'GET',
             });
 
@@ -93,6 +99,46 @@ function FormularioDenuncia(props) {
         }
     };
 
+    const test = (image) => {
+        const data = new FormData();
+        data.append('file', image);
+        data.append('upload_preset', 'eawgzhpc');
+        data.append("cloud_name", "dholepepw");
+        console.log(data)
+        fetch("https://api.cloudinary.com/v1_1/dholepepw/image/upload", {
+            method: "post",
+            body: data
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setPicture(data.url)
+            })
+    }
+
+    const pickFromCamera = async () => {
+        const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+        if (granted) {
+            let data = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 0.5
+            })
+            console.log(data)
+            if (!data.cancelled) {
+                let newfile = {
+                    uri: data.uri,
+                    type: `test/${data.uri.split(".")[1]}`,
+                    name: `test/${data.uri.split(".")[1]}`
+                }
+                test(newfile);
+            }
+        }
+        else {
+            Alert.alert("ERROR PERMISSION DENIED")
+        }
+    }
+
     //   const onPressMapButton = () => {
     //     setShowMapPicker(true);
     //   };
@@ -111,7 +157,7 @@ function FormularioDenuncia(props) {
                 <Text style={style.formTooltip}>Dirección</Text>
                 <View style={style.primaryTextInput}>
                     <GooglePlacesAutocomplete
-                    // https://github.com/FaridSafi/react-native-google-places-autocomplete
+                        // https://github.com/FaridSafi/react-native-google-places-autocomplete
                         placeholder="Buscar"
                         disableScroll
                         isRowScrollable={false}
@@ -133,7 +179,7 @@ function FormularioDenuncia(props) {
 
                 <View>
                     {coordinates && (
-                    // https://github.com/react-native-maps/react-native-maps
+                        // https://github.com/react-native-maps/react-native-maps
                         <View style={{ flexDirection: 'row' }}>
                             <MapView
                                 style={{
@@ -188,7 +234,38 @@ function FormularioDenuncia(props) {
                 <Text style={style.formTooltip}>Comentanos tu problema</Text>
                 <TextInput style={style.primaryTextInput} placeholder="Ingresa el motivo de la denuncia" />
                 <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
-                <TextInput style={style.primaryTextInput} placeholder="Selecciona" />
+                {/* <Button style={style.primaryTextInput} placeholder="Selecciona" onPress={pickFromCamera} />*/}
+                <TouchableOpacity
+                    onPress={pickFromCamera}
+                    style={{
+
+
+
+                        padding: 5,
+                        alignSelf: 'flex-start',
+                        width: 200,
+                        marginTop: 20,
+                        flexDirection: 'row',
+                        marginLeft:7
+
+
+                    }}
+
+                >
+                    <Text style={{ color: 'grey' }}>
+                        Subir Fotos
+                    </Text>
+                    {picture != null && <Image source={tick} style={{ height: 20, width: 20, marginLeft: 10 }} />}
+
+
+                </TouchableOpacity>
+                <View
+                    style={{
+                        borderBottomColor: '#bcbcbc',
+                        borderBottomWidth: 1,
+                        marginTop:2
+                    }}
+                />
 
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Menu')}
@@ -197,6 +274,7 @@ function FormularioDenuncia(props) {
                     <Text style={style.primaryNavigationButtonText}>
                         Siguiente
                     </Text>
+
                 </TouchableOpacity>
 
             </ScrollView>
