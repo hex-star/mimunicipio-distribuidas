@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Text, View, TouchableOpacity, Image,
 } from 'react-native';
-
+import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
 import cartelera from '../assets/cartelera.png';
 import reclamo from '../assets/reclamo.png';
@@ -12,40 +12,47 @@ import historial from '../assets/historial.png';
 function Menu(props) {
     const { navigation } = props;
     return (
-        <View style={{ flexDirection: 'column', height: '90%', justifyContent: 'center' }}>
-            <View style={style.menuContainer}>
-                <View style={style.menuItem}>
-                    <TouchableOpacity style={style.menuButton}>
-                        <Image style={style.menuImage} source={cartelera} />
+        <>
+            <MiVecindario />
+            <View style={{ flexDirection: 'column', height: '90%', justifyContent: 'center' }}>
+                <View style={style.menuContainer}>
+                    <View style={style.menuItem}>
+                        <TouchableOpacity style={style.menuButton}>
+                            <Image style={style.menuImage} source={cartelera} />
 
-                    </TouchableOpacity>
-                    <Text style={style.menuText}>Cartelera</Text>
-                </View>
-                <View style={style.menuItem}>
-                    <TouchableOpacity style={style.menuButton}>
-                        <Image style={style.menuImage} source={reclamo} />
+                        </TouchableOpacity>
+                        <Text style={style.menuText}>Cartelera</Text>
+                    </View>
+                    <View style={style.menuItem}>
+                        <TouchableOpacity style={style.menuButton}>
+                            <Image style={style.menuImage} source={reclamo} />
 
-                    </TouchableOpacity>
-                    <Text style={style.menuText}>Nuevo reclamo</Text>
+                        </TouchableOpacity>
+                        <Text style={style.menuText}>Nuevo reclamo</Text>
+                    </View>
                 </View>
+                <View style={style.menuContainer}>
+                    <View style={style.menuItem}>
+                        <TouchableOpacity style={style.menuButton} onPress={() => navigation.navigate('Denuncia')}>
+                            <Image style={style.menuImage} source={denuncia} />
+
+                        </TouchableOpacity>
+                        <Text style={style.menuText}>Nueva Denuncia</Text>
+                    </View>
+                    <View style={style.menuItem}>
+                        <TouchableOpacity style={style.menuButton}>
+                            <Image style={style.menuImage} source={historial} />
+
+                        </TouchableOpacity>
+                        <Text style={style.menuText}>Historial</Text>
+                    </View>
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
+                    <Text>Perfil</Text>
+                </TouchableOpacity>
             </View>
-            <View style={style.menuContainer}>
-                <View style={style.menuItem}>
-                    <TouchableOpacity style={style.menuButton} onPress={() => navigation.navigate('Denuncia')}>
-                        <Image style={style.menuImage} source={denuncia} />
 
-                    </TouchableOpacity>
-                    <Text style={style.menuText}>Nueva Denuncia</Text>
-                </View>
-                <View style={style.menuItem}>
-                    <TouchableOpacity style={style.menuButton}>
-                        <Image style={style.menuImage} source={historial} />
-
-                    </TouchableOpacity>
-                    <Text style={style.menuText}>Historial</Text>
-                </View>
-            </View>
-        </View>
+        </>
     );
 }
 
