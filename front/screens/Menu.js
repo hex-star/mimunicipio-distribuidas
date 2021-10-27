@@ -38,7 +38,7 @@ function Menu(props) {
                     <Text style={style.menuText}>Nueva Denuncia</Text>
                 </View>
                 <View style={style.menuItem}>
-                    <TouchableOpacity style={style.menuButton}>
+                    <TouchableOpacity style={style.menuButton} onPress={() => navigation.navigate('Historial')}>
                         <Image style={style.menuImage} source={historial} />
 
                     </TouchableOpacity>
