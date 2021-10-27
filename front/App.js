@@ -11,6 +11,7 @@ import Login from './screens/Login';
 import Menu from './screens/Menu';
 import Denuncia from './screens/Denuncia';
 import Historial from './screens/Historial';
+import Perfil from './screens/Perfil';
 
 const Stack = createStackNavigator();
 
@@ -30,7 +31,11 @@ export default function App() {
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Menu" component={Menu} />
                     <Stack.Screen name="Denuncia" component={Denuncia} />
+<<<<<<< HEAD
                     <Stack.Screen name="Historial" component={Historial}/>
+=======
+                    <Stack.Screen name="Perfil" component={Perfil} />
+>>>>>>> perfil
                 </Stack.Navigator>
             </NavigationContainer>
         </PaperProvider>
