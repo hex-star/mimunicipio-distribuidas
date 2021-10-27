@@ -237,6 +237,11 @@ const style = StyleSheet.create({
 
     }
 
+    errorText: {
+        color: 'red',
+        fontSize: 10,
+    },
+
 });
 
 export default style;
