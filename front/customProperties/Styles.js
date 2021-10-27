@@ -68,6 +68,15 @@ const style = StyleSheet.create({
         top: 80,
         paddingVertical: 1,
     },
+    historialHeader:{
+        color:"#474747",
+        fontWeight:'bold',
+        fontSize:15
+    },
+    historialText:{
+        color:"#919191",
+        fontSize:13
+    },
 
     sectionTitle: {
         color: '#34bdeb',
