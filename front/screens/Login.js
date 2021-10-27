@@ -15,7 +15,7 @@ function Login(props) {
 
     return (
         <>
-            <MiVecindario />
+            <MiVecindario noPerfil={true} />
             <Formik
                 initialValues={initialValues}
                 onSubmit={(values) => {

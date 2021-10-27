@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
     Dimensions,
     ScrollView,
@@ -23,6 +23,10 @@ function FormularioDenuncia(props) {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [coordinates, setCoordinates] = useState();
     //   const [showMapPicker, setShowMapPicker] = useState(false);
+
+    useEffect(() => {
+        console.log(props)
+    })
 
     const onChange = (event, selectedDate) => {
         if (selectedDate !== undefined) {
@@ -99,7 +103,7 @@ function FormularioDenuncia(props) {
 
     return (
         <>
-            <MiVecindario />
+            <MiVecindario navigation={navigation} />
             <ScrollView
                 style={style.formsContainer}
                 keyboardShouldPersistTaps="handled"

@@ -103,7 +103,7 @@ const style = StyleSheet.create({
     formTooltip: {
         color: '#6e6e6e',
         fontSize: 12,
-        marginTop: 10,
+        marginTop: 5,
     },
 
     primaryTextInput: {
@@ -204,6 +204,11 @@ const style = StyleSheet.create({
         marginBottom: 25,
         marginTop: 5,
     },
+    textPerfil: {
+        fontSize: 15,
+        color: 'black',
+        marginBottom: 2
+    }
 
 });
 
