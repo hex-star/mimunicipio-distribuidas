@@ -85,7 +85,7 @@ function Registrar(props) {
                         />
                         {(errors.nombre && touched.nombre)
                             && (
-                                <Text style={style.errorText}>
+                                <Text style={style.errors}>
                                     {' '}
                                     {errors.nombre}
                                 </Text>
@@ -100,7 +100,7 @@ function Registrar(props) {
                         />
                         {(errors.apellido && touched.apellido)
                             && (
-                                <Text style={style.errorText}>
+                                <Text style={style.errors}>
                                     {' '}
                                     {errors.apellido}
                                 </Text>
@@ -115,7 +115,7 @@ function Registrar(props) {
                         />
                         {(errors.documento && touched.documento)
                             && (
-                                <Text style={style.errorText}>
+                                <Text style={style.errors}>
                                     {' '}
                                     {errors.documento}
                                 </Text>
@@ -131,7 +131,7 @@ function Registrar(props) {
                         />
                         {(errors.email && touched.email)
                             && (
-                                <Text style={style.errorText}>
+                                <Text style={style.errors}>
                                     {' '}
                                     {errors.email}
                                 </Text>
@@ -146,7 +146,7 @@ function Registrar(props) {
                         />
                         {(errors.direccion && touched.direccion)
                             && (
-                                <Text style={style.errorText}>
+                                <Text style={style.errors}>
                                     {' '}
                                     {errors.direccion}
                                 </Text>
@@ -161,7 +161,7 @@ function Registrar(props) {
                         />
                         {(errors.barrio && touched.barrio)
                             && (
-                                <Text style={style.errorText}>
+                                <Text style={style.errors}>
                                     {' '}
                                     {errors.barrio}
                                 </Text>
