@@ -53,7 +53,7 @@ exports.login = (req, res) => {
             return res.status(428).json('El usuario se encuentra inhabilitado.');
         }
     })
-    .catch((e) => res.status(503).json({error: 'Usuario inexistente'}) )
+    .catch((e) => res.status(503).json('Usuario inexistente') )
 },
 
 exports.habilitarVecino = (req, res) => {
