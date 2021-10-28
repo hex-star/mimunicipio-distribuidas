@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable max-len */
+import React, { useState, useEffect } from 'react';
 import {
     Alert,
     Dimensions,
@@ -19,10 +20,10 @@ import Qs from 'qs';
 import * as ImagePicker from 'expo-image-picker';
 import * as yup from 'yup';
 import { ErrorMessage, Form, Formik } from 'formik';
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 import style from '../customProperties/Styles';
 import MiVecindario from './MiVecindario';
 import tick from '../assets/tick.png';
-import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
 function FormularioDenuncia(props) {
     const { navigation } = props;
@@ -32,6 +33,10 @@ function FormularioDenuncia(props) {
     const [coordinates, setCoordinates] = useState();
     const [picture, setPicture] = useState(null);
     //   const [showMapPicker, setShowMapPicker] = useState(false);
+
+    useEffect(() => {
+        console.log(props);
+    });
 
     const onChange = (event, selectedDate) => {
         if (selectedDate !== undefined) {
@@ -165,7 +170,7 @@ function FormularioDenuncia(props) {
                         setSubmitting(false);
                     }, 400);
                 }}
-                validate={values => {
+                validate={(values) => {
                     const errors = {};
                     if (!values.email) {
                         errors.email = 'Required';
@@ -178,148 +183,151 @@ function FormularioDenuncia(props) {
                 }}
                 validationSchema={denunciaValidationSchema}
             >
-                {({
-                    handleChange, handleBlur, HandleSubmit, values, errors, touched
-                }) => (
-                    <ScrollView
-                        style={style.formsContainer}
-                        keyboardShouldPersistTaps="handled"
-                    >
-               
-                        <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
-                        <Text style={style.formTooltip}>Nombre / Comercio</Text>
-                        <TextInput style={style.primaryTextInput} value={values.nombre} onBlur={handleBlur('nombre')} onChangeText={handleChange('nombre')} placeholder="Ingresá el nombre del vecino o comercio" />
-                        {(errors.nombre && touched.nombre) &&
-                            <Text style={style.errors}>{errors.nombre}</Text>
-                        }
-                        <Text style={style.formTooltip}>Dirección</Text>
-                        <View style={style.primaryTextInput}>
-                            <GooglePlacesAutocomplete
-                                // https://github.com/FaridSafi/react-native-google-places-autocomplete
-                                placeholder="Buscar"
-                                disableScroll
-                                isRowScrollable={false}
-                                currentLocationLabel="Ubicación actual"
-                                onPress={(data = null) => {
-                                    getPlaceDetails(data);
-                                    
-                                }}
-                                styles={{
-                                    textInputContainer: style.textInputContainer,
-                                }}
-                                timeout={1000}
-                                query={{
-                                    key: GOOGLE_PLACES_API_KEY,
-                                    language: 'es',
-                                    components: 'country:arg',
-                                }}
-                            />
-                        </View>
+                <MiVecindario navigation={navigation} />
+                <ScrollView
+                    style={style.formsContainer}
+                    keyboardShouldPersistTaps="handled"
+                >
 
-                        <View>
-                            {coordinates && (
+                    {({
+                        handleChange, handleBlur, HandleSubmit, values, errors, touched,
+                    }) => (
+                        <ScrollView
+                            style={style.formsContainer}
+                            keyboardShouldPersistTaps="handled"
+                        >
+
+                            <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
+                            <Text style={style.formTooltip}>Nombre / Comercio</Text>
+                            <TextInput style={style.primaryTextInput} value={values.nombre} onBlur={handleBlur('nombre')} onChangeText={handleChange('nombre')} placeholder="Ingresá el nombre del vecino o comercio" />
+                            {(errors.nombre && touched.nombre)
+                            && <Text style={style.errors}>{errors.nombre}</Text>}
+                            <Text style={style.formTooltip}>Dirección</Text>
+                            <View style={style.primaryTextInput}>
+                                <GooglePlacesAutocomplete
+                                // https://github.com/FaridSafi/react-native-google-places-autocomplete
+                                    placeholder="Buscar"
+                                    disableScroll
+                                    isRowScrollable={false}
+                                    currentLocationLabel="Ubicación actual"
+                                    onPress={(data = null) => {
+                                        getPlaceDetails(data);
+                                    }}
+                                    styles={{
+                                        textInputContainer: style.textInputContainer,
+                                    }}
+                                    timeout={1000}
+                                    query={{
+                                        key: GOOGLE_PLACES_API_KEY,
+                                        language: 'es',
+                                        components: 'country:arg',
+                                    }}
+                                />
+                            </View>
+
+                            <View>
+                                {coordinates && (
                                 // https://github.com/react-native-maps/react-native-maps
-                                <View style={{ flexDirection: 'row' }}>
-                                    <MapView
-                                        style={{
-                                            width: (Dimensions.get('window').width - 4),
-                                            height: 150,
-                                            margin: 2,
-                                        }}
-                                        initialRegion={{
-                                            latitude: coordinates[0],
-                                            longitude: coordinates[1],
-                                            latitudeDelta: 0.003,
-                                            longitudeDelta: 0.0015,
-                                        }}
-                                    >
-                                        <Marker
-                                            coordinate={{
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <MapView
+                                            style={{
+                                                width: (Dimensions.get('window').width - 4),
+                                                height: 150,
+                                                margin: 2,
+                                            }}
+                                            initialRegion={{
                                                 latitude: coordinates[0],
                                                 longitude: coordinates[1],
+                                                latitudeDelta: 0.003,
+                                                longitudeDelta: 0.0015,
                                             }}
-                                        />
-                                    </MapView>
-                                </View>
-                            )}
-                        </View>
-                        <Text style={style.formTooltip}>Comentarios del lugar</Text>
-                        <TextInput style={style.primaryTextInput} value={values.comentariosLugar} onBlur={handleBlur('comentariosLugar')} onChangeText={handleChange('comentariosLugar')} placeholder="Agregá cualquier detalle que creas necesario..." />
-                        {(errors.comentariosLugar && touched.comentariosLugar) &&
-                            <Text style={style.errors}>{errors.comentariosLugar}</Text>
-                        }
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={style.formTooltip}>Fecha y hora</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
+                                        >
+                                            <Marker
+                                                coordinate={{
+                                                    latitude: coordinates[0],
+                                                    longitude: coordinates[1],
+                                                }}
+                                            />
+                                        </MapView>
+                                    </View>
+                                )}
+                            </View>
+                            <Text style={style.formTooltip}>Comentarios del lugar</Text>
+                            <TextInput style={style.primaryTextInput} value={values.comentariosLugar} onBlur={handleBlur('comentariosLugar')} onChangeText={handleChange('comentariosLugar')} placeholder="Agregá cualquier detalle que creas necesario..." />
+                            {(errors.comentariosLugar && touched.comentariosLugar)
+                            && <Text style={style.errors}>{errors.comentariosLugar}</Text>}
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={style.formTooltip}>Fecha y hora</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row' }}>
+                                <TouchableOpacity
+                                    style={style.primaryFormButton}
+                                    onPress={onPressDateTimeButton}
+                                >
+                                    <Text style={style.primaryFormButtonText}>{(date === undefined) ? 'Seleccione' : `${format(date, 'dd MM yyyy, HH:mm')}`}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View>
+                                {showDatePicker && (
+                                    <DateTimePicker
+                                        testID="dateTimePicker"
+                                        value={(date || (new Date()))}
+                                        mode={datePickerMode}
+                                        is24Hour
+                                        display="default"
+                                        onChange={onChange}
+                                        locale="en"
+                                    />
+                                )}
+                            </View>
+                            <Text style={style.formTooltip}>Comentanos tu problema</Text>
+                            <TextInput style={style.primaryTextInput} value={values.comentariosProblema} onBlur={handleBlur('comentariosProblema')} onChangeText={handleChange('comentariosProblema')} placeholder="Ingresa el motivo de la denuncia" />
+                            {(errors.comentariosProblema && touched.comentariosProblema)
+                            && <Text style={style.errors}>{errors.comentariosProblema}</Text>}
+                            <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
+                            {/* <Button style={style.primaryTextInput} placeholder="Selecciona" onPress={pickFromCamera} /> */}
                             <TouchableOpacity
-                                style={style.primaryFormButton}
-                                onPress={onPressDateTimeButton}
+                                onPress={pickFromCamera}
+                                style={{
+
+                                    padding: 5,
+                                    alignSelf: 'flex-start',
+                                    width: 200,
+                                    marginTop: 20,
+                                    flexDirection: 'row',
+                                    marginLeft: 7,
+
+                                }}
                             >
-                                <Text style={style.primaryFormButtonText}>{(date === undefined) ? 'Seleccione' : `${format(date, 'dd MM yyyy, HH:mm')}`}</Text>
+                                <Text style={{ color: 'grey' }}>
+                                    Subir Fotos
+                                </Text>
+                                {picture != null && <Image source={tick} style={{ height: 20, width: 20, marginLeft: 10 }} />}
+
                             </TouchableOpacity>
-                        </View>
-                        <View>
-                            {showDatePicker && (
-                                <DateTimePicker
-                                    testID="dateTimePicker"
-                                    value={(date || (new Date()))}
-                                    mode={datePickerMode}
-                                    is24Hour
-                                    display="default"
-                                    onChange={onChange}
-                                    locale="en"
-                                />
-                            )}
-                        </View>
-                        <Text style={style.formTooltip}>Comentanos tu problema</Text>
-                        <TextInput style={style.primaryTextInput} value={values.comentariosProblema} onBlur={handleBlur('comentariosProblema')} onChangeText={handleChange('comentariosProblema')} placeholder="Ingresa el motivo de la denuncia" />
-                        {(errors.comentariosProblema && touched.comentariosProblema) &&
-                            <Text style={style.errors}>{errors.comentariosProblema}</Text>
-                        }
-                        <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
-                        {/* <Button style={style.primaryTextInput} placeholder="Selecciona" onPress={pickFromCamera} /> */}
-                        <TouchableOpacity
-                            onPress={pickFromCamera}
-                            style={{
+                            <View
+                                style={{
+                                    borderBottomColor: '#bcbcbc',
+                                    borderBottomWidth: 1,
+                                    marginTop: 2,
+                                }}
+                            />
 
-                                padding: 5,
-                                alignSelf: 'flex-start',
-                                width: 200,
-                                marginTop: 20,
-                                flexDirection: 'row',
-                                marginLeft: 7,
+                            <TouchableOpacity
+                                onPress={HandleSubmit}
+                                title="Submit"
+                                style={style.primaryNavigationButton}
+                                type="submit"
+                            >
+                                <Text style={style.primaryNavigationButtonText}>
+                                    Siguiente
+                                </Text>
 
-                            }}
-                        >
-                            <Text style={{ color: 'grey' }}>
-                                Subir Fotos
-                            </Text>
-                            {picture != null && <Image source={tick} style={{ height: 20, width: 20, marginLeft: 10 }} />}
+                            </TouchableOpacity>
 
-                        </TouchableOpacity>
-                        <View
-                            style={{
-                                borderBottomColor: '#bcbcbc',
-                                borderBottomWidth: 1,
-                                marginTop: 2,
-                            }}
-                        />
-
-                        <TouchableOpacity
-                            onPress={HandleSubmit}
-                            title="Submit"
-                            style={style.primaryNavigationButton}
-                            type="submit"
-                        >
-                            <Text style={style.primaryNavigationButtonText}>
-                                Siguiente
-                            </Text>
-
-                        </TouchableOpacity>
-
-                    </ScrollView>
-                )}
+                        </ScrollView>
+                    )}
+                </ScrollView>
 
             </Formik>
         </>

@@ -13,7 +13,7 @@ function Menu(props) {
     const { navigation } = props;
     return (
         <>
-            <MiVecindario />
+            <MiVecindario navigation={navigation} />
             <View style={{ flexDirection: 'column', height: '90%', justifyContent: 'center' }}>
                 <View style={style.menuContainer}>
                     <View style={style.menuItem}>
@@ -53,9 +53,7 @@ function Menu(props) {
                         <Text style={style.menuText}>Historial</Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
-                    <Text>Perfil</Text>
-                </TouchableOpacity>
+       
             </View>
 
         </>
