@@ -43,15 +43,15 @@ function Menu(props) {
                         <TouchableOpacity style={style.menuButton} onPress={() => navigation.navigate('Historial')}>
                             <Image style={style.menuImage} source={historial} />
                         </TouchableOpacity>
-                        <Text style={style.menuText}>Nueva Denuncia</Text>
+                        <Text style={style.menuText}>Historial</Text>
                     </View>
-                    <View style={style.menuItem}>
+                   {/*<View style={style.menuItem}>
                         <TouchableOpacity style={style.menuButton}>
                             <Image style={style.menuImage} source={historial} />
 
                         </TouchableOpacity>
                         <Text style={style.menuText}>Historial</Text>
-                    </View>
+                    </View>*/ } 
                 </View>
        
             </View>

@@ -6,7 +6,6 @@ import { TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
-import ModalContraseña from '../components/ModalContraseña';
 
 function Contraseña() {
     const initialValues = {
@@ -22,7 +21,7 @@ function Contraseña() {
                     console.log(values);
                     Alert.alert('Solicitud confirmada', 'Revise su cuenta de correo electrónico para proceder con el recupero de contraseña');
                     // eslint-disable-next-line indent
-                        <ModalContraseña visible />;
+                      ;
                 }}
             >
                 {({
