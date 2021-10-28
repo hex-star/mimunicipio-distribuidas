@@ -36,21 +36,18 @@ function Menu(props) {
                         <TouchableOpacity style={style.menuButton} onPress={() => navigation.navigate('Denuncia')}>
                             <Image style={style.menuImage} source={denuncia} />
 
-<<<<<<< HEAD
-                    </TouchableOpacity>
-                    <Text style={style.menuText}>Nueva Denuncia</Text>
-                </View>
-                <View style={style.menuItem}>
-                    <TouchableOpacity style={style.menuButton} onPress={() => navigation.navigate('Historial')}>
-                        <Image style={style.menuImage} source={historial} />
-=======
+                        </TouchableOpacity>
+                        <Text style={style.menuText}>Nueva Denuncia</Text>
+                    </View>
+                    <View style={style.menuItem}>
+                        <TouchableOpacity style={style.menuButton} onPress={() => navigation.navigate('Historial')}>
+                            <Image style={style.menuImage} source={historial} />
                         </TouchableOpacity>
                         <Text style={style.menuText}>Nueva Denuncia</Text>
                     </View>
                     <View style={style.menuItem}>
                         <TouchableOpacity style={style.menuButton}>
                             <Image style={style.menuImage} source={historial} />
->>>>>>> perfil
 
                         </TouchableOpacity>
                         <Text style={style.menuText}>Historial</Text>
