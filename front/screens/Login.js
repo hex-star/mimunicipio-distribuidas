@@ -5,7 +5,7 @@ import {
 import { TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup  from 'yup';
-import { AsyncStorage } from '@react-native-community/async-storage';
+//import { AsyncStorage } from '@react-native-community/async-storage';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
 import { login } from '../controllers/usuarios';
@@ -27,23 +27,19 @@ function Login(props) {
 
     const onSubmit = async function (values) {
         setOnLoading(true);
-        try {
+ 
             console.log(values);
             const res = await login(values);
             if (res.token) {
                 console.log(res.token)
-                await AsyncStorage.setItem('authToken',res.token);
+                //await AsyncStorage.setItem('authToken',res.token);
                 navigation.navigate('Menu');
             } else {
                 Alert.alert(res);
                 setOnLoading(false);
             }
-        } catch (e) {
-            console.log(`Error al loguerse: ${e}`);
-           
-        }finally{
-            setOnLoading(false);
-        }
+
+
     };
 
     return (
