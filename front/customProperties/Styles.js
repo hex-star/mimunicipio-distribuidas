@@ -122,21 +122,21 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         width: 200,
         marginTop: 20,
-     
+
     },
-     historialButton: {
+    historialButton: {
         backgroundColor: '#1A4472',
         borderColor: '#1A4472',
         borderWidth: 2,
         borderRadius: 5,
-        paddingLeft:5,
-        paddingRight:5,
-        paddingTop:10,
-        paddingBottom:10,
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingTop: 10,
+        paddingBottom: 10,
         alignSelf: 'center',
-        width: "100%",
+        width: '100%',
         marginTop: 20,
-     
+
     },
     primaryHistorialButtonText: {
         color: 'white',
@@ -224,18 +224,19 @@ const style = StyleSheet.create({
         marginBottom: 25,
         marginTop: 5,
     },
+
     celesteText: {
         color: '#4287f5',
         fontSize: 16,
         marginBottom: 25,
         marginTop: 5,
     },
-    errors:{
-        fontSize:14,
-        color:'red',
-        fontWeight:'bold',
 
-    }
+    errors: {
+        fontSize: 14,
+        color: 'red',
+
+    },
 
 });
 

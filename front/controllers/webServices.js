@@ -1,9 +1,9 @@
-const urlApi = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+import { REACT_APP_API_URL } from '@env';
+
+const urlApi = REACT_APP_API_URL;
 
 const urlWebServices = {
     login: `${urlApi}/api/usuarios/login`,
 };
-
-
 
 export default urlWebServices;

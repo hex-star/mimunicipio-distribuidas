@@ -1,11 +1,11 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import {
     View, Text, TouchableOpacity, Alert,
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
-import * as yup  from 'yup';
-//import { AsyncStorage } from '@react-native-community/async-storage';
+import * as yup from 'yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
 import { login } from '../controllers/usuarios';
@@ -27,19 +27,17 @@ function Login(props) {
 
     const onSubmit = async function (values) {
         setOnLoading(true);
- 
-            console.log(values);
-            const res = await login(values);
-            if (res.token) {
-                console.log(res.token)
-                //await AsyncStorage.setItem('authToken',res.token);
-                navigation.navigate('Menu');
-            } else {
-                Alert.alert(res);
-                setOnLoading(false);
-            }
 
-
+        console.log(values);
+        const res = await login(values);
+        if (res.token) {
+            console.log(res.token);
+            await AsyncStorage.setItem('authToken', res.token);
+            navigation.popToTop();
+        } else {
+            Alert.alert(res);
+            setOnLoading(false);
+        }
     };
 
     return (

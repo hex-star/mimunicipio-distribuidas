@@ -4,7 +4,6 @@ export const login = async function (values) {
     const url = urlWebServices.login;
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
-    myHeaders.append('Origin', 'http://localhost:16000');
     myHeaders.append('Accept', 'application/json');
 
     // armo json con datos
@@ -26,6 +25,4 @@ export const login = async function (values) {
     return response.json();
 };
 
-export const aux = 2;
 export default login;
-

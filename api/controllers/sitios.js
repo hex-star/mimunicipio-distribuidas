@@ -8,13 +8,13 @@ exports.crearSitio = async function (req, res, next) {
         longitud: data.longitud,
         calle: data.calle,
         numero: data.numero,
-        entreCalleA: data.entreCalleA,
-        entreCalleB: data.entreCalleB,
+        entreCalleA: data.entreCalleA || '',
+        entreCalleB: data.entreCalleB || '',
         descripcion: data.descripcion,
-        aCargoDe: data.aCargoDe,
-        apertura: data.apertura,
-        cierre: data.cierre,
-        comentarios: data.comentarios
+        aCargoDe: data.aCargoDe || '',
+        apertura: data.apertura || (new Date(Date.now()).toISOString()),
+        cierre: data.cierre || (new Date(Date.now()).toISOString()),
+        comentarios: data.comentarios || '',
     })
   .then(sitio => res.status(201).send(sitio))
   .catch(error => res.status(500).send(error))

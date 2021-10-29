@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import {
     Alert,
     Dimensions,
-    ImagePickerIOS,
     ScrollView,
     Text,
     TouchableOpacity,
@@ -12,26 +12,37 @@ import {
 import { TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import base64 from 'react-native-base64';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MapView, { Marker } from 'react-native-maps';
 import { format } from 'date-fns';
 import { GOOGLE_PLACES_API_KEY } from '@env';
 import Qs from 'qs';
 import * as ImagePicker from 'expo-image-picker';
 import * as yup from 'yup';
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Formik } from 'formik';
 import style from '../customProperties/Styles';
 import MiVecindario from './MiVecindario';
 import tick from '../assets/tick.png';
-import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
 function FormularioDenuncia(props) {
     const { navigation } = props;
     const [date, setDate] = useState();
     const [datePickerMode, setDatePickerMode] = useState('date');
     const [showDatePicker, setShowDatePicker] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [documentoUsuario, setUsuarioId] = useState('');
     const [coordinates, setCoordinates] = useState();
     const [picture, setPicture] = useState(null);
     //   const [showMapPicker, setShowMapPicker] = useState(false);
+
+    useEffect(() => {
+        // Fetch the token from storage then navigate to our appropriate place
+        const bootstrapAsync = async () => {
+            documentoUsuario(JSON.parse(base64.decode(await AsyncStorage.getItem('authToken'))).referencia);
+        };
+        bootstrapAsync();
+    }, []);
 
     const onChange = (event, selectedDate) => {
         if (selectedDate !== undefined) {
@@ -101,7 +112,7 @@ function FormularioDenuncia(props) {
         }
     };
 
-    const test = (image) => {
+    const uploadImage = (image) => {
         const data = new FormData();
         data.append('file', image);
         data.append('upload_preset', 'eawgzhpc');
@@ -111,9 +122,9 @@ function FormularioDenuncia(props) {
             method: 'post',
             body: data,
         }).then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setPicture(data.url);
+            .then((re) => {
+                console.log(re);
+                setPicture(re.url);
             });
     };
 
@@ -123,7 +134,6 @@ function FormularioDenuncia(props) {
             const data = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
-                aspect: [1, 1],
                 quality: 0.5,
             });
             console.log(data);
@@ -133,23 +143,18 @@ function FormularioDenuncia(props) {
                     type: `test/${data.uri.split('.')[1]}`,
                     name: `test/${data.uri.split('.')[1]}`,
                 };
-                test(newfile);
+                uploadImage(newfile);
             }
         } else {
             Alert.alert('ERROR PERMISSION DENIED');
         }
     };
 
-    //   const onPressMapButton = () => {
-    //     setShowMapPicker(true);
-    //   };
-
     const denunciaValidationSchema = yup.object().shape({
-        nombre: yup.string().required('Please enter a valid name'),
+        nombre: yup.string().required('Por favor ingresá un nombre valido'),
         direccion: yup.string().required(),
-        comentariosLugar: yup.string().required('Por favor ingrese comentarios acerca del lugar'),
         fecha: yup.date(),
-        comentariosProblema: yup.string().required('Por favor ingrese comentaios acerca del problema'),
+        comentariosProblema: yup.string().required('Por favor ingresa comentaios acerca del problema'),
     });
 
     return (
@@ -165,23 +170,27 @@ function FormularioDenuncia(props) {
                         setSubmitting(false);
                     }, 400);
                 }}
-  
                 validationSchema={denunciaValidationSchema}
             >
                 {({
-                    handleChange, handleBlur, HandleSubmit, values, errors, touched
+                    handleChange, handleBlur, HandleSubmit, values, errors, touched,
                 }) => (
                     <ScrollView
                         style={style.formsContainer}
                         keyboardShouldPersistTaps="handled"
                     >
-               
+
                         <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
                         <Text style={style.formTooltip}>Nombre / Comercio</Text>
-                        <TextInput style={style.primaryTextInput} value={values.nombre} onBlur={handleBlur('nombre')} onChangeText={handleChange('nombre')} placeholder="Ingresá el nombre del vecino o comercio" />
-                        {(errors.nombre && touched.nombre) &&
-                            <Text style={style.errors}>{errors.nombre}</Text>
-                        }
+                        <TextInput
+                            style={style.primaryTextInput}
+                            value={values.nombre}
+                            onBlur={handleBlur('nombre')}
+                            onChangeText={handleChange('nombre')}
+                            placeholder="Ingresá el nombre del vecino o comercio"
+                        />
+                        {(errors.nombre && touched.nombre)
+                            && <Text style={style.errors}>{errors.nombre}</Text>}
                         <Text style={style.formTooltip}>Dirección</Text>
                         <View style={style.primaryTextInput}>
                             <GooglePlacesAutocomplete
@@ -192,7 +201,6 @@ function FormularioDenuncia(props) {
                                 currentLocationLabel="Ubicación actual"
                                 onPress={(data = null) => {
                                     getPlaceDetails(data);
-                                    
                                 }}
                                 styles={{
                                     textInputContainer: style.textInputContainer,
@@ -234,10 +242,13 @@ function FormularioDenuncia(props) {
                             )}
                         </View>
                         <Text style={style.formTooltip}>Comentarios del lugar</Text>
-                        <TextInput style={style.primaryTextInput} value={values.comentariosLugar} onBlur={handleBlur('comentariosLugar')} onChangeText={handleChange('comentariosLugar')} placeholder="Agregá cualquier detalle que creas necesario..." />
-                        {(errors.comentariosLugar && touched.comentariosLugar) &&
-                            <Text style={style.errors}>{errors.comentariosLugar}</Text>
-                        }
+                        <TextInput
+                            style={style.primaryTextInput}
+                            value={values.comentariosLugar}
+                            onBlur={handleBlur('comentariosLugar')}
+                            onChangeText={handleChange('comentariosLugar')}
+                            placeholder="Agregá cualquier detalle que creas necesario..."
+                        />
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={style.formTooltip}>Fecha y hora</Text>
                         </View>
@@ -246,7 +257,9 @@ function FormularioDenuncia(props) {
                                 style={style.primaryFormButton}
                                 onPress={onPressDateTimeButton}
                             >
-                                <Text style={style.primaryFormButtonText}>{(date === undefined) ? 'Seleccione' : `${format(date, 'dd MM yyyy, HH:mm')}`}</Text>
+                                <Text style={style.primaryFormButtonText}>
+                                    {(date === undefined) ? 'Seleccione' : `${format(date, 'dd MM yyyy, HH:mm')}`}
+                                </Text>
                             </TouchableOpacity>
                         </View>
                         <View>
@@ -263,12 +276,16 @@ function FormularioDenuncia(props) {
                             )}
                         </View>
                         <Text style={style.formTooltip}>Comentanos tu problema</Text>
-                        <TextInput style={style.primaryTextInput} value={values.comentariosProblema} onBlur={handleBlur('comentariosProblema')} onChangeText={handleChange('comentariosProblema')} placeholder="Ingresa el motivo de la denuncia" />
-                        {(errors.comentariosProblema && touched.comentariosProblema) &&
-                            <Text style={style.errors}>{errors.comentariosProblema}</Text>
-                        }
+                        <TextInput
+                            style={style.primaryTextInput}
+                            value={values.comentariosProblema}
+                            onBlur={handleBlur('comentariosProblema')}
+                            onChangeText={handleChange('comentariosProblema')}
+                            placeholder="Ingresa el motivo de la denuncia"
+                        />
+                        {(errors.comentariosProblema && touched.comentariosProblema)
+                            && <Text style={style.errors}>{errors.comentariosProblema}</Text>}
                         <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
-                        {/* <Button style={style.primaryTextInput} placeholder="Selecciona" onPress={pickFromCamera} /> */}
                         <TouchableOpacity
                             onPress={pickFromCamera}
                             style={{
@@ -282,10 +299,16 @@ function FormularioDenuncia(props) {
 
                             }}
                         >
-                            <Text style={{ color: 'grey' }}>
+                            <Text style={style.primaryFormButtonText}>
                                 Subir Fotos
                             </Text>
-                            {picture != null && <Image source={tick} style={{ height: 20, width: 20, marginLeft: 10 }} />}
+                            {picture != null
+                                && (
+                                    <Image
+                                        source={tick}
+                                        style={{ height: 20, width: 20, marginLeft: 10 }}
+                                    />
+                                )}
 
                         </TouchableOpacity>
                         <View
