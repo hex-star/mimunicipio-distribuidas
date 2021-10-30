@@ -1,3 +1,5 @@
+/* eslint-disable import/no-named-as-default-member */
+/* eslint-disable import/no-named-as-default */
 import React, { useState, useEffect } from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,6 +15,8 @@ import Menu from './screens/Menu';
 import Denuncia from './screens/Denuncia';
 import Historial from './screens/Historial';
 import UserProfile from './components/UserProfile';
+import ImageBrowser from './components/ImageBrowser';
+import Confirmacion from './components/Confirmacion';
 
 const Stack = createStackNavigator();
 
@@ -74,6 +78,18 @@ export default function App() {
                     <Stack.Screen
                         name="Historial"
                         component={Historial}
+                        options={options}
+                    />
+                    <Stack.Screen
+                        name="ImageBrowser"
+                        component={ImageBrowser}
+                        options={{
+                            title: 'Selected 0 files',
+                        }}
+                    />
+                    <Stack.Screen
+                        name="Confirmacion"
+                        component={Confirmacion}
                         options={options}
                     />
                 </Stack.Navigator>

@@ -102,7 +102,7 @@ const style = StyleSheet.create({
 
     formTooltip: {
         color: '#6e6e6e',
-        fontSize: 12,
+        fontSize: 14,
         marginTop: 10,
     },
 
@@ -157,6 +157,7 @@ const style = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 5,
         alignContent: 'center',
+        minHeight: 40,
         width: '100%',
         padding: 5,
     },

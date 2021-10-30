@@ -16,20 +16,20 @@ function MainScreen(props) {
 
     const [authToken, setAuthToken] = useState('');
     const [loading, setLoading] = useState(true);
+    const state = useState();
     const isFocused = useIsFocused();
 
     useEffect(() => {
         const checkLogin = async function () {
             setAuthToken(await AsyncStorage.getItem('authToken'));
             if (authToken) {
-                console.log('authToken:', authToken);
                 navigation.navigate('Menu');
             } else {
                 setLoading(false);
             }
         };
         checkLogin();
-    }, [props, isFocused]);
+    }, [props, isFocused, state]);
 
     return (
         <>

@@ -17,7 +17,9 @@
     "date-fns": "^2.25.0",
     "expo": "^42.0.5",
     "expo-cli": "^4.12.1",
+    "expo-image-manipulator": "^10.1.2",
     "expo-image-picker": "~10.2.3",
+    "expo-image-picker-multiple": "^1.4.1",
     "expo-location": "~12.1.2",
     "expo-status-bar": "~1.0.4",
     "formik": "^2.2.9",
@@ -37,6 +39,7 @@
     "react-native-paper": "^4.9.2",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "^0.17.5",
+    "unimodules-permissions-interface": "^6.1.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
