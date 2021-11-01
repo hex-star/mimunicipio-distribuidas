@@ -1,26 +1,53 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {
+    View, Text, TouchableOpacity, Alert,
+} from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
+import * as yup from 'yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
+import { login } from '../controllers/usuarios';
 
 function Login(props) {
     const { navigation } = props;
+    const [onLoading, setOnLoading] = useState(false);
 
     const initialValues = {
         email: '',
         password: '',
     };
 
+    const validationSchema = yup.object().shape({
+        email: yup.string().required('Please enter a valid name'),
+        password: yup.string().required('Por favor ingrese una contraseña'),
+
+    });
+
+    const onSubmit = async function (values) {
+        setOnLoading(true);
+
+        console.log(values);
+        const res = await login(values);
+        if (res.token) {
+            console.log(res.token);
+            await AsyncStorage.setItem('authToken', res.token);
+            navigation.popToTop();
+        } else {
+            Alert.alert(res);
+            setOnLoading(false);
+        }
+    };
+
     return (
         <>
             <MiVecindario noPerfil={true} />
             <Formik
+                validationSchema={validationSchema}
                 initialValues={initialValues}
                 onSubmit={(values) => {
-                    console.log(values);
-                    navigation.navigate('Menu');
+                    onSubmit(values);
                 }}
             >
                 {({
@@ -51,14 +78,21 @@ function Login(props) {
                             value={values.password}
                             secureTextEntry
                         />
+
                         <TouchableOpacity
                             onPress={handleSubmit}
                             // onPress={() => navigation.navigate('Menu')}
                             style={style.primaryNavigationButton}
                         >
-                            <Text style={style.primaryNavigationButtonText}>
-                                Ingresar
-                            </Text>
+                            {onLoading ? (
+                                <Text style={style.primaryNavigationButtonText}>
+                                    Cargando
+                                </Text>
+                            ) : (
+                                <Text style={style.primaryNavigationButtonText}>
+                                    Siguiente
+                                </Text>
+                            ) }
                         </TouchableOpacity>
                         <Text style={style.subtitle2} onPress={() => navigation.navigate('Contraseña')}>
                             Olvidé mi contraseña

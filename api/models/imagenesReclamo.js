@@ -7,14 +7,14 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    idReclamo: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     idImagen: {
       type: DataTypes.INTEGER,
       allowNull: false
-    }
+    },
+    url: {
+      type: DataTypes.STRING(300),
+      allowNull: false
+    },
   }, {
     sequelize,
     tableName: 'imagenesReclamo',

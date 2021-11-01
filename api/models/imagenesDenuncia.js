@@ -11,10 +11,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    idImagen: {
-      type: DataTypes.INTEGER,
+    url: {
+      type: DataTypes.STRING(300),
       allowNull: false
-    }
+    },
   }, {
     sequelize,
     tableName: 'imagenesDenuncia',

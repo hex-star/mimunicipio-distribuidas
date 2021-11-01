@@ -3,7 +3,7 @@ var _SequelizeMeta = require("./SequelizeMeta");
 var _barrios = require("./barrios");
 var _denuncias = require("./denuncias");
 var _desperfectos = require("./desperfectos");
-var _imagenes = require("./imagenes");
+var _detalleDenuncias = require("./movimientosDenuncia");
 var _imagenesDenuncia = require("./imagenesDenuncia");
 var _imagenesReclamo = require("./imagenesReclamo");
 var _movimientosDenuncia = require("./movimientosDenuncia");
@@ -20,7 +20,7 @@ function initModels(sequelize) {
   var barrios = _barrios(sequelize, DataTypes);
   var denuncias = _denuncias(sequelize, DataTypes);
   var desperfectos = _desperfectos(sequelize, DataTypes);
-  var imagenes = _imagenes(sequelize, DataTypes);
+  var detalleDenuncias = _detalleDenuncias(sequelize, DataTypes);
   var imagenesDenuncia = _imagenesDenuncia(sequelize, DataTypes);
   var imagenesReclamo = _imagenesReclamo(sequelize, DataTypes);
   var movimientosDenuncia = _movimientosDenuncia(sequelize, DataTypes);
@@ -42,7 +42,7 @@ function initModels(sequelize) {
     barrios,
     denuncias,
     desperfectos,
-    imagenes,
+    detalleDenuncias,
     imagenesDenuncia,
     imagenesReclamo,
     movimientosDenuncia,

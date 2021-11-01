@@ -80,18 +80,12 @@ create table reclamos(
 	constraint fk_reclamos_reclamos foreign key (IdReclamoUnificado) references reclamos,
 )
 
-create table imagenes(
-	idImagen int not null identity,
-	url varchar(300),
-	constraint pk_images primary key (idImagen)
-)
 
 create table imagenesReclamo(
 	id int not null identity,
 	idReclamo int not null,
-	idImagen int not null,
-	constraint fk_imagenenesReclamo_reclamos foreign key (idReclamo) references reclamos,
-	constraint fk_imagenesReclamo_imagenes foreign key (idImagen) references imagenes
+	url varchar(300),
+	constraint fk_imagenenesReclamo_reclamos foreign key (idReclamo) references reclamos
 
 )
 
@@ -117,6 +111,15 @@ create table denuncias(
 	constraint fk_denuncias_sitios foreign key (idSitio) references sitios
 )
 
+create table detalleDenuncias(
+	idDetalle int not null identity,
+	idDenuncia int not null,
+	nombreDenunciado varchar(50) null,
+	documentoDenunciado varchar(20) null,
+	constraint pk_detalleDenuncias primary key (idDetalle),
+	constraint fk_detalleDenuncias_denuncias foreign key (idDenuncia) references denuncias
+)
+
 create table movimientosDenuncia(
 	idMovimiento int not null identity,
 	idDenuncia int not null,
@@ -130,7 +133,6 @@ create table movimientosDenuncia(
 create table imagenesDenuncia(
 	id int not null identity,
 	idDenuncia int not null,
-	idImagen int not null,
-	constraint fk_imagenenesDenuncia_denuncias foreign key (idDenuncia) references denuncias,
-	constraint fk_imagenesDenuncia_imagenes foreign key (idImagen) references imagenes
+	url varchar(300),
+	constraint fk_imagenenesDenuncia_denuncias foreign key (idDenuncia) references denuncias
 )

@@ -23,7 +23,7 @@ exports.crearUsuario = async function (req, res, next) {
     .then((usuario) => res.status(200).json({ usuario }))
     .catch((e) => res.status(500).json({error: e}) )
   } else {
-    return res.status(425).json('El vecino debe estar registrado en la base de datos. Por favor contáctese con el municipio para completar su registro.');
+    return res.status(425).json({error:'El vecino debe estar registrado en la base de datos. Por favor contáctese con el municipio para completar su registro.'});
   }
   
 };
@@ -42,18 +42,18 @@ exports.login = (req, res) => {
               const token = Buffer.from(JSON.stringify(usuario)).toString('base64');
               return res.status(203).json( {token} );
             } else {
-              return res.status(403).json('Contraseña incorrecta');
+              return res.status(403).json({error:'Contraseña incorrecta'});
             }
           }
           case 1:
-            return res.status(426).json('Por favor actualice la contraseña.');
+            return res.status(426).json({error:'Por favor actualice la contraseña.'});
           case 2:
-            return res.status(427).json('El vecino aun no se encuentra habilitado.');
+            return res.status(427).json({error:'El vecino aun no se encuentra habilitado.'});
           case 3:
-            return res.status(428).json('El usuario se encuentra inhabilitado.');
+            return res.status(428).json({error:'El usuario se encuentra inhabilitado.'});
         }
     })
-    .catch((e) => res.status(503).json({error: 'Usuario inexistente'}) )
+    .catch((e) => res.status(503).json({error:'Usuario inexistente'}) )
 },
 
 exports.habilitarVecino = (req, res) => {

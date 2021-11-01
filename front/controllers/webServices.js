@@ -1,0 +1,12 @@
+import { REACT_APP_API_URL } from '@env';
+
+const urlApi = REACT_APP_API_URL || 'http://192.168.1.23:8000';
+
+const urlWebServices = {
+    login: `${urlApi}/api/usuarios/login`,
+    crearSitio: `${urlApi}/api/sitios/create`,
+    crearDenuncia: `${urlApi}/api/denuncias/create`,
+    listarDenuncia: `${urlApi}/api/denuncias/list`,
+};
+
+export default urlWebServices;

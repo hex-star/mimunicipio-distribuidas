@@ -12,8 +12,8 @@ const style = StyleSheet.create({
     formsContainer: {
         flexDirection: 'column',
         marginBottom: 80,
-        marginLeft: 20,
-        marginRight: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
 
     },
 
@@ -56,6 +56,11 @@ const style = StyleSheet.create({
     },
 
     // FONTS
+
+    h1:{
+        fontWeight:'bold',
+        fontSize:15,
+    },
 
     whiteFont: {
         color: '#fff',
@@ -102,8 +107,8 @@ const style = StyleSheet.create({
 
     formTooltip: {
         color: '#6e6e6e',
-        fontSize: 12,
-        marginTop: 5,
+        fontSize: 14,
+        marginTop: 10,
     },
 
     primaryTextInput: {
@@ -136,6 +141,8 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         width: '100%',
         marginTop: 20,
+        color:'#000',
+
 
     },
     primaryHistorialButtonText: {
@@ -157,6 +164,7 @@ const style = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 5,
         alignContent: 'center',
+        minHeight: 40,
         width: '100%',
         padding: 5,
     },
@@ -224,6 +232,7 @@ const style = StyleSheet.create({
         marginBottom: 25,
         marginTop: 5,
     },
+
     celesteText: {
         color: '#4287f5',
         fontSize: 16,
