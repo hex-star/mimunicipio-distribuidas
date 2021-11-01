@@ -94,13 +94,11 @@ export default function App() {
                         component={Confirmacion}
                         options={options}
                     />
-                    <Stack.Screen name="Registrar" component={Registrar} />
-                    <Stack.Screen name="Login" component={Login} />
-                    <Stack.Screen name="Menu" component={Menu} />
-                    <Stack.Screen name="Denuncia" component={Denuncia} />
-                    <Stack.Screen name="Historial" component={Historial} />
-                    <Stack.Screen name="Perfil" component={Perfil} />
-                    <Stack.Screen name="Contraseña" component={Contraseña} />
+                  
+        
+                 
+                    <Stack.Screen name="Perfil" component={Perfil}  options={options} />
+                    <Stack.Screen name="Contraseña" component={Contraseña}  options={options}  />
                 </Stack.Navigator>
             </NavigationContainer>
         </PaperProvider>

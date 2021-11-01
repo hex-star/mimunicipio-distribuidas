@@ -17,14 +17,14 @@ function Menu(props) {
             <View style={{ flexDirection: 'column', height: '90%', justifyContent: 'center' }}>
                 <View style={style.menuContainer}>
                     <View style={style.menuItem}>
-                        <TouchableOpacity style={style.menuButton}>
+                        <TouchableOpacity style={style.menuButtonDisabled}>
                             <Image style={style.menuImage} source={cartelera} />
 
                         </TouchableOpacity>
                         <Text style={style.menuText}>Cartelera</Text>
                     </View>
                     <View style={style.menuItem}>
-                        <TouchableOpacity style={style.menuButton}>
+                        <TouchableOpacity style={style.menuButtonDisabled}>
                             <Image style={style.menuImage} source={reclamo} />
 
                         </TouchableOpacity>

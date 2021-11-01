@@ -9,7 +9,7 @@ import style from '../customProperties/Styles';
 import { listarDenuncias } from '../controllers/denuncias';
 
 function Historial() {
-    const [showDenuncias, setshowDenuncias] = useState(false);
+    
     const [expandedR, setExpandedR] = useState(true);
     const [expandedD, setExpandedD] = useState(true);
     const handlePressR = () => setExpandedR(!expandedR);
@@ -45,30 +45,7 @@ function Historial() {
             />
         
 
-            {showDenuncias
-                && (
-                    <View style={{ marginTop: 10 }}>
-                        <View style={{ backgroundColor: 'grey' }}><Text style={{ marginLeft: 7.5 }}>Acoso</Text></View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#cfcfcf' }}>
-                            <View style={{ marginLeft: 7 }}>
-                                <Text>Denuncia: #42</Text>
-                                <Text>Denunciante</Text>
-                                <Text>Nombre: Juan Carlos</Text>
-                                <Text>Apellido: Rodriguez</Text>
-                                <Text>Fecha</Text>
-                                <Text>Dia : 22/06/2021</Text>
-                                <Text>Hora : 3:35PM</Text>
-                            </View>
-                            <View style={{ marginRight: 7 }}>
-                                <Text>Denunciado</Text>
-                                <Text>Nombre: Pablo</Text>
-                                <Text>Detalle</Text>
-                                <Text>Bla bla bla</Text>
-                            </View>
-                        </View>
-
-                    </View>
-                )}
+   
 
             <List.Section>
 
@@ -90,7 +67,7 @@ function Historial() {
                     onPress={handlePressD}
 
                 >
-                    <View style={{ marginTop: 10 }}>
+                   {/* <View style={{ marginTop: 10 }}>
                         <View style={{ backgroundColor: 'grey' }}><Text style={{ marginLeft: 7.5 }}>Acoso</Text></View>
                         <View style={{ flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#cfcfcf' }}>
                             <View style={{ marginLeft: 7 }}>
@@ -109,7 +86,7 @@ function Historial() {
                                 <Text>Bla bla bla</Text>
                             </View>
                         </View>
-                    </View>
+                    </View>*/}
 
                     <View style={{ marginTop: 10 }}>
 

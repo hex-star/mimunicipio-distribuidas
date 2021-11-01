@@ -11,10 +11,11 @@ const style = StyleSheet.create({
 
     formsContainer: {
         flexDirection: 'column',
-        marginBottom: 80,
+        
         paddingLeft: 20,
         paddingRight: 20,
-
+        
+      
     },
 
     homeButtonPrimary: {
@@ -107,15 +108,18 @@ const style = StyleSheet.create({
 
     formTooltip: {
         color: '#6e6e6e',
+        fontWeight:'bold',
         fontSize: 14,
         marginTop: 10,
+  
     },
 
     primaryTextInput: {
-        color: '#000000',
+      
         fontSize: 16,
         marginBottom: 1,
         backgroundColor: 'transparent',
+        height:40
     },
 
     primaryNavigationButton: {
@@ -127,6 +131,7 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         width: 200,
         marginTop: 20,
+        marginBottom:45,
 
     },
     historialButton: {
@@ -207,6 +212,14 @@ const style = StyleSheet.create({
         marginRight: 35,
         borderRadius: 10,
     },
+    menuButtonDisabled: {
+        backgroundColor: '#666666',
+        padding: 15,
+        marginBottom: 5,
+        marginLeft: 35,
+        marginRight: 35,
+        borderRadius: 10,
+    },
 
     menuImage: {
         flex: 0,
@@ -236,8 +249,8 @@ const style = StyleSheet.create({
     celesteText: {
         color: '#4287f5',
         fontSize: 16,
-        marginBottom: 25,
-        marginTop: 5,
+        marginBottom: 5,
+        marginTop: 0,
     },
     errors: {
         fontSize: 14,

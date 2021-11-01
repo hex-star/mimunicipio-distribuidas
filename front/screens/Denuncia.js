@@ -167,6 +167,7 @@ function FormularioDenuncia(props) {
                             onBlur={handleBlur('nombre')}
                             onChangeText={handleChange('nombre')}
                             placeholder="Ingresá el nombre del vecino o comercio"
+                            underlineColor="#2984f2"
                         />
                         {(errors.nombre && touched.nombre)
                             && <Text style={style.errors}>{errors.nombre}</Text>}
@@ -227,6 +228,7 @@ function FormularioDenuncia(props) {
                             onBlur={handleBlur('comentariosLugar')}
                             onChangeText={handleChange('comentariosLugar')}
                             placeholder="Ingresá mas info del lugar"
+                            underlineColor="#2984f2"
                         />
                         <Text style={style.formTooltip}>Comentanos tu problema</Text>
                         <TextInput
@@ -235,6 +237,7 @@ function FormularioDenuncia(props) {
                             onBlur={handleBlur('descripcion')}
                             onChangeText={handleChange('descripcion')}
                             placeholder="Ingresa el motivo de la denuncia"
+                            underlineColor="#2984f2"
                         />
                         {(errors.descripcion && touched.descripcion)
                             && <Text style={style.errors}>{errors.descripcion}</Text>}
