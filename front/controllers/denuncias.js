@@ -25,4 +25,21 @@ export const crearDenuncia = async function (values) {
     return response.json();
 };
 
+export const listarDenuncias = async function () {
+    const url = urlWebServices.listarDenuncia;
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('Accept', 'application/json');
+
+
+
+    const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        headers: myHeaders,
+    });
+
+    return response.json();
+}
+
 export default crearDenuncia;

@@ -12,8 +12,8 @@ const style = StyleSheet.create({
     formsContainer: {
         flexDirection: 'column',
         marginBottom: 80,
-        marginLeft: 20,
-        marginRight: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
 
     },
 
