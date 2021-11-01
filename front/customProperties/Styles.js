@@ -57,6 +57,11 @@ const style = StyleSheet.create({
 
     // FONTS
 
+    h1:{
+        fontWeight:'bold',
+        fontSize:15,
+    },
+
     whiteFont: {
         color: '#fff',
         marginTop: 20,
@@ -136,6 +141,8 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         width: '100%',
         marginTop: 20,
+        color:'#000',
+
 
     },
     primaryHistorialButtonText: {

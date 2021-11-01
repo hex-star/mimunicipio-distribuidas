@@ -22,22 +22,20 @@ function Historial() {
         if (res) {
             setDenuncias(res);
             // console.log(typeof (res))
-            console.log("*********************************")
-            console.log(res.denuncias[0])
+            console.log('*********************************');
+            console.log(typeof (res.denuncias[0].movimientosDenuncia[0].fecha));
         }
     }
 
     useEffect(() => {
-        fetchDenuncias()
+        fetchDenuncias();
     }, []);
-
-
 
     return (
         <ScrollView style={style.formsContainer}>
             <MiVecindario />
             <Text style={style.celesteText}>Historial</Text>
-            <TextInput style={style.primaryTextInput}>aaaaa</TextInput>
+            <TextInput style={style.primaryTextInput}></TextInput>
             <View
                 style={{
                     borderBottomColor: '#bcbcbc',
@@ -45,27 +43,9 @@ function Historial() {
                     marginTop: 2,
                 }}
             />
-            <TouchableOpacity
-                style={style.historialButton}
-            >
-                <Text style={style.primaryHistorialButtonText}>
-                    Reclamos
-                </Text>
+        
 
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                onPress={() => setshowDenuncias(!showDenuncias)}
-                style={style.historialButton}
-            >
-                <Text style={style.primaryHistorialButtonText}>
-                    Denuncias
-                </Text>
-
-            </TouchableOpacity>
-
-            {/*
-         {showDenuncias
+            {showDenuncias
                 && (
                     <View style={{ marginTop: 10 }}>
                         <View style={{ backgroundColor: 'grey' }}><Text style={{ marginLeft: 7.5 }}>Acoso</Text></View>
@@ -89,29 +69,30 @@ function Historial() {
 
                     </View>
                 )}
-         */ }
-            <List.Section title="Accordions">
+
+            <List.Section>
 
                 <List.Accordion
                     title="Reclamos"
-                    left={(props) => <List.Icon {...props} icon="folder" />}
+                    style={style.historialButton}
+                    titleStyle={{color:'#fff',marginLeft:40,fontSize:20,alignSelf:'center'}}
                     expanded={expandedR}
                     onPress={handlePressR}
                 >
-                    <Text>No hay reclamos</Text>
+                    <Text style={{alignSelf:'center',fontSize:20,marginTop:5}}>No hay reclamos</Text>
                 </List.Accordion>
 
                 <List.Accordion
                     title="Denuncias"
-                    left={(props) => <List.Icon {...props} icon="folder" />}
+                    style={style.historialButton}
+                    titleStyle={{color:'#fff',marginLeft:40,fontSize:20,alignSelf:'center'}}
                     expanded={expandedD}
                     onPress={handlePressD}
-                 
 
                 >
                     <View style={{ marginTop: 10 }}>
                         <View style={{ backgroundColor: 'grey' }}><Text style={{ marginLeft: 7.5 }}>Acoso</Text></View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#cfcfcf' }}>
+                        <View style={{ flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#cfcfcf' }}>
                             <View style={{ marginLeft: 7 }}>
                                 <Text>Denuncia: #42</Text>
                                 <Text>Denunciante</Text>
@@ -121,7 +102,7 @@ function Historial() {
                                 <Text>Dia : 22/06/2021</Text>
                                 <Text>Hora : 3:35PM</Text>
                             </View>
-                            <View style={{ marginRight: 7 }}>
+                            <View style={{ marginLeft: 7 }}>
                                 <Text>Denunciado</Text>
                                 <Text>Nombre: Pablo</Text>
                                 <Text>Detalle</Text>
@@ -131,29 +112,40 @@ function Historial() {
                     </View>
 
                     <View style={{ marginTop: 10 }}>
-                        <View style={{ backgroundColor: 'grey' }}><Text style={{ marginLeft: 7.5 }}>Acoso</Text></View>
 
-                        {den && den.denuncias &&
-                            den.denuncias.map((denuncia) => {
-                                return (
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#cfcfcf' }}>
+
+                        {den && den.denuncias
+                            && den.denuncias.map((denuncia) => (
+                                <View style={{marginTop:10}}>
+                                    <View style={{ backgroundColor: 'grey' }}><Text style={{ marginLeft: 7.5,color:'#000',fontSize:17,fontWeight:'bold' }}>Denuncia #{denuncia.idDenuncia}</Text></View>
+                                    <View style={{ flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#cfcfcf' }}>
 
                                         <View style={{ marginLeft: 7 }}>
-                                            <Text>Denuncia: #{denuncia.idDenuncia}  </Text>
-                                            <Text>Denunciante </Text>
-                                           
-                                            <Text></Text>
+                                    
+                                            <Text style={style.h1}>Denunciante </Text>
+                                            <Text>Nombre: Desconocido </Text>
+
+                                            <Text />
                                         </View>
-                                        <View style={{ marginRight: 7 }}>
-                                            <Text>Denunciado</Text>
-                                            <Text>Nombre: {denuncia.detalleDenuncias[0].nombreDenunciado}</Text>
-                                            <Text>Fecha: {denuncia.movimientosDenuncia[0].fecha}</Text>
+                                        <View style={{ marginLeft: 7,flexWrap:'wrap' }}>
+                                            <Text style={style.h1}>Denunciado</Text>
+                                            <Text>
+                                                Nombre:
+                                                {denuncia.detalleDenuncias[0].nombreDenunciado}
+                                            </Text>
+                                            <Text>
+                                                Fecha:
+                                                {denuncia.movimientosDenuncia[0].fecha.slice(0, 10)}
+                                            </Text>
+                                            <Text style={{flexWrap:'wrap'}}>
+                                                Detalle:
+                                                {denuncia.descripcion}
+                                            </Text>
                                         </View>
 
                                     </View>
-                                );
-
-                            })}
+                                </View>
+                            ))}
 
                     </View>
 

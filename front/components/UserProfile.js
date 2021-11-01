@@ -17,7 +17,7 @@ const UserProfile = (props) => {
 
         return (
             <View style={{ flexDirection: 'row' }}>
-                <Text>{perfil.email}</Text>
+               {/*<Text>{perfil.email}</Text>*/} 
                 <Button icon="account-circle-outline" />
                 <Button icon="logout" onPress={handlePress} />
             </View>
