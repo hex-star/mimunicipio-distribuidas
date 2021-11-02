@@ -24,6 +24,7 @@ import Qs from 'qs';
 import * as ImagePicker from 'expo-image-picker';
 import * as yup from 'yup';
 import { Formik } from 'formik';
+import NetInfo from '@react-native-community/netinfo';
 import style from '../customProperties/Styles';
 import MiVecindario from '../components/MiVecindario';
 import imagesUrls from '../controllers/images';
@@ -57,6 +58,24 @@ function FormularioDenuncia(props) {
 
     const onSubmit = async function (values) {
         setLoading(true);
+
+        const aux = async () => (await NetInfo.fetch()).isConnected;
+        const connection = await aux();
+
+        if (!connection) {
+            Alert.alert('NO HAY CONECCION SE GUARDARA LA DENUNCIA PARA LUEGO MANDARLA');
+         console.log(await AsyncStorage.getItem('denunciasPendientes'))
+            if (await AsyncStorage.getItem('denunciasPendientes')) {
+                await AsyncStorage.setItem('denunciasPendientes', await AsyncStorage.getItem('denunciasPendientes') + "," + JSON.stringify(values));
+            } else {
+                await AsyncStorage.setItem('denunciasPendientes',"[" + JSON.stringify(values));
+            }
+
+            //console.log(await AsyncStorage.getItem('denunciasPendientes'))
+
+            return;
+        }
+
         try {
             const imageUrls = await imagesUrls(photos);
 
@@ -74,8 +93,9 @@ function FormularioDenuncia(props) {
                 navigation.navigate('Confirmacion', { tipo: 'denuncia', id: res.denuncia.idDenuncia });
             }
         } catch (e) {
-            Alert.alert('Ha habido un error generando tu denuncia');
-            console.log(e);
+            Alert.alert('Se ha producido un error al intentar cargar una denuncia');
+            console.log(e)
+
         } finally {
             setLoading(false);
         }
@@ -270,7 +290,7 @@ function FormularioDenuncia(props) {
                                 <Text style={style.primaryNavigationButtonText}>
                                     Siguiente
                                 </Text>
-                            ) }
+                            )}
 
                         </TouchableOpacity>
                     </ScrollView>
