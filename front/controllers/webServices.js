@@ -7,6 +7,8 @@ const urlWebServices = {
     crearSitio: `${urlApi}/api/sitios/create`,
     crearDenuncia: `${urlApi}/api/denuncias/create`,
     listarDenuncia: `${urlApi}/api/denuncias/list`,
+    registrarUsuario: `${urlApi}/api/usuarios/create`,
+    cambiarPassword:`${urlApi}/api/usuarios/cambiarPassword/`,
 };
 
 export default urlWebServices;

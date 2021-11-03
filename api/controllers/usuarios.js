@@ -14,7 +14,7 @@ exports.crearUsuario = async function (req, res, next) {
   if (vecino) {
     return Usuarios.create({
       estado: 2,
-      password: '',
+      password: '123',
       avatar: 'placeholder',
       tipo: 'vecino',
       email: data.email,
@@ -46,7 +46,7 @@ exports.login = (req, res) => {
             }
           }
           case 1:
-            return res.status(426).json({error:'Por favor actualice la contraseña.'});
+            return res.status(426).json({error:'Por favor actualice la contraseña.'}); // redirecciona a la pantalla de cambio de contrasea
           case 2:
             return res.status(427).json({error:'El vecino aun no se encuentra habilitado.'});
           case 3:

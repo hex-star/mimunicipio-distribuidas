@@ -8,27 +8,19 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
+import { registrar } from '../controllers/usuarios';
 
 function Registrar(props) {
     const { navigation } = props;
 
     const initialValues = {
-        nombre: '',
-        apellido: '',
-        documento: '',
         email: '',
-        direccion: '',
-        barrio: '',
+        documento: '',
+
     };
 
     const loginValidationSchema = yup.object().shape({
-        nombre: yup
-            .string()
-            .required('El nombre es requerido'),
-        apellido: yup
-            .string()
-            .min(1)
-            .required('El apellido es requerido'),
+
         documento: yup
             .number()
             .min(7, ({ min }) => `El documento debe contener como mínimo ${min} caracteres`)
@@ -39,13 +31,35 @@ function Registrar(props) {
             .string()
             .email('Por favor ingrese un emal válido')
             .required('El email es requerido'),
-        direccion: yup
-            .string()
-            .required('La dirección es requerida'),
-        barrio: yup
-            .string()
-            .required('El barrio es requerido'),
+
     });
+
+    const onSubmit = async function (values) {
+        console.log('esto funciona');
+        try {
+     
+            console.log(values);
+            const res = await registrar(values);
+            if (res && res.usuario) {
+                Alert.alert('Solicitud confirmada', 'Su solicitud de cuenta fue enviada correctamente. La clave de acceso será enviada al correo electrónico informado.');
+                return;
+            }else
+            {
+                if(res && res.error)
+                {
+                    Alert.alert('Error','El vecino debe estar registrado en la base de datos')
+                    return;
+                }else{
+                    Alert.alert('Error desconocido','')
+                }
+            }
+        
+
+        } catch (e) {
+            console.log(e)
+        }
+    };
+
     return (
         <>
             <MiVecindario />
@@ -54,9 +68,10 @@ function Registrar(props) {
                 initialValues={initialValues}
                 onSubmit={(values) => {
                     console.log(values);
+                    onSubmit(values);
                     // Abrir Pantalla de confirmación
                     // navigation.navigate('Menu');
-                    Alert.alert('Solicitud confirmada', 'Su solicitud de cuenta fue enviada correctamente. La clave de acceso será enviada al correo electrónico informado.');
+                   
                 }}
             >
                 {({
@@ -75,36 +90,7 @@ function Registrar(props) {
                         <Text style={style.subtitle2}>
                             Por favor, ingresá tus datos para registrarte
                         </Text>
-                        <TextInput
-                            name="nombre"
-                            style={style.primaryTextInput}
-                            placeholder="Nombre"
-                            onChangeText={handleChange('nombre')}
-                            onBlur={handleBlur('nombre')}
-                            value={values.nombre}
-                        />
-                        {(errors.nombre && touched.nombre)
-                            && (
-                                <Text style={style.errors}>
-                                    {' '}
-                                    {errors.nombre}
-                                </Text>
-                            )}
-                        <TextInput
-                            name="apellido"
-                            style={style.primaryTextInput}
-                            placeholder="Apellido"
-                            onChangeText={handleChange('apellido')}
-                            onBlur={handleBlur('apellido')}
-                            value={values.apellido}
-                        />
-                        {(errors.apellido && touched.apellido)
-                            && (
-                                <Text style={style.errors}>
-                                    {' '}
-                                    {errors.apellido}
-                                </Text>
-                            )}
+
                         <TextInput
                             name="documento"
                             style={style.primaryTextInput}
@@ -136,39 +122,9 @@ function Registrar(props) {
                                     {errors.email}
                                 </Text>
                             )}
-                        <TextInput
-                            name="direccion"
-                            style={style.primaryTextInput}
-                            placeholder="Direccion"
-                            onChangeText={handleChange('direccion')}
-                            onBlur={handleBlur('direccion')}
-                            value={values.direccion}
-                        />
-                        {(errors.direccion && touched.direccion)
-                            && (
-                                <Text style={style.errors}>
-                                    {' '}
-                                    {errors.direccion}
-                                </Text>
-                            )}
-                        <TextInput
-                            name="barrio"
-                            style={style.primaryTextInput}
-                            placeholder="Barrio"
-                            onChangeText={handleChange('barrio')}
-                            onBlur={handleBlur('barrio')}
-                            value={values.barrio}
-                        />
-                        {(errors.barrio && touched.barrio)
-                            && (
-                                <Text style={style.errors}>
-                                    {' '}
-                                    {errors.barrio}
-                                </Text>
-                            )}
+
                         <TouchableOpacity
                             onPress={handleSubmit}
-                            disabled={!isValid}
                             // onPress={() => navigation.navigate('Menu')}
                             style={style.primaryNavigationButton}
                         >

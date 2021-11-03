@@ -19,6 +19,7 @@ import Contraseña from './screens/Contraseña';
 import UserProfile from './components/UserProfile';
 import ImageBrowser from './components/ImageBrowser';
 import Confirmacion from './components/Confirmacion';
+import PrimerInicio from './screens/PrimerInicio';
 
 const Stack = createStackNavigator();
 
@@ -99,6 +100,11 @@ export default function App() {
                  
                     <Stack.Screen name="Perfil" component={Perfil}  options={options} />
                     <Stack.Screen name="Contraseña" component={Contraseña}  options={options}  />
+                    <Stack.Screen
+                        name="PrimerInicio"
+                        component={PrimerInicio}
+                        options={options}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         </PaperProvider>

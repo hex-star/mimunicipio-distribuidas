@@ -1,54 +1,50 @@
-import React, { useState } from 'react';
+import React,{useState} from 'react';
 import {
-    View, Text, TouchableOpacity, Alert,
+    View, Text, Image, TouchableOpacity, Alert,
 } from 'react-native';
-import { TextInput } from 'react-native-paper';
-import { Formik } from 'formik';
-import * as yup from 'yup';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import MiVecindario from '../components/MiVecindario';
-import style from '../customProperties/Styles';
-import { login } from '../controllers/usuarios';
 
-function Login(props) {
+import * as yup from 'yup';
+import { Formik } from 'formik';
+import { TextInput } from 'react-native-paper';
+import style from '../customProperties/Styles';
+import MiVecindario from '../components/MiVecindario';
+
+import { cambiarPassword } from '../controllers/usuarios';
+
+function PrimerInicio(props) {
     const { navigation } = props;
-    const [onLoading, setOnLoading] = useState(false);
+    const [onLoading, setOnLoading] = useState('')
 
     const initialValues = {
-        email: '',
+        claveRecuperacion: '',
         password: '',
+        confirmPassword: '',
+        documento: '',
     };
 
     const validationSchema = yup.object().shape({
-        email: yup.string().required('Please enter a valid name'),
+        claveRecuperacion: yup.string().required('Please enter a valid name'),
         password: yup.string().required('Por favor ingrese una contraseña'),
-
+        confirmPassword: yup.string().required('Por favor confirme una contraseña'),
+        documento: yup.number().positive().integer().required('Por favor ingrese su documento sin usar puntos'),
     });
 
     const onSubmit = async function (values) {
         try {
-            setOnLoading(true);
-
             console.log(values);
 
-            const res = await login(values);
-            console.log(res);
-            if (res && res.error === 'Por favor actualice la contraseña.') {
-                console.log(`res status:${res}`);
-                navigation.navigate('PrimerInicio');
-                return;
-            }
-
-            if (res && res.token) {
-                console.log(res.token);
-                await AsyncStorage.setItem('authToken', res.token);
-                navigation.popToTop();
-            } else {
-                Alert.alert(res);
-                setOnLoading(false);
+            const res = await cambiarPassword(values);
+  
+            if (res && res.usuario) {
+                console.log("reeees: " + res.usuario)
+                Alert.alert('La contraseña fue restablecida con exito.');
+                navigation.navigate('Login')
+                
+            }else{
+                Alert.alert(res.error)
             }
         } catch (e) {
-            console.log(`ERROR AL INTENAR LOGUEAR FRONT END${e}`);
+            console.log(`ERROR AL INTENAR INICIAR SESION POR PRIMERA VEZ FRONT END${e}`);
         }
     };
 
@@ -70,24 +66,43 @@ function Login(props) {
                 }) => (
                     <View style={style.formsContainer}>
                         <Text style={style.subtitle1}>
-                            ¡Bienvenido a Mi Vecindario!
+                            Primer inicio de sesion
                         </Text>
                         <Text style={style.subtitle2}>
-                            Por favor, Ingresá tus datos para continuar
+                            Por favor establezca su contraseña
                         </Text>
+
                         <TextInput
                             style={style.primaryTextInput}
-                            placeholder="Email/Legajo"
-                            onChangeText={handleChange('email')}
-                            onBlur={handleBlur('email')}
-                            value={values.email}
+                            placeholder="Documento"
+                            onChangeText={handleChange('documento')}
+                            onBlur={handleBlur('documento')}
+                            value={values.documento}
+                            secureTextEntry
                         />
+                              <TextInput
+                            style={style.primaryTextInput}
+                            placeholder="Clave de Recuperacion"
+                            onChangeText={handleChange('claveRecuperacion')}
+                            onBlur={handleBlur('claveRecuperacion')}
+                            value={values.claveRecuperacion}
+                            secureTextEntry
+                        />
+
                         <TextInput
                             style={style.primaryTextInput}
                             placeholder="Contraseña"
                             onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
                             value={values.password}
+                            secureTextEntry
+                        />
+                        <TextInput
+                            style={style.primaryTextInput}
+                            placeholder="Confirmar Contraseña"
+                            onChangeText={handleChange('confirmPassword')}
+                            onBlur={handleBlur('confirmPassword')}
+                            value={values.confirmPassword}
                             secureTextEntry
                         />
 
@@ -119,4 +134,5 @@ function Login(props) {
         </>
     );
 }
-export default Login;
+
+export default (PrimerInicio);
