@@ -21,7 +21,6 @@ function Contraseña() {
                     console.log(values);
                     Alert.alert('Solicitud confirmada', 'Revise su cuenta de correo electrónico para proceder con el recupero de contraseña');
                     // eslint-disable-next-line indent
-                      ;
                 }}
             >
                 {({

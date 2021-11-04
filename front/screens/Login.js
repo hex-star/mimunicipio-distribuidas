@@ -20,7 +20,7 @@ function Login(props) {
     };
 
     const validationSchema = yup.object().shape({
-        email: yup.string().required('Please enter a valid name'),
+        email: yup.string().required('Por favor ingrese un email válido'),
         password: yup.string().required('Por favor ingrese una contraseña'),
 
     });

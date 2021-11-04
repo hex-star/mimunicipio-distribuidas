@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
 import { ImageBrowser } from 'expo-image-picker-multiple';
-import { format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 import { GOOGLE_PLACES_API_KEY } from '@env';
 import Qs from 'qs';
 import * as ImagePicker from 'expo-image-picker';
@@ -125,9 +125,9 @@ function FormularioDenuncia(props) {
 
     const denunciaValidationSchema = yup.object().shape({
         nombre: yup.string().required('Por favor ingresá un nombre valido'),
-        direccion: yup.string().required(),
+        // direccion: yup.string().required(),
         fecha: yup.date(),
-        descripcion: yup.string().required('Por favor ingresa comentaios acerca del problema'),
+        descripcion: yup.string().required('Por favor ingresa comentarios acerca del problema'),
     });
 
     return (
@@ -153,6 +153,7 @@ function FormularioDenuncia(props) {
                     values,
                     errors,
                     touched,
+                    isValid,
                 }) => (
                     <ScrollView
                         style={style.formsContainer}
@@ -261,6 +262,7 @@ function FormularioDenuncia(props) {
                         <TouchableOpacity
                             onPress={() => onSubmit(values)}
                             style={style.primaryNavigationButton}
+                            disabled={!isValid}
                         >
                             {loading ? (
                                 <Text style={style.primaryNavigationButtonText}>

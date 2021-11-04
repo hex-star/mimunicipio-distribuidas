@@ -23,7 +23,7 @@ function Registrar(props) {
 
         documento: yup
             .number()
-            .min(7, ({ min }) => `El documento debe contener como mínimo ${min} caracteres`)
+            .min(8, ({ min }) => `El documento debe contener como mínimo ${min} caracteres`)
             .positive('El documento no puede ser negativo')
             .integer('El documento debe ser un número entero')
             .required('El documento es requerido'),
@@ -37,33 +37,28 @@ function Registrar(props) {
     const onSubmit = async function (values) {
         console.log('esto funciona');
         try {
-     
             console.log(values);
             const res = await registrar(values);
             if (res && res.usuario) {
                 Alert.alert('Solicitud confirmada', 'Su solicitud de cuenta fue enviada correctamente. La clave de acceso será enviada al correo electrónico informado.');
-                navigation.navigate('Login')
+                navigation.navigate('Login');
                 return;
-            }else
-            {
-                if(res && res.error)
-                {
-                    Alert.alert('Error','El vecino debe estar registrado en la base de datos')
+            } else {
+                if(res && res.error) {
+                    Alert.alert('Error','El vecino debe estar registrado en el Municipio.')
                     return;
                 }else{
-                    Alert.alert('Error desconocido','')
+                    Alert.alert('Error desconocido.','')
                 }
             }
-        
-
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     };
 
     return (
         <>
-            <MiVecindario />
+            <MiVecindario noPerfil />
             <Formik
                 validationSchema={loginValidationSchema}
                 initialValues={initialValues}
@@ -72,7 +67,6 @@ function Registrar(props) {
                     onSubmit(values);
                     // Abrir Pantalla de confirmación
                     // navigation.navigate('Menu');
-                   
                 }}
             >
                 {({
@@ -133,7 +127,7 @@ function Registrar(props) {
                                 Crear cuenta
                             </Text>
                         </TouchableOpacity>
-                        <Text style={style.subtitle2} onPress={() => Alert.alert('Términos', 'Estos son los términos y condiciones vigentes para mayor detalle visite https://www.municipiodeposadas.com.ar')}>
+                        <Text style={style.subtitle2} onPress={() => Alert.alert('Términos', 'Podrá obtener más detalles de nuestros términos en https://www.municipiodeposadas.com.ar')}>
                             Al crear una cuenta, aceptas nuestros Términos
                         </Text>
 

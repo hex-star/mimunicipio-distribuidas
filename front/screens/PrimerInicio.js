@@ -13,7 +13,7 @@ import { cambiarPassword } from '../controllers/usuarios';
 
 function PrimerInicio(props) {
     const { navigation } = props;
-    const [onLoading, setOnLoading] = useState('')
+    const [onLoading, setOnLoading] = useState('');
 
     const initialValues = {
         password: '',
@@ -23,29 +23,33 @@ function PrimerInicio(props) {
 
     const validationSchema = yup.object().shape({
 
-        password: yup.string().required('Por favor ingrese una contraseña'),
-        confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Las contraseñas deben coincidir'),
-        documento: yup.number().positive().integer().required('Por favor ingrese su documento sin usar puntos'),
+        password: yup
+            .string()
+            .required('*Por favor ingrese una contraseña.')
+            .min(8, ({ min }) => `La contraseña debe contener como mínimo ${min} caracteres`),
+        confirmPassword: yup
+            .string()
+            .oneOf([yup.ref('password'), null], '*Las contraseñas deben coincidir.'),
+        documento: yup.number().positive().integer().required('*Por favor, ingrese su documento sin utilizar puntos.'),
     });
-    const validatePassword = values => {
-        let error = "";
+    const validatePassword = (values) => {
+        let error = '';
         const passwordRegex = /(?=.*[0-9])/;
         if (!values) {
-            error = "*Required";
+            error = '*Requerida';
         } else if (values.length < 8) {
-            error = "*Password must be 8 characters long.";
+            error = '*La contraseña debe contener al menos 8 caracteres.';
         } else if (!passwordRegex.test(values)) {
-            error = "*Invalid password. Must contain one number.";
+            error = '*Contraseña inválida. Debe contener al menos un número.';
         }
         return error;
     };
 
     const validateConfirmPassword = (pass, value) => {
-
-        let error = "";
+        let error = '';
         if (pass && value) {
             if (pass !== value) {
-                error = "Password not matched";
+                error = 'Password not matched';
             }
         }
         return error;
@@ -58,12 +62,11 @@ function PrimerInicio(props) {
             const res = await cambiarPassword(values);
 
             if (res && res.usuario) {
-                console.log("reeees: " + res.usuario)
-                Alert.alert('La contraseña fue restablecida con exito.');
-                navigation.navigate('Login')
-
+                console.log(`reeees: ${res.usuario}`);
+                Alert.alert('La contraseña fue restablecida con éxito.');
+                navigation.navigate('Login');
             } else {
-                Alert.alert(res.error)
+                Alert.alert(res.error);
             }
         } catch (e) {
             console.log(`ERROR AL INTENAR INICIAR SESION POR PRIMERA VEZ FRONT END${e}`);
@@ -86,14 +89,14 @@ function PrimerInicio(props) {
                     handleSubmit,
                     values,
                     errors,
-                    touched
+                    touched,
                 }) => (
                     <View style={style.formsContainer}>
                         <Text style={style.subtitle1}>
                             Primer inicio de sesion
                         </Text>
                         <Text style={style.subtitle2}>
-                            Por favor establezca su contraseña
+                            Por favor, establezca su contraseña
                         </Text>
 
                         <TextInput
@@ -102,9 +105,9 @@ function PrimerInicio(props) {
                             onChangeText={handleChange('documento')}
                             onBlur={handleBlur('documento')}
                             value={values.documento}
-                        
+
                         />
-                        
+
                         {(errors.documento && touched.documento)
                             && (
                                 <Text style={style.errors}>
@@ -112,8 +115,6 @@ function PrimerInicio(props) {
                                     {errors.documento}
                                 </Text>
                             )}
-
-
 
                         <TextInput
                             style={style.primaryTextInput}
@@ -136,8 +137,7 @@ function PrimerInicio(props) {
 
                         <TextInput
                             style={style.primaryTextInput}
-                            validate={value =>
-                                validateConfirmPassword(values.password, value)}
+                            validate={(value) => validateConfirmPassword(values.password, value)}
                             placeholder="Confirmar Contraseña"
                             onChangeText={handleChange('confirmPassword')}
                             onBlur={handleBlur('confirmPassword')}
@@ -168,8 +168,6 @@ function PrimerInicio(props) {
                                 </Text>
                             )}
                         </TouchableOpacity>
-                 
-                       
 
                     </View>
                 )}
