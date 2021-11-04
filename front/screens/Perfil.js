@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import {
     View, Text, Image, TouchableOpacity, Alert,
@@ -97,7 +98,9 @@ function Perfil(props) {
                                 <Text style={style.textPerfil}>{direccion}</Text>
                                 <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5, marginBottom: 10 }} />
                             </View>
+
                         )}
+                    <Text style={{ fontSize: 13, textAlign: 'center' }}> *Para cambiar sus datos, deberá acercarse al Municipio.</Text>
 
                     <TouchableOpacity onPress={() => console.log("")}>
                         <Text style={style.subtitle2}>Cambiar Contraseña</Text>
