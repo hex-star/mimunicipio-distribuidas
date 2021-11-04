@@ -9,7 +9,7 @@ import style from '../customProperties/Styles';
 import { listarDenuncias } from '../controllers/denuncias';
 
 function Historial(props) {
-    const {navigation} = props
+    const { navigation } = props
     const [expandedR, setExpandedR] = useState(true);
     const [expandedD, setExpandedD] = useState(true);
     const handlePressR = () => setExpandedR(!expandedR);
@@ -43,31 +43,31 @@ function Historial(props) {
                     marginTop: 2,
                 }}
             />
-        
 
-   
+
+
 
             <List.Section>
 
                 <List.Accordion
                     title="Reclamos"
                     style={style.historialButton}
-                    titleStyle={{color:'#fff',marginLeft:40,fontSize:20,alignSelf:'center'}}
+                    titleStyle={{ color: '#fff', marginLeft: 40, fontSize: 20, alignSelf: 'center' }}
                     expanded={expandedR}
                     onPress={handlePressR}
                 >
-                    <Text style={{alignSelf:'center',fontSize:20,marginTop:5}}>No hay reclamos</Text>
+                    <Text style={{ alignSelf: 'center', fontSize: 20, marginTop: 5 }}>No hay reclamos</Text>
                 </List.Accordion>
 
                 <List.Accordion
                     title="Denuncias"
                     style={style.historialButton}
-                    titleStyle={{color:'#fff',marginLeft:40,fontSize:20,alignSelf:'center'}}
+                    titleStyle={{ color: '#fff', marginLeft: 40, fontSize: 20, alignSelf: 'center' }}
                     expanded={expandedD}
                     onPress={handlePressD}
 
                 >
-                   {/* <View style={{ marginTop: 10 }}>
+                    {/* <View style={{ marginTop: 10 }}>
                         <View style={{ backgroundColor: 'grey' }}><Text style={{ marginLeft: 7.5 }}>Acoso</Text></View>
                         <View style={{ flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#cfcfcf' }}>
                             <View style={{ marginLeft: 7 }}>
@@ -93,18 +93,18 @@ function Historial(props) {
 
                         {den && den.denuncias
                             && den.denuncias.map((denuncia) => (
-                                <View style={{marginTop:10}}>
-                                    <View style={{ backgroundColor: 'grey' }}><Text style={{ marginLeft: 7.5,color:'#000',fontSize:17,fontWeight:'bold' }}>Denuncia #{denuncia.idDenuncia}</Text></View>
+                                <View style={{ marginTop: 10 }}>
+                                    <View style={{ backgroundColor: 'grey' }}><Text style={{ marginLeft: 7.5, color: '#000', fontSize: 17, fontWeight: 'bold' }}>Denuncia #{denuncia.idDenuncia}</Text></View>
                                     <View style={{ flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#cfcfcf' }}>
 
                                         <View style={{ marginLeft: 7 }}>
-                                    
+
                                             <Text style={style.h1}>Denunciante </Text>
                                             <Text>Nombre: Desconocido </Text>
 
                                             <Text />
                                         </View>
-                                        <View style={{ marginLeft: 7,flexWrap:'wrap' }}>
+                                        <View style={{ marginBottom:5,marginLeft: 7, flexWrap: 'wrap' }}>
                                             <Text style={style.h1}>Denunciado</Text>
                                             <Text>
                                                 Nombre:
@@ -114,10 +114,18 @@ function Historial(props) {
                                                 Fecha:
                                                 {denuncia.movimientosDenuncia[0].fecha.slice(0, 10)}
                                             </Text>
-                                            <Text style={{flexWrap:'wrap'}}>
+                                            <Text style={{ flexWrap: 'wrap' }}>
                                                 Detalle:
                                                 {denuncia.descripcion}
                                             </Text>
+                                            <Text />
+                                            <Text style={style.h1}>
+                                                Derivaciones
+                                            </Text>
+                                            <Text >
+                                                Ninguna
+                                            </Text>
+                                            
                                         </View>
 
                                     </View>

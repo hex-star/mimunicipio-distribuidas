@@ -88,7 +88,7 @@ function Login(props) {
                         />
                         <TextInput
                             style={style.primaryTextInput}
-                            placeholder="Contraseña o Clave de recuperacion"
+                            placeholder="Contraseña"
                             onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
                             value={values.password}

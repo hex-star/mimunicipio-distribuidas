@@ -27,7 +27,7 @@ exports.crearUsuario = async function (req, res, next) {
   }
 
 };
-
+//deberia llamarse buscarVecino
 exports.buscarUsuario = async function (req, res) {
   try {
     console.log("req.params controller api:" + req.params.documento);
@@ -95,7 +95,7 @@ exports.login = (req, res) => {
         referencia: req.params.documento
       }
     })
-      .then((usuario) => { res.status(200).json({ usuario: usuario[1][0].email, claveRecuperacion: clave }) })
+      .then((usuario) => { res.status(200).json({ usuario: usuario[1][0].email, password: clave }) })
       .catch((e) => res.status(500).json({ error: e }))
   },
 

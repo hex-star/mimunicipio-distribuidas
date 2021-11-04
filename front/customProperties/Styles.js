@@ -119,7 +119,7 @@ const style = StyleSheet.create({
         fontSize: 16,
         marginBottom: 1,
         backgroundColor: 'transparent',
-        height:40
+        
     },
 
     primaryNavigationButton: {

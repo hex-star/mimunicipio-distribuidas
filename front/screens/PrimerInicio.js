@@ -102,7 +102,7 @@ function PrimerInicio(props) {
                             onChangeText={handleChange('documento')}
                             onBlur={handleBlur('documento')}
                             value={values.documento}
-                            secureTextEntry
+                        
                         />
                         
                         {(errors.documento && touched.documento)
@@ -168,12 +168,8 @@ function PrimerInicio(props) {
                                 </Text>
                             )}
                         </TouchableOpacity>
-                        <Text style={style.subtitle2} onPress={() => navigation.navigate('Contraseña')}>
-                            Olvidé mi contraseña
-                        </Text>
-                        <Text style={style.subtitle2} onPress={() => navigation.navigate('Registrar')}>
-                            ¿No estás registrado? Registraté acá
-                        </Text>
+                 
+                       
 
                     </View>
                 )}
