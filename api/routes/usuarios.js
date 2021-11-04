@@ -7,6 +7,7 @@ const usuariosController = require('../controllers/usuarios');
 router.get('/list', usuariosController.listarUsuarios);
 router.post('/login', usuariosController.login);
 router.post('/create', usuariosController.crearUsuario);
+router.get('/buscar/:documento',usuariosController.buscarUsuario)
 router.post('/habilitar/:documento', usuariosController.habilitarVecino);
 router.post('/cambiarPassword/:documento', usuariosController.cambiarPassword);
 

@@ -41,7 +41,7 @@ export default function App() {
     }, []);
 
     const options = {
-        headerRight: () => (<UserProfile authToken={authToken} setAuthToken={setAuthToken} />),
+        headerRight: () => (<UserProfile onPress={() => navigation.Perfil} authToken={authToken} setAuthToken={setAuthToken} />),
     };
 
     if (loading) {

@@ -1,5 +1,5 @@
-import React,{useEffect} from 'react';
-import { View, Text, Image,TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import logo from '../assets/miVecindario.png';
 import avatar from '../assets/avatar.png'
 

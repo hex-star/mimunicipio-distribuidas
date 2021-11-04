@@ -38,17 +38,21 @@ function Login(props) {
                 navigation.navigate('PrimerInicio');
                 return;
             }
+            if (res && res.error === 'Contraseña incorrecta'){
+                Alert.alert("Contraseña o Mail incorrecto")
+            }
 
             if (res && res.token) {
                 console.log(res.token);
                 await AsyncStorage.setItem('authToken', res.token);
+                await AsyncStorage.setItem('documento', JSON.stringify(res.documento));
                 navigation.popToTop();
             } else {
-                Alert.alert(res);
+                Alert.alert("Contraseña o Mail incorrecto")
                 setOnLoading(false);
             }
         } catch (e) {
-            console.log(`ERROR AL INTENAR LOGUEAR FRONT END${e}`);
+            console.log(e);
         }
     };
 
@@ -84,7 +88,7 @@ function Login(props) {
                         />
                         <TextInput
                             style={style.primaryTextInput}
-                            placeholder="Contraseña"
+                            placeholder="Contraseña o Clave de recuperacion"
                             onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
                             value={values.password}

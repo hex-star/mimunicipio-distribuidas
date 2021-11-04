@@ -154,7 +154,7 @@ function FormularioDenuncia(props) {
 
     return (
         <>
-            <MiVecindario />
+            <MiVecindario navigation={navigation}/>
             <Formik
                 initialValues={{
                     nombre: '', direccion: '', comentariosLugar: '', fecha: '', comentariosProblema: '',

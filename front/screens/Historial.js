@@ -8,8 +8,8 @@ import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
 import { listarDenuncias } from '../controllers/denuncias';
 
-function Historial() {
-    
+function Historial(props) {
+    const {navigation} = props
     const [expandedR, setExpandedR] = useState(true);
     const [expandedD, setExpandedD] = useState(true);
     const handlePressR = () => setExpandedR(!expandedR);
@@ -33,7 +33,7 @@ function Historial() {
 
     return (
         <ScrollView style={style.formsContainer}>
-            <MiVecindario />
+            <MiVecindario navigation={navigation} />
             <Text style={style.celesteText}>Historial</Text>
             <TextInput style={style.primaryTextInput}></TextInput>
             <View

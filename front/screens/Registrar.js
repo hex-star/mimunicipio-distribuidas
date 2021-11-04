@@ -42,6 +42,7 @@ function Registrar(props) {
             const res = await registrar(values);
             if (res && res.usuario) {
                 Alert.alert('Solicitud confirmada', 'Su solicitud de cuenta fue enviada correctamente. La clave de acceso será enviada al correo electrónico informado.');
+                navigation.navigate('Login')
                 return;
             }else
             {

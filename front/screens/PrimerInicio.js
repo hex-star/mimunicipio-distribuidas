@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import {
     View, Text, Image, TouchableOpacity, Alert,
 } from 'react-native';
@@ -16,31 +16,53 @@ function PrimerInicio(props) {
     const [onLoading, setOnLoading] = useState('')
 
     const initialValues = {
-        claveRecuperacion: '',
         password: '',
         confirmPassword: '',
         documento: '',
     };
 
     const validationSchema = yup.object().shape({
-        claveRecuperacion: yup.string().required('Please enter a valid name'),
+
         password: yup.string().required('Por favor ingrese una contraseña'),
-        confirmPassword: yup.string().required('Por favor confirme una contraseña'),
+        confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Las contraseñas deben coincidir'),
         documento: yup.number().positive().integer().required('Por favor ingrese su documento sin usar puntos'),
     });
+    const validatePassword = values => {
+        let error = "";
+        const passwordRegex = /(?=.*[0-9])/;
+        if (!values) {
+            error = "*Required";
+        } else if (values.length < 8) {
+            error = "*Password must be 8 characters long.";
+        } else if (!passwordRegex.test(values)) {
+            error = "*Invalid password. Must contain one number.";
+        }
+        return error;
+    };
+
+    const validateConfirmPassword = (pass, value) => {
+
+        let error = "";
+        if (pass && value) {
+            if (pass !== value) {
+                error = "Password not matched";
+            }
+        }
+        return error;
+    };
 
     const onSubmit = async function (values) {
         try {
             console.log(values);
 
             const res = await cambiarPassword(values);
-  
+
             if (res && res.usuario) {
                 console.log("reeees: " + res.usuario)
                 Alert.alert('La contraseña fue restablecida con exito.');
                 navigation.navigate('Login')
-                
-            }else{
+
+            } else {
                 Alert.alert(res.error)
             }
         } catch (e) {
@@ -63,6 +85,8 @@ function PrimerInicio(props) {
                     handleBlur,
                     handleSubmit,
                     values,
+                    errors,
+                    touched
                 }) => (
                     <View style={style.formsContainer}>
                         <Text style={style.subtitle1}>
@@ -80,31 +104,54 @@ function PrimerInicio(props) {
                             value={values.documento}
                             secureTextEntry
                         />
-                              <TextInput
-                            style={style.primaryTextInput}
-                            placeholder="Clave de Recuperacion"
-                            onChangeText={handleChange('claveRecuperacion')}
-                            onBlur={handleBlur('claveRecuperacion')}
-                            value={values.claveRecuperacion}
-                            secureTextEntry
-                        />
+                        
+                        {(errors.documento && touched.documento)
+                            && (
+                                <Text style={style.errors}>
+                                    {' '}
+                                    {errors.documento}
+                                </Text>
+                            )}
+
+
 
                         <TextInput
                             style={style.primaryTextInput}
+                            validate={validatePassword}
                             placeholder="Contraseña"
                             onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
                             value={values.password}
                             secureTextEntry
+
                         />
+
+                        {(errors.password && touched.password)
+                            && (
+                                <Text style={style.errors}>
+                                    {' '}
+                                    {errors.password}
+                                </Text>
+                            )}
+
                         <TextInput
                             style={style.primaryTextInput}
+                            validate={value =>
+                                validateConfirmPassword(values.password, value)}
                             placeholder="Confirmar Contraseña"
                             onChangeText={handleChange('confirmPassword')}
                             onBlur={handleBlur('confirmPassword')}
                             value={values.confirmPassword}
                             secureTextEntry
                         />
+
+                        {(errors.confirmPassword && touched.confirmPassword)
+                            && (
+                                <Text style={style.errors}>
+                                    {' '}
+                                    {errors.confirmPassword}
+                                </Text>
+                            )}
 
                         <TouchableOpacity
                             onPress={handleSubmit}

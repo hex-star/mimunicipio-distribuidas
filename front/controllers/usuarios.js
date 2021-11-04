@@ -88,4 +88,29 @@ export const cambiarPassword = async function (values) {
   
 };
 
+export const getUsuario = async function (documento) {
+    const url = urlWebServices.buscarUsuario + documento;
+    console.log("Documento controller: " + urlWebServices.buscarUsuario + documento)
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('Accept', 'application/json');
+
+    // armo json con datos
+    try {
+  
+        const response = await fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            headers: myHeaders,
+
+        });
+        console.log("response controller:" + response)
+        return response.json();
+    } catch (e) {
+        console.log(e);
+    }
+
+  
+};
+
 export default login;
