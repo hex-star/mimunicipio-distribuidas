@@ -40,11 +40,10 @@ console.log(documento);
     const initialValues = {
         password: '',
         confirmPassword: '',
-        documento: { documento },
+        claveRecuperacion: '',
     };
 
     const validationSchema = yup.object().shape({
-
         password: yup
             .string()
             .required('*Por favor ingrese una contraseña.')
@@ -79,7 +78,11 @@ console.log(documento);
     const onSubmit = async function (values) {
         try {
             console.log(values);
-            const res = await cambiarPassword(values);
+            const res = await cambiarPassword({
+                documento: documento,
+                password: values.password,
+                claveRecuperacion: '',
+            });
 
             if (res && res.usuario) {
                 console.log(`reeees: ${res.usuario}`);
@@ -115,12 +118,10 @@ console.log(documento);
                         <Text style={style.subtitle1}>
                             Cambiar contraseña
                         </Text>
+
                         <Text style={style.subtitle2}>
                             Por favor, establezca la nueva contraseña
                         </Text>
-                        <Text
-                            value={values.documento}
-                        />
                         <TextInput
                             style={style.primaryTextInput}
                             validate={validatePassword}
