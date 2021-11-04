@@ -91,8 +91,7 @@ function Historial(props) {
                     <View style={{ marginTop: 10 }}>
 
 
-                        {den && den.denuncias
-                            && den.denuncias.map((denuncia) => (
+                        { den.denuncias ? ( denuncias.map((denuncia) => (
                                 <View style={{ marginTop: 10 }}>
                                     <View style={{ backgroundColor: 'grey' }}><Text style={{ marginLeft: 7.5, color: '#000', fontSize: 17, fontWeight: 'bold' }}>Denuncia #{denuncia.idDenuncia}</Text></View>
                                     <View style={{ flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#cfcfcf' }}>
@@ -130,7 +129,11 @@ function Historial(props) {
 
                                     </View>
                                 </View>
-                            ))}
+                            ))) : (
+                                <View style={{ marginTop: 10 }}>
+                                    <Text style={style.h1}>No hay denuncias.</Text>
+                                </View>
+                            )}
 
                     </View>
 
