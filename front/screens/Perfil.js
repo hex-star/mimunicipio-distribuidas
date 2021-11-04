@@ -29,13 +29,12 @@ function Perfil(props) {
             console.log(typeof (documento));
             console.log(`DOCUMENTO: ${documento}`);
             const res = await getUsuario(documento);
-            
+
             if (res && res.vecino) {
-               
-                console.log(res)
+                console.log(res);
                 console.log(`REEEEES: ${res}`);
                 setNombre(res.vecino.nombre);
-                console.log(res.vecino.nombre)
+                console.log(res.vecino.nombre);
                 setApellido(res.vecino.apellido);
                 setDocumento(documento);
                 setDireccion(res.vecino.direccion);
@@ -47,7 +46,7 @@ function Perfil(props) {
 
     useEffect(() => {
         fetchApi();
-    },);
+    });
 
     return (
         <>
@@ -102,7 +101,7 @@ function Perfil(props) {
                         )}
                     <Text style={{ fontSize: 13, textAlign: 'center' }}> *Para cambiar sus datos, deberá acercarse al Municipio.</Text>
 
-                    <TouchableOpacity onPress={() => console.log("")}>
+                    <TouchableOpacity onPress={() => navigation.navigate('CambiarContraseña')}>
                         <Text style={style.subtitle2}>Cambiar Contraseña</Text>
 
                     </TouchableOpacity>
