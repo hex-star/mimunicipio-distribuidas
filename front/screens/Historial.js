@@ -106,8 +106,8 @@ function Historial(props) {
 
                                     <View style={{ marginLeft: 7 }}>
 
-                                        <Text style={style.h1}>Denunciante </Text>
-                                        <Text>Nombre: Desconocido </Text>
+                                        {/* <Text style={style.h1}>Denunciante </Text>
+                                        <Text>Nombre: Desconocido </Text> */}
 
                                         <Text />
                                     </View>
