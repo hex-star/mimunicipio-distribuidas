@@ -44,7 +44,7 @@ function NuevoComercio(props) {
     const [documentoUsuario, setDocumentoUsuario] = useState('');
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
-    const rubros = ['Abogado', 'Auditor', 'Contador', 'Consultor'];
+    const rubros = ['Promocion', 'Oferta'];
     const [rubroElegido, setRubroElegido] = useState('');
 
     useEffect(() => {
@@ -139,7 +139,7 @@ function NuevoComercio(props) {
             <Formik
                 initialValues={{
                     contacto: '',
-                    horarios:'',
+                    horarios: '',
                     nombre: '',
                     direccion: '',
                     descripcion: '',
@@ -166,6 +166,34 @@ function NuevoComercio(props) {
                     >
 
                         <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
+                        <Text style={style.formTooltip}>Tipo de Anuncio</Text>
+                        <View style={{ justifyContent: 'center', alignItems: 'flex-start', left: -20 }}>
+
+                            <SelectDropdown
+                                data={rubros}
+
+                                onSelect={(selectedItem, index) => {
+                                    console.log(selectedItem, index);
+                                    setRubroElegido(selectedItem);
+                                }}
+                                buttonTextAfterSelection={(selectedItem, index) =>
+                                    // text represented after item is selected
+                                    // if data array is an array of objects then return selectedItem.property to render after item is selected
+                                    selectedItem}
+                                rowTextForSelection={(item, index) =>
+                                    // text represented for each item in dropdown
+                                    // if data array is an array of objects then return item.property to represent item in dropdown
+                                    item}
+                            />
+                        </View>
+                        
+                        <View
+                            style={{
+                                borderBottomColor: '#2984f2',
+                                borderBottomWidth: 1,
+                                
+                            }}
+                        />
                         <Text style={style.formTooltip}>Nombre del Comercio</Text>
                         <TextInput
                             style={style.secondaryTextInput}
@@ -175,7 +203,7 @@ function NuevoComercio(props) {
                             placeholder="Ingrese el nombre del comercio"
                             underlineColor="#2984f2"
                         />
-                         <Text style={style.formTooltip}>Medios de contacto</Text>
+                        <Text style={style.formTooltip}>Medios de contacto</Text>
                         <TextInput
                             style={style.secondaryTextInput}
                             value={values.contacto}
@@ -193,9 +221,9 @@ function NuevoComercio(props) {
                             placeholder="Horarios"
                             underlineColor="#2984f2"
                         />
-              
 
-                
+
+
                         {(errors.nombre && touched.nombre)
                             && <Text style={style.errors}>{errors.nombre}</Text>}
                         <Text style={style.formTooltip}>Dirección</Text>
