@@ -21,6 +21,11 @@ import ImageBrowser from './components/ImageBrowser';
 import Confirmacion from './components/Confirmacion';
 import PrimerInicio from './screens/PrimerInicio';
 import CambiarContraseña from './screens/CambiarContraseña';
+import Cartelera from './screens/cartelera/Cartelera';
+import NuevaPublicacion from './screens/cartelera/NuevaPublicacion';
+import ServiciosProfesionales from './screens/cartelera/ServiciosProfesionales';
+import NuevoComercio from './screens/cartelera/NuevoComercio';
+import PaginaProducto from './screens/cartelera/PaginaProducto';
 
 const Stack = createStackNavigator();
 
@@ -107,6 +112,31 @@ export default function App() {
                     <Stack.Screen
                         name="CambiarContraseña"
                         component={CambiarContraseña}
+                        options={options}
+                    />
+                    <Stack.Screen
+                        name="Cartelera"
+                        component={Cartelera}
+                        options={options}
+                    />
+                    <Stack.Screen
+                        name="NuevaPublicacion"
+                        component={NuevaPublicacion}
+                        options={options}
+                    />
+                    <Stack.Screen
+                        name="ServiciosProfesionales"
+                        component={ServiciosProfesionales}
+                        options={options}
+                    />
+                    <Stack.Screen
+                        name="NuevoComercio"
+                        component={NuevoComercio}
+                        options={options}
+                    />
+                    <Stack.Screen
+                        name="PaginaProducto"
+                        component={PaginaProducto}
                         options={options}
                     />
                 </Stack.Navigator>

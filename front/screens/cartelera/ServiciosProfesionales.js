@@ -24,13 +24,14 @@ import Qs from 'qs';
 import * as ImagePicker from 'expo-image-picker';
 import * as yup from 'yup';
 import { Formik } from 'formik';
-import style from '../customProperties/Styles';
-import MiVecindario from '../components/MiVecindario';
-import imagesUrls from '../controllers/images';
-import { crearSitio } from '../controllers/sitios';
-import { crearDenuncia } from '../controllers/denuncias';
+import SelectDropdown from 'react-native-select-dropdown';
+import style from '../../customProperties/Styles';
+import MiVecindario from '../../components/MiVecindario';
+import imagesUrls from '../../controllers/images';
+import { crearSitio } from '../../controllers/sitios';
+import { crearDenuncia } from '../../controllers/denuncias';
 
-function FormularioDenuncia(props) {
+function ServiciosProfesionales(props) {
     const state = useState();
     const { navigation, route } = props;
     const { params } = route;
@@ -43,6 +44,8 @@ function FormularioDenuncia(props) {
     const [documentoUsuario, setDocumentoUsuario] = useState('');
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
+    const rubros = ['Abogado', 'Auditor', 'Contador', 'Consultor'];
+    const [rubroElegido, setRubroElegido] = useState('');
 
     useEffect(() => {
         // Fetch the token from storage then navigate to our appropriate place
@@ -135,9 +138,11 @@ function FormularioDenuncia(props) {
             <MiVecindario navigation={navigation} />
             <Formik
                 initialValues={{
+                    contacto: '',
+                    horarios:'',
                     nombre: '',
                     direccion: '',
-                    comentariosLugar: '',
+                    descripcion: '',
                     fecha: '',
                     descripcion: '',
                 }}
@@ -161,15 +166,52 @@ function FormularioDenuncia(props) {
                     >
 
                         <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
-                        <Text style={style.formTooltip}>Nombre / Comercio</Text>
+                        <Text style={style.formTooltip}>Medios de contacto</Text>
                         <TextInput
                             style={style.secondaryTextInput}
-                            value={values.nombre}
-                            onBlur={handleBlur('nombre')}
-                            onChangeText={handleChange('nombre')}
-                            placeholder="Ingresá el nombre del vecino o comercio"
+                            value={values.contacto}
+                            onBlur={handleBlur('contacto')}
+                            onChangeText={handleChange('contacto')}
+                            placeholder="Ingresa tu numero"
                             underlineColor="#2984f2"
                         />
+                        <Text style={style.formTooltip}>Horarios</Text>
+                        <TextInput
+                            style={style.secondaryTextInput}
+                            value={values.horarios}
+                            onBlur={handleBlur('horarios')}
+                            onChangeText={handleChange('horarios')}
+                            placeholder="Horarios"
+                            underlineColor="#2984f2"
+                        />
+                         <Text style={style.formTooltip}>Rubro</Text>
+                        <View style={{ justifyContent: 'center', alignItems: 'flex-start', left: -10 }}>
+                       
+                            <SelectDropdown
+                                data={rubros}
+
+                                onSelect={(selectedItem, index) => {
+                                    console.log(selectedItem, index);
+                                    setRubroElegido(selectedItem);
+                                }}
+                                buttonTextAfterSelection={(selectedItem, index) =>
+                                    // text represented after item is selected
+                                    // if data array is an array of objects then return selectedItem.property to render after item is selected
+                                    selectedItem}
+                                rowTextForSelection={(item, index) =>
+                                    // text represented for each item in dropdown
+                                    // if data array is an array of objects then return item.property to represent item in dropdown
+                                    item}
+                            />
+                        </View>
+
+                        <View
+                            style={{
+                                borderBottomColor: '#2984f2',
+                                borderBottomWidth: 1,
+                            }}
+                        />
+
                         {(errors.nombre && touched.nombre)
                             && <Text style={style.errors}>{errors.nombre}</Text>}
                         <Text style={style.formTooltip}>Dirección</Text>
@@ -222,24 +264,16 @@ function FormularioDenuncia(props) {
                                 </View>
                             )}
                         </View>
-                        <Text style={style.formTooltip}>Comentarios del lugar</Text>
-                        <TextInput
-                            style={style.secondaryTextInput}
-                            value={values.comentariosLugar}
-                            onBlur={handleBlur('comentariosLugar')}
-                            onChangeText={handleChange('comentariosLugar')}
-                            placeholder="Ingresá mas info del lugar"
-                            underlineColor="#2984f2"
-                        />
-                        <Text style={style.formTooltip}>Comentanos tu problema</Text>
+                        <Text style={style.formTooltip}>Descripción</Text>
                         <TextInput
                             style={style.secondaryTextInput}
                             value={values.descripcion}
                             onBlur={handleBlur('descripcion')}
                             onChangeText={handleChange('descripcion')}
-                            placeholder="Ingresa el motivo de la denuncia"
+                            placeholder="Ingresa la descripcion del servicio"
                             underlineColor="#2984f2"
                         />
+
                         {(errors.descripcion && touched.descripcion)
                             && <Text style={style.errors}>{errors.descripcion}</Text>}
                         <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
@@ -272,7 +306,7 @@ function FormularioDenuncia(props) {
                                 <Text style={style.primaryNavigationButtonText}>
                                     Siguiente
                                 </Text>
-                            ) }
+                            )}
 
                         </TouchableOpacity>
                     </ScrollView>
@@ -283,4 +317,4 @@ function FormularioDenuncia(props) {
     );
 }
 
-export default FormularioDenuncia;
+export default ServiciosProfesionales;
