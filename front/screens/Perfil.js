@@ -1,42 +1,38 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import {
-    View, Text, Image, TouchableOpacity, Alert,
+    View, Text, Image, TouchableOpacity,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from '../customProperties/Styles';
 import MiVecindario from '../components/MiVecindario';
 import logo from '../assets/avatar.png';
 import { getUsuario } from '../controllers/usuarios';
+import { useStickyState } from '../utils/useStickyState';
 
 function Perfil(props) {
     const [nombre, setNombre] = useState('Cargando...');
     const [apellido, setApellido] = useState('Cargando...');
-    const [documento, setDocumento] = useState('Cargando...');
     const [direccion, setDireccion] = useState('Cargando...');
     const [isInspector, setIsInspector] = useState(false);
     // INSPECTOR
     const [legajo, setLegajo] = useState('111');
     const [fecha, setFecha] = useState('10/09/2021');
     const [rubro, setRubro] = useState('Alumbrado');
+    const [authToken] = useStickyState();
 
     const { navigation } = props;
     // llama a los datos del perfil
+    const { documento } = JSON.parse(new Buffer(authToken, 'base64').toString());
+
     const fetchApi = async () => {
         try {
-            const documento = await AsyncStorage.getItem('documento');
-            console.log(typeof (documento));
-            console.log(`DOCUMENTO: ${documento}`);
             const res = await getUsuario(documento);
 
             if (res && res.vecino) {
-                console.log(res);
-                console.log(`REEEEES: ${res}`);
                 setNombre(res.vecino.nombre);
-                console.log(res.vecino.nombre);
                 setApellido(res.vecino.apellido);
-                setDocumento(documento);
                 setDireccion(res.vecino.direccion);
             }
         } catch (e) {
@@ -99,7 +95,7 @@ function Perfil(props) {
                             </View>
 
                         )}
-                    <Text style={{ fontSize: 13, textAlign: 'center' }}> *Para cambiar sus datos, deberá acercarse al Municipio.</Text>
+                    <Text style={{ fontSize: 13, textAlign: 'center' }}> *Para cambiar sus datos deberá acercarse al Municipio.</Text>
 
                     <TouchableOpacity onPress={() => navigation.navigate('CambiarContraseña')}>
                         <Text style={style.subtitle2}>Cambiar Contraseña</Text>

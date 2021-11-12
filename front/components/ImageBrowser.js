@@ -9,7 +9,7 @@ export default class ImageBrowserScreen extends Component {
     );
 
   imagesCallback = (callback) => {
-    const { navigation } = this.props;
+    const { navigation, route } = this.props;
     this.props.navigation.setOptions({
       headerRight: () => this._getHeaderLoader()
     });
@@ -60,11 +60,14 @@ export default class ImageBrowserScreen extends Component {
 
   render() {
     const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
+      const { route } = this.props;
+      const { params } = route;
+      const { maxImagenes } = params;
 
     return (
       <View style={[styles.flex, styles.container]}>
         <ImageBrowser
-          max={4}
+          max={maxImagenes}
           onChange={this.updateHandler}
           callback={this.imagesCallback}
           renderSelectedComponent={this.renderSelectedComponent}

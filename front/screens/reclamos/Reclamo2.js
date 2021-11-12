@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import {
     Alert,
-    Button,
     Dimensions,
     ScrollView,
     Text,
@@ -11,23 +9,19 @@ import {
     Image,
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import base64 from 'react-native-base64';
 import { useIsFocused } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
-import { ImageBrowser } from 'expo-image-picker-multiple';
 import { GOOGLE_PLACES_API_KEY } from '@env';
 import Qs from 'qs';
-import * as ImagePicker from 'expo-image-picker';
 import * as yup from 'yup';
 import { Formik } from 'formik';
-import style from '../customProperties/Styles';
-import MiVecindario from '../components/MiVecindario';
-import imagesUrls from '../controllers/images';
-import { crearSitio } from '../controllers/sitios';
-import { crearDenuncia } from '../controllers/denuncias';
-import { useStickyState } from '../utils/useStickyState';
+import style from '../../customProperties/Styles';
+import MiVecindario from '../../components/MiVecindario';
+import imagesUrls from '../../controllers/images';
+import { crearSitio } from '../../controllers/sitios';
+import { crearDenuncia } from '../../controllers/denuncias';
+import { useStickyState } from '../../utils/useStickyState';
 
 function FormularioDenuncia(props) {
     const state = useState();
@@ -35,13 +29,10 @@ function FormularioDenuncia(props) {
     const { params } = route;
     const [photos, setPhotos] = useState([]);
     const [sitio, setSitio] = useState();
-    // const [date, setDate] = useState();
-    // const [datePickerMode, setDatePickerMode] = useState('date');
-    // const [showDatePicker, setShowDatePicker] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [authToken] = useStickyState();
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
+    const [authToken] = useStickyState();
 
     const { documento } = JSON.parse(new Buffer(authToken, 'base64').toString());
 
@@ -54,6 +45,8 @@ function FormularioDenuncia(props) {
         };
         bootstrapAsync();
     }, [props, isFocused, state]);
+
+    const { rubro, desperfecto } = params;
 
     const onSubmit = async function (values) {
         setLoading(true);
@@ -160,23 +153,26 @@ function FormularioDenuncia(props) {
                         keyboardShouldPersistTaps="handled"
                     >
 
-                        <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
-                        <Text style={style.formTooltip}>Nombre / Comercio</Text>
-                        <TextInput
-                            style={style.primaryTextInput}
-                            value={values.nombre}
-                            onBlur={handleBlur('nombre')}
-                            onChangeText={handleChange('nombre')}
-                            placeholder="Ingresá el nombre del vecino o comercio"
-                            underlineColor="#2984f2"
-                        />
-                        {(errors.nombre && touched.nombre)
-                            && <Text style={style.errors}>{errors.nombre}</Text>}
+                        <Text style={style.sectionTitle}>Crear nueva reclamo</Text>
+                        <Text style={{
+                            backgroundColor: '#00008b', color: '#fff', fontWeight: 'bold', padding: '10px',
+                        }}
+                        >
+                            { rubro }
+
+                        </Text>
+                        <Text style={{
+                            backgroundColor: '#00008b', color: '#fff', fontWeight: 'bold', padding: '10px',
+                        }}
+                        >
+                            { desperfecto }
+
+                        </Text>
                         <Text style={style.formTooltip}>Dirección</Text>
                         <View style={style.primaryTextInput}>
                             <GooglePlacesAutocomplete
                                 // https://github.com/FaridSafi/react-native-google-places-autocomplete
-                                placeholder="Buscar"
+                                placeholder="Ingresar una dirección"
                                 disableScroll
                                 isRowScrollable={false}
                                 currentLocationLabel="Ubicación actual"
@@ -222,29 +218,20 @@ function FormularioDenuncia(props) {
                                 </View>
                             )}
                         </View>
-                        <Text style={style.formTooltip}>Comentarios del lugar</Text>
-                        <TextInput
-                            style={style.primaryTextInput}
-                            value={values.comentariosLugar}
-                            onBlur={handleBlur('comentariosLugar')}
-                            onChangeText={handleChange('comentariosLugar')}
-                            placeholder="Ingresá mas info del lugar"
-                            underlineColor="#2984f2"
-                        />
                         <Text style={style.formTooltip}>Comentanos tu problema</Text>
                         <TextInput
                             style={style.primaryTextInput}
                             value={values.descripcion}
                             onBlur={handleBlur('descripcion')}
                             onChangeText={handleChange('descripcion')}
-                            placeholder="Ingresa el motivo de la denuncia"
+                            placeholder="Ingresa el motivo de tu reclamo"
                             underlineColor="#2984f2"
                         />
                         {(errors.descripcion && touched.descripcion)
                             && <Text style={style.errors}>{errors.descripcion}</Text>}
                         <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
                         <TouchableOpacity
-                            onPress={() => { navigation.navigate('ImageBrowser', { maxImagenes: 999 }); }}
+                            onPress={() => { navigation.navigate('ImageBrowser', { maxImagenes: 7 }); }}
                             style={style.primaryFormButton}
                         >
                             <Text style={style.primaryFormButtonText}>

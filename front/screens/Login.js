@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import {
     View, Text, TouchableOpacity, Alert,
@@ -5,13 +6,14 @@ import {
 import { TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
 import { login } from '../controllers/usuarios';
+import { useStickyState } from '../utils/useStickyState';
 
 function Login(props) {
     const { navigation } = props;
+    const [authToken, setAuthToken] = useStickyState();
     const [onLoading, setOnLoading] = useState(false);
 
     const initialValues = {
@@ -29,26 +31,21 @@ function Login(props) {
         try {
             setOnLoading(true);
 
-            console.log(values);
-
             const res = await login(values);
-            console.log(res);
             if (res && res.error === 'Por favor actualice la contraseña.') {
-                console.log(`res status:${res}`);
                 navigation.navigate('PrimerInicio');
                 return;
             }
-            if (res && res.error === 'Contraseña incorrecta'){
-                Alert.alert("Contraseña o Mail incorrecto")
+            if (res && res.error === 'Contraseña incorrecta') {
+                Alert.alert('Contraseña o mail incorrecto');
             }
 
             if (res && res.token) {
-                console.log(res.token);
-                await AsyncStorage.setItem('authToken', res.token);
-                await AsyncStorage.setItem('documento', JSON.stringify(res.documento));
-                navigation.popToTop();
+                setAuthToken(res.token);
+                // navigation.popToTop();
+                navigation.navigate('Menu');
             } else {
-                Alert.alert("Contraseña o Mail incorrecto")
+                Alert.alert('Contraseña o mail incorrecto');
                 setOnLoading(false);
             }
         } catch (e) {
@@ -114,7 +111,7 @@ function Login(props) {
                             Olvidé mi contraseña
                         </Text>
                         <Text style={style.subtitle2} onPress={() => navigation.navigate('Registrar')}>
-                            ¿No estás registrado? Registraté acá
+                            ¿No estás registrado? Registrate acá
                         </Text>
 
                     </View>

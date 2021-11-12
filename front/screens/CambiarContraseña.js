@@ -1,47 +1,28 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable no-buffer-constructor */
+import React, { useState } from 'react';
 import {
-    View, Text, Image, TouchableOpacity, Alert,
+    View, Text, TouchableOpacity, Alert,
 } from 'react-native';
 import * as yup from 'yup';
 import { Formik } from 'formik';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInput } from 'react-native-paper';
 import style from '../customProperties/Styles';
 import MiVecindario from '../components/MiVecindario';
-import { cambiarPassword, getUsuario } from '../controllers/usuarios';
+import { cambiarPassword } from '../controllers/usuarios';
+import { useStickyState } from '../utils/useStickyState';
 
 function CambiarContraseña(props) {
     const { navigation } = props;
-    const [onLoading, setOnLoading] = useState('');
-    const [documento, setDocumento] = useState('');
+    const [onLoading, setOnLoading] = useState();
+    const [authToken] = useStickyState();
 
-    const fetchApi = async () => {
-        try {
-            const documento = await AsyncStorage.getItem('documento');
-            console.log(typeof (documento));
-            console.log(`DOCUMENTO: ${documento}`);
-            const res = await getUsuario(documento);
-
-            if (res && res.vecino) {
-                console.log('PRUEBAA');
-                console.log(typeof (documento));
-                console.log(documento);
-                setDocumento(documento);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
-    useEffect(() => {
-        fetchApi();
-    });
-console.log(documento);
     const initialValues = {
         password: '',
         confirmPassword: '',
         claveRecuperacion: '',
     };
+
+    const { documento } = JSON.parse(new Buffer(authToken, 'base64').toString());
 
     const validationSchema = yup.object().shape({
         password: yup
@@ -76,10 +57,11 @@ console.log(documento);
     };
 
     const onSubmit = async function (values) {
+        setOnLoading(true);
         try {
             console.log(values);
             const res = await cambiarPassword({
-                documento: documento,
+                documento,
                 password: values.password,
                 claveRecuperacion: '',
             });
@@ -93,7 +75,7 @@ console.log(documento);
             }
         } catch (e) {
             console.log(`ERROR AL INTENAR INICIAR SESION POR PRIMERA VEZ FRONT END${e}`);
-        }
+        } finally { setOnLoading(false); }
     };
 
     return (

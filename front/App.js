@@ -1,13 +1,11 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LogBox } from 'react-native';
 import theme from './customProperties/Themes';
-import Loading from './screens/Loading';
 import HomeScreen from './screens/HomeScreen';
 import Registrar from './screens/Registrar';
 import Login from './screens/Login';
@@ -21,34 +19,17 @@ import ImageBrowser from './components/ImageBrowser';
 import Confirmacion from './components/Confirmacion';
 import PrimerInicio from './screens/PrimerInicio';
 import CambiarContraseña from './screens/CambiarContraseña';
+import Reclamo from './screens/reclamos/Reclamo1';
+import Reclamo2 from './screens/reclamos/Reclamo2';
 
 const Stack = createStackNavigator();
 
 LogBox.ignoreLogs(['VirtualizedList']); // Ignore log notification by message
 
 export default function App() {
-    const [loading, setLoading] = useState(true);
-    const [authToken, setAuthToken] = useState('');
-
-    useEffect(() => {
-        // Fetch the token from storage then navigate to our appropriate place
-        const bootstrapAsync = async () => {
-            setLoading(true);
-            setAuthToken(await AsyncStorage.getItem('authToken'));
-            setLoading(false);
-        };
-
-        bootstrapAsync();
-    }, []);
-
     const options = {
-        headerRight: () => (<UserProfile authToken={authToken} setAuthToken={setAuthToken} />),
+        headerRight: () => (<UserProfile />),
     };
-
-    if (loading) {
-        // We haven't finished checking for the token yet
-        return <Loading />;
-    }
 
     return (
         <PaperProvider theme={theme}>
@@ -77,6 +58,16 @@ export default function App() {
                     <Stack.Screen
                         name="Denuncia"
                         component={Denuncia}
+                        options={options}
+                    />
+                    <Stack.Screen
+                        name="Reclamo"
+                        component={Reclamo}
+                        options={options}
+                    />
+                    <Stack.Screen
+                        name="Reclamo#2"
+                        component={Reclamo2}
                         options={options}
                     />
                     <Stack.Screen
