@@ -5,6 +5,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LogBox } from 'react-native';
+import useStickyState from 'react-native-sticky-state';
 import theme from './customProperties/Themes';
 import HomeScreen from './screens/HomeScreen';
 import Registrar from './screens/Registrar';
@@ -27,6 +28,8 @@ const Stack = createStackNavigator();
 LogBox.ignoreLogs(['VirtualizedList']); // Ignore log notification by message
 
 export default function App() {
+    const [authToken] = useStickyState('', '', 'authToken');
+    console.log('authToken:', authToken);
     const options = {
         headerRight: () => (<UserProfile />),
     };
@@ -35,71 +38,84 @@ export default function App() {
         <PaperProvider theme={theme}>
             <NavigationContainer>
                 <Stack.Navigator>
-                    <Stack.Screen
-                        name="HomeScreen"
-                        component={HomeScreen}
-                        options={options}
-                    />
-                    <Stack.Screen
-                        name="Registrar"
-                        component={Registrar}
-                        options={options}
-                    />
-                    <Stack.Screen
-                        name="Login"
-                        component={Login}
-                        options={options}
-                    />
-                    <Stack.Screen
-                        name="Menu"
-                        component={Menu}
-                        options={options}
-                    />
-                    <Stack.Screen
-                        name="Denuncia"
-                        component={Denuncia}
-                        options={options}
-                    />
-                    <Stack.Screen
-                        name="Reclamo"
-                        component={Reclamo}
-                        options={options}
-                    />
-                    <Stack.Screen
-                        name="Reclamo#2"
-                        component={Reclamo2}
-                        options={options}
-                    />
-                    <Stack.Screen
-                        name="Historial"
-                        component={Historial}
-                        options={options}
-                    />
-                    <Stack.Screen
-                        name="ImageBrowser"
-                        component={ImageBrowser}
-                        options={{
-                            title: 'Selected 0 files',
-                        }}
-                    />
-                    <Stack.Screen
-                        name="Confirmacion"
-                        component={Confirmacion}
-                        options={options}
-                    />
+                    {authToken ? (
+                        <>
+                            <Stack.Screen
+                                name="Menu"
+                                component={Menu}
+                                options={options}
+                            />
+                            <Stack.Screen
+                                name="Denuncia"
+                                component={Denuncia}
+                                options={options}
+                            />
+                            <Stack.Screen
+                                name="Reclamo"
+                                component={Reclamo}
+                                options={options}
+                            />
+                            <Stack.Screen
+                                name="Reclamo#2"
+                                component={Reclamo2}
+                                options={options}
+                            />
+                            <Stack.Screen
+                                name="Historial"
+                                component={Historial}
+                                options={options}
+                            />
+                            <Stack.Screen
+                                name="ImageBrowser"
+                                component={ImageBrowser}
+                                options={{
+                                    title: 'Selected 0 files',
+                                }}
+                            />
+                            <Stack.Screen
+                                name="Confirmacion"
+                                component={Confirmacion}
+                                options={options}
+                            />
 
-                    <Stack.Screen name="Perfil" component={Perfil} options={options} />
-                    <Stack.Screen name="Contraseña" component={Contraseña} options={options} />
-                    <Stack.Screen
-                        name="PrimerInicio"
-                        component={PrimerInicio}
-                        options={options}
-                    />
-                    <Stack.Screen
-                        name="CambiarContraseña"
-                        component={CambiarContraseña}
-                        options={options}
-                    />
+                            <Stack.Screen
+                                name="Perfil"
+                                component={Perfil}
+                                options={options}
+                            />
+
+                            <Stack.Screen
+                                name="Contraseña"
+                                component={Contraseña}
+                                options={options}
+                            />
+
+                            <Stack.Screen
+                                name="CambiarContraseña"
+                                component={CambiarContraseña}
+                                options={options}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <Stack.Screen
+                                name="HomeScreen"
+                                component={HomeScreen}
+                            />
+                            <Stack.Screen
+                                name="Registrar"
+                                component={Registrar}
+                            />
+                            <Stack.Screen
+                                name="Login"
+                                component={Login}
+                            />
+                            <Stack.Screen
+                                name="PrimerInicio"
+                                component={PrimerInicio}
+                            />
+                        </>
+                    )}
                 </Stack.Navigator>
             </NavigationContainer>
         </PaperProvider>

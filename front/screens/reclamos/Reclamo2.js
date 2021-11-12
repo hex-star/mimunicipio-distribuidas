@@ -32,7 +32,7 @@ function FormularioDenuncia(props) {
     const [loading, setLoading] = useState(false);
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
-    const [authToken] = useStickyState();
+    const [authToken] = useStickyState('', '', 'authToken');
 
     const { documento } = JSON.parse(new Buffer(authToken, 'base64').toString());
 

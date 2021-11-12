@@ -4,10 +4,11 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import base64 from 'react-native-base64';
-import { useStickyState } from '../utils/useStickyState';
+import useStickyState from "react-native-sticky-state";
+
 
 const UserProfile = (props) => {
-    const [authToken, setAuthToken] = useStickyState();
+    const [authToken, setAuthToken] = useStickyState('', '', 'authToken');
 
     const { navigation } = props;
     const handlePress = () => {

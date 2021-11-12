@@ -9,11 +9,12 @@ import {
 } from 'react-native';
 import logo from '../assets/miVecindarioHome.png';
 import style from '../customProperties/Styles';
-// import { useStickyState } from '../utils/useStickyState';
+// import useStickyState from "react-native-sticky-state";
+
 
 function MainScreen(props) {
     const { navigation } = props;
-    // const [authToken] = useStickyState();
+    // const [authToken] = useStickyState('', '', 'authToken');
     // const [loading, setLoading] = useState(true);
     // const state = useState();
     // const isFocused = useIsFocused();

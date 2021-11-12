@@ -27,7 +27,8 @@ import MiVecindario from '../components/MiVecindario';
 import imagesUrls from '../controllers/images';
 import { crearSitio } from '../controllers/sitios';
 import { crearDenuncia } from '../controllers/denuncias';
-import { useStickyState } from '../utils/useStickyState';
+import useStickyState from "react-native-sticky-state";
+
 
 function FormularioDenuncia(props) {
     const state = useState();
@@ -39,7 +40,7 @@ function FormularioDenuncia(props) {
     // const [datePickerMode, setDatePickerMode] = useState('date');
     // const [showDatePicker, setShowDatePicker] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [authToken] = useStickyState();
+    const [authToken] = useStickyState('', '', 'authToken');
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
 

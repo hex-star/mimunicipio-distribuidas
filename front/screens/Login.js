@@ -9,11 +9,12 @@ import * as yup from 'yup';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
 import { login } from '../controllers/usuarios';
-import { useStickyState } from '../utils/useStickyState';
+import useStickyState from "react-native-sticky-state";
+
 
 function Login(props) {
     const { navigation } = props;
-    const [authToken, setAuthToken] = useStickyState();
+    const [authToken, setAuthToken] = useStickyState('', '', 'authToken');
     const [onLoading, setOnLoading] = useState(false);
 
     const initialValues = {

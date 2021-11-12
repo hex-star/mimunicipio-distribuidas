@@ -9,7 +9,8 @@ import style from '../customProperties/Styles';
 import MiVecindario from '../components/MiVecindario';
 import logo from '../assets/avatar.png';
 import { getUsuario } from '../controllers/usuarios';
-import { useStickyState } from '../utils/useStickyState';
+import useStickyState from "react-native-sticky-state";
+
 
 function Perfil(props) {
     const [nombre, setNombre] = useState('Cargando...');
@@ -20,7 +21,7 @@ function Perfil(props) {
     const [legajo, setLegajo] = useState('111');
     const [fecha, setFecha] = useState('10/09/2021');
     const [rubro, setRubro] = useState('Alumbrado');
-    const [authToken] = useStickyState();
+    const [authToken] = useStickyState('', '', 'authToken');
 
     const { navigation } = props;
     // llama a los datos del perfil

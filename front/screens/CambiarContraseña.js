@@ -9,12 +9,13 @@ import { TextInput } from 'react-native-paper';
 import style from '../customProperties/Styles';
 import MiVecindario from '../components/MiVecindario';
 import { cambiarPassword } from '../controllers/usuarios';
-import { useStickyState } from '../utils/useStickyState';
+import useStickyState from "react-native-sticky-state";
+
 
 function CambiarContraseña(props) {
     const { navigation } = props;
     const [onLoading, setOnLoading] = useState();
-    const [authToken] = useStickyState();
+    const [authToken] = useStickyState('', '', 'authToken');
 
     const initialValues = {
         password: '',
