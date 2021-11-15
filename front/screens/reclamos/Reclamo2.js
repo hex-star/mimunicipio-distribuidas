@@ -22,7 +22,6 @@ import MiVecindario from '../../components/MiVecindario';
 import imagesUrls from '../../controllers/images';
 import { crearSitio } from '../../controllers/sitios';
 import { crearDenuncia } from '../../controllers/denuncias';
-import { useStickyState } from '../../utils/useStickyState';
 
 function FormularioDenuncia(props) {
     const state = useState();
@@ -33,9 +32,8 @@ function FormularioDenuncia(props) {
     const [loading, setLoading] = useState(false);
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
-    const [authToken] = useStickyState('', '', 'authToken');
 
-    const { documento } = JSON.parse(base64.decode(authToken).toString());
+    const { documento } = JSON.parse(base64.decode(params.authToken).toString());
 
     useEffect(() => {
         // Fetch the token from storage then navigate to our appropriate place

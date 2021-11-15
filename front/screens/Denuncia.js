@@ -42,8 +42,6 @@ function FormularioDenuncia(props) {
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
 
-    console.log('authToken', params.authToken);
-
     const { documento } = JSON.parse(base64.decode(params.authToken));
 
     useEffect(() => {

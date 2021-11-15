@@ -4,11 +4,9 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import base64 from 'react-native-base64';
-import useStickyState from '../utils/useStickyState';
 
 
 const UserProfile = (props) => {
-    const [authToken, setAuthToken] = useStickyState('', '', 'authToken');
 
     const { navigation } = props;
     const handlePress = () => {
@@ -16,7 +14,7 @@ const UserProfile = (props) => {
         navigation.navigate('HomeScreen');
     };
 
-    if (authToken) {
+    if (params.authToken) {
         // const perfil = JSON.parse(base64.decode(authToken);
 
         return (

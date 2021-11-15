@@ -10,12 +10,11 @@ import base64 from 'react-native-base64';
 import style from '../customProperties/Styles';
 import MiVecindario from '../components/MiVecindario';
 import { cambiarPassword } from '../controllers/usuarios';
-import useStickyState from '../utils/useStickyState';
 
 function CambiarContraseña(props) {
-    const { navigation } = props;
+    const { navigation, route } = props;
+    const { params } = route;
     const [onLoading, setOnLoading] = useState();
-    const [authToken] = useStickyState('', '', 'authToken');
 
     const initialValues = {
         password: '',
@@ -23,7 +22,7 @@ function CambiarContraseña(props) {
         claveRecuperacion: '',
     };
 
-    const { documento } = JSON.parse(base64.decode(authToken).toString());
+    const { documento } = JSON.parse(base64.decode(params.authToken).toString());
 
     const validationSchema = yup.object().shape({
         password: yup

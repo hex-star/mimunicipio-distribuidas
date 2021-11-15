@@ -21,11 +21,11 @@ function Perfil(props) {
     const [legajo, setLegajo] = useState('111');
     const [fecha, setFecha] = useState('10/09/2021');
     const [rubro, setRubro] = useState('Alumbrado');
-    const [authToken] = useStickyState('', '', 'authToken');
 
-    const { navigation } = props;
+    const { navigation, route } = props;
+    const { params } = route;
     // llama a los datos del perfil
-    const { documento } = JSON.parse(base64.decode(authToken).toString());
+    const { documento } = JSON.parse(base64.decode(params.authToken).toString());
 
     const fetchApi = async () => {
         try {
