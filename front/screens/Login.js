@@ -9,8 +9,7 @@ import * as yup from 'yup';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
 import { login } from '../controllers/usuarios';
-import useStickyState from "react-native-sticky-state";
-
+import useStickyState from '../utils/useStickyState';
 
 function Login(props) {
     const { navigation } = props;

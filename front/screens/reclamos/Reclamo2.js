@@ -14,6 +14,7 @@ import { useIsFocused } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
 import { GOOGLE_PLACES_API_KEY } from '@env';
 import Qs from 'qs';
+import base64 from 'react-native-base64';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import style from '../../customProperties/Styles';
@@ -34,7 +35,7 @@ function FormularioDenuncia(props) {
     const isFocused = useIsFocused();
     const [authToken] = useStickyState('', '', 'authToken');
 
-    const { documento } = JSON.parse(new Buffer(authToken, 'base64').toString());
+    const { documento } = JSON.parse(base64.decode(authToken).toString());
 
     useEffect(() => {
         // Fetch the token from storage then navigate to our appropriate place

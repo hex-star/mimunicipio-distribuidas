@@ -1,16 +1,24 @@
-import * as React from 'react';
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable max-len */
+import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export function useStickyState(defaultValue, key) {
-    const [value, setValue] = React.useState(async () => AsyncStorage.getItem(key)
-        .then((stickyValue) => (stickyValue !== null
-            ? JSON.parse(stickyValue)
-            : defaultValue)));
+const useStickyState = (defaultValue, loadingDefaultValue, key) => {
+    const [value, setValue] = useState(loadingDefaultValue);
+    useEffect(() => {
+        const fetchFromAsyncStorage = async () => {
+            const stickyValue = await AsyncStorage.getItem(key);
+            const finalValue = stickyValue === null ? defaultValue : JSON.parse(stickyValue);
+            setValue(finalValue);
+        };
+        fetchFromAsyncStorage();
+    }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         AsyncStorage.setItem(key, JSON.stringify(value));
     }, [key, value]);
+
     return [value, setValue];
-}
+};
 
 export default useStickyState;

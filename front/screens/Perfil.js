@@ -5,12 +5,12 @@ import {
     View, Text, Image, TouchableOpacity,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import base64 from 'react-native-base64';
 import style from '../customProperties/Styles';
 import MiVecindario from '../components/MiVecindario';
 import logo from '../assets/avatar.png';
 import { getUsuario } from '../controllers/usuarios';
-import useStickyState from "react-native-sticky-state";
-
+import useStickyState from '../utils/useStickyState';
 
 function Perfil(props) {
     const [nombre, setNombre] = useState('Cargando...');
@@ -25,7 +25,7 @@ function Perfil(props) {
 
     const { navigation } = props;
     // llama a los datos del perfil
-    const { documento } = JSON.parse(new Buffer(authToken, 'base64').toString());
+    const { documento } = JSON.parse(base64.decode(authToken).toString());
 
     const fetchApi = async () => {
         try {

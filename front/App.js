@@ -5,7 +5,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LogBox } from 'react-native';
-import useStickyState from 'react-native-sticky-state';
+import useStickyState from './utils/useStickyState';
 import theme from './customProperties/Themes';
 import HomeScreen from './screens/HomeScreen';
 import Registrar from './screens/Registrar';
@@ -29,7 +29,6 @@ LogBox.ignoreLogs(['VirtualizedList']); // Ignore log notification by message
 
 export default function App() {
     const [authToken] = useStickyState('', '', 'authToken');
-    console.log('authToken:', authToken);
     const options = {
         headerRight: () => (<UserProfile />),
     };
@@ -38,32 +37,37 @@ export default function App() {
         <PaperProvider theme={theme}>
             <NavigationContainer>
                 <Stack.Navigator>
-                    {authToken ? (
+                    {authToken !== '' ? (
                         <>
                             <Stack.Screen
                                 name="Menu"
                                 component={Menu}
                                 options={options}
+                                initialParams={{ authToken }}
                             />
                             <Stack.Screen
                                 name="Denuncia"
                                 component={Denuncia}
                                 options={options}
+                                initialParams={{ authToken }}
                             />
                             <Stack.Screen
                                 name="Reclamo"
                                 component={Reclamo}
                                 options={options}
+                                initialParams={{ authToken }}
                             />
                             <Stack.Screen
                                 name="Reclamo#2"
                                 component={Reclamo2}
                                 options={options}
+                                initialParams={{ authToken }}
                             />
                             <Stack.Screen
                                 name="Historial"
                                 component={Historial}
                                 options={options}
+                                initialParams={{ authToken }}
                             />
                             <Stack.Screen
                                 name="ImageBrowser"
@@ -76,24 +80,28 @@ export default function App() {
                                 name="Confirmacion"
                                 component={Confirmacion}
                                 options={options}
+                                initialParams={{ authToken }}
                             />
 
                             <Stack.Screen
                                 name="Perfil"
                                 component={Perfil}
                                 options={options}
+                                initialParams={{ authToken }}
                             />
 
                             <Stack.Screen
                                 name="Contraseña"
                                 component={Contraseña}
                                 options={options}
+                                initialParams={{ authToken }}
                             />
 
                             <Stack.Screen
                                 name="CambiarContraseña"
                                 component={CambiarContraseña}
                                 options={options}
+                                initialParams={{ authToken }}
                             />
                         </>
                     ) : (
@@ -113,6 +121,10 @@ export default function App() {
                             <Stack.Screen
                                 name="PrimerInicio"
                                 component={PrimerInicio}
+                            />
+                            <Stack.Screen
+                                name="Menu"
+                                component={Menu}
                             />
                         </>
                     )}

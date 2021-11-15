@@ -27,8 +27,7 @@ import MiVecindario from '../components/MiVecindario';
 import imagesUrls from '../controllers/images';
 import { crearSitio } from '../controllers/sitios';
 import { crearDenuncia } from '../controllers/denuncias';
-import useStickyState from "react-native-sticky-state";
-
+import useStickyState from '../utils/useStickyState';
 
 function FormularioDenuncia(props) {
     const state = useState();
@@ -40,11 +39,12 @@ function FormularioDenuncia(props) {
     // const [datePickerMode, setDatePickerMode] = useState('date');
     // const [showDatePicker, setShowDatePicker] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [authToken] = useStickyState('', '', 'authToken');
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
 
-    const { documento } = JSON.parse(new Buffer(authToken, 'base64').toString());
+    console.log('authToken', params.authToken);
+
+    const { documento } = JSON.parse(base64.decode(params.authToken));
 
     useEffect(() => {
         // Fetch the token from storage then navigate to our appropriate place

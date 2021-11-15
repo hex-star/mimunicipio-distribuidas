@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import base64 from 'react-native-base64';
-import useStickyState from "react-native-sticky-state";
+import useStickyState from '../utils/useStickyState';
 
 
 const UserProfile = (props) => {
@@ -17,7 +17,7 @@ const UserProfile = (props) => {
     };
 
     if (authToken) {
-        // const perfil = JSON.parse(base64.decode(authToken));
+        // const perfil = JSON.parse(base64.decode(authToken);
 
         return (
             <View style={{ flexDirection: 'row' }}>

@@ -6,11 +6,11 @@ import {
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { TextInput } from 'react-native-paper';
+import base64 from 'react-native-base64';
 import style from '../customProperties/Styles';
 import MiVecindario from '../components/MiVecindario';
 import { cambiarPassword } from '../controllers/usuarios';
-import useStickyState from "react-native-sticky-state";
-
+import useStickyState from '../utils/useStickyState';
 
 function CambiarContraseña(props) {
     const { navigation } = props;
@@ -23,7 +23,7 @@ function CambiarContraseña(props) {
         claveRecuperacion: '',
     };
 
-    const { documento } = JSON.parse(new Buffer(authToken, 'base64').toString());
+    const { documento } = JSON.parse(base64.decode(authToken).toString());
 
     const validationSchema = yup.object().shape({
         password: yup
