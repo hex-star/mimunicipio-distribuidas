@@ -27,7 +27,6 @@ import MiVecindario from '../components/MiVecindario';
 import imagesUrls from '../controllers/images';
 import { crearSitio } from '../controllers/sitios';
 import { crearDenuncia } from '../controllers/denuncias';
-import useStickyState from '../utils/useStickyState';
 
 function FormularioDenuncia(props) {
     const state = useState();

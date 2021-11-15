@@ -5,16 +5,14 @@ import {
 import { Button } from 'react-native-paper';
 import base64 from 'react-native-base64';
 
-
 const UserProfile = (props) => {
-
-    const { navigation } = props;
+    const { navigation, authToken } = props;
+    // const { params } = route;
     const handlePress = () => {
-        setAuthToken('');
         navigation.navigate('HomeScreen');
     };
 
-    if (params.authToken) {
+    if (authToken) {
         // const perfil = JSON.parse(base64.decode(authToken);
 
         return (

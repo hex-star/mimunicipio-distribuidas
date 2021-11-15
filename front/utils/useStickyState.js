@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const useStickyState = (defaultValue, loadingDefaultValue, key) => {
     const [value, setValue] = useState(loadingDefaultValue);
+
     useEffect(() => {
         const fetchFromAsyncStorage = async () => {
             const stickyValue = await AsyncStorage.getItem(key);

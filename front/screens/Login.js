@@ -42,8 +42,7 @@ function Login(props) {
 
             if (res && res.token) {
                 setAuthToken(res.token);
-                // navigation.popToTop();
-                navigation.navigate('Menu');
+                navigation.popToTop();
             } else {
                 Alert.alert('Contraseña o mail incorrecto');
                 setOnLoading(false);

@@ -1,11 +1,11 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
-import React from 'react';
+import React, { useState } from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LogBox } from 'react-native';
-import useStickyState from './utils/useStickyState';
 import theme from './customProperties/Themes';
 import HomeScreen from './screens/HomeScreen';
 import Registrar from './screens/Registrar';
@@ -28,16 +28,33 @@ const Stack = createStackNavigator();
 LogBox.ignoreLogs(['VirtualizedList']); // Ignore log notification by message
 
 export default function App() {
-    const [authToken] = useStickyState('', '', 'authToken');
+    const [authToken, setAuthToken] = useState();
+    React.useEffect(() => {
+        // Fetch the token from storage then navigate to our appropriate place
+        const bootstrapAsync = async () => {
+            let userToken;
+            try {
+                userToken = await AsyncStorage.getItem('authToken');
+                setAuthToken(userToken);
+            } catch (e) {
+            // Restoring token failed
+            }
+        };
+
+        bootstrapAsync();
+    });
+
     const options = {
-        headerRight: () => (<UserProfile />),
+        headerRight: () => (<UserProfile authToken={authToken} />),
     };
+
+    console.log('authtoken', authToken);
 
     return (
         <PaperProvider theme={theme}>
             <NavigationContainer>
                 <Stack.Navigator>
-                    {authToken !== '' ? (
+                    {authToken ? (
                         <>
                             <Stack.Screen
                                 name="Menu"
@@ -121,10 +138,6 @@ export default function App() {
                             <Stack.Screen
                                 name="PrimerInicio"
                                 component={PrimerInicio}
-                            />
-                            <Stack.Screen
-                                name="Menu"
-                                component={Menu}
                             />
                         </>
                     )}
