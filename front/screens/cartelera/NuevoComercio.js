@@ -31,6 +31,7 @@ import imagesUrls from '../../controllers/images';
 import { crearSitio } from '../../controllers/sitios';
 import { crearDenuncia } from '../../controllers/denuncias';
 
+
 function NuevoComercio(props) {
     const state = useState();
     const { navigation, route } = props;
@@ -63,8 +64,13 @@ function NuevoComercio(props) {
     }, [props, isFocused, state]);
 
     const onSubmit = async function (values,direccion) {
+      
+        const imageUrls = await imagesUrls(photos);
+        const sitioRes = await crearSitio(sitio, values.comentariosLugar);
         console.log(values)
-        console.log(direccion)
+        console.log(sitioRes)
+        console.log(imageUrls)
+
     };
 
     // API google places
@@ -124,7 +130,7 @@ function NuevoComercio(props) {
                     telefono: '',
                
                     nombre: '',
-                    direccion: '',
+            
                     descripcion: '',
                    
                     descripcion: '',

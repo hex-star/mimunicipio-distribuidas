@@ -24,6 +24,8 @@ export default class ImageBrowserScreen extends Component {
           type: 'image/jpg'
         })
       }
+      //navigation.goBack( { photos: cPhotos})
+      //console.log(navigation.navigate.history())
       navigation.navigate('Denuncia', { photos: cPhotos});
     })
     .catch((e) => console.log(e));

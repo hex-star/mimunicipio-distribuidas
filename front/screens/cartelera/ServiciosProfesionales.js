@@ -61,9 +61,15 @@ function ServiciosProfesionales(props) {
         bootstrapAsync();
     }, [props, isFocused, state]);
 
-    const onSubmit = function (values, rubro) {
-        console.log(values);
+    const onSubmit = async function (values, rubro) {
+ 
+     
+        const imageUrls = await imagesUrls(photos);
+        const sitioRes = await crearSitio(sitio, values.comentariosLugar);
         console.log(rubro)
+        console.log(values)
+        console.log(sitioRes)
+        console.log(imageUrls)
     };
 
     // API google places

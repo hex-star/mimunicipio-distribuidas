@@ -59,6 +59,7 @@ function FormularioDenuncia(props) {
         setLoading(true);
         try {
             const imageUrls = await imagesUrls(photos);
+            console.log(imageUrls)
 
             const sitioRes = await crearSitio(sitio, values.comentariosLugar);
 
