@@ -10,7 +10,7 @@ import {
     View,
     Image,
 } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { TextInput,List } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import base64 from 'react-native-base64';
@@ -46,6 +46,10 @@ function NuevoComercio(props) {
     const isFocused = useIsFocused();
     const rubros = ['Promocion', 'Oferta'];
     const [rubroElegido, setRubroElegido] = useState('');
+    const [expanded, setExpanded] = React.useState(true);
+    const [direccion, setdireccion] = useState('')
+
+    const handlePress = () => setExpanded(!expanded);
 
     useEffect(() => {
         // Fetch the token from storage then navigate to our appropriate place
@@ -58,30 +62,9 @@ function NuevoComercio(props) {
         bootstrapAsync();
     }, [props, isFocused, state]);
 
-    const onSubmit = async function (values) {
-        setLoading(true);
-        try {
-            const imageUrls = await imagesUrls(photos);
-
-            const sitioRes = await crearSitio(sitio, values.comentariosLugar);
-
-            const res = await crearDenuncia({
-                documento: documentoUsuario,
-                idSitio: sitioRes.idSitio,
-                descripcion: values.descripcion,
-                nombreDenunciado: values.nombre,
-                imagenesDenuncia: imageUrls,
-            });
-
-            if (res.denuncia) {
-                navigation.navigate('Confirmacion', { tipo: 'denuncia', id: res.denuncia.idDenuncia });
-            }
-        } catch (e) {
-            Alert.alert('Ha habido un error generando tu denuncia');
-            console.log(e);
-        } finally {
-            setLoading(false);
-        }
+    const onSubmit = async function (values,direccion) {
+        console.log(values)
+        console.log(direccion)
     };
 
     // API google places
@@ -129,7 +112,7 @@ function NuevoComercio(props) {
     const denunciaValidationSchema = yup.object().shape({
         nombre: yup.string().required('Por favor ingresá un nombre valido'),
         // direccion: yup.string().required(),
-        fecha: yup.date(),
+
         descripcion: yup.string().required('Por favor ingresa comentarios acerca del problema'),
     });
 
@@ -138,17 +121,31 @@ function NuevoComercio(props) {
             <MiVecindario navigation={navigation} />
             <Formik
                 initialValues={{
-                    contacto: '',
-                    horarios: '',
+                    telefono: '',
+               
                     nombre: '',
                     direccion: '',
                     descripcion: '',
-                    fecha: '',
+                   
                     descripcion: '',
+                    lunesA: '',
+                    lunesH: '',
+                    martesA: '',
+                    martesH: '',
+                    miercolesA: '',
+                    miercolesH: '',
+                    juevesA: '',
+                    juevesH: '',
+                    viernesA: '',
+                    viernesH: '',
+                    sabadoA: '',
+                    domingoA: '',
+                    domingoH: '',
+                    direccion:'',
                 }}
                 validationSchema={denunciaValidationSchema}
-                onSubmit={(values) => {
-                    onSubmit(values);
+                onSubmit={(values,direccion) => {
+                    onSubmit(values,direccion);
                 }}
             >
                 {({
@@ -166,66 +163,184 @@ function NuevoComercio(props) {
                     >
 
                         <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
-                        <Text style={style.formTooltip}>Tipo de Anuncio</Text>
-                        <View style={{ justifyContent: 'center', alignItems: 'flex-start', left: -20 }}>
-
-                            <SelectDropdown
-                                data={rubros}
-
-                                onSelect={(selectedItem, index) => {
-                                    console.log(selectedItem, index);
-                                    setRubroElegido(selectedItem);
-                                }}
-                                buttonTextAfterSelection={(selectedItem, index) =>
-                                    // text represented after item is selected
-                                    // if data array is an array of objects then return selectedItem.property to render after item is selected
-                                    selectedItem}
-                                rowTextForSelection={(item, index) =>
-                                    // text represented for each item in dropdown
-                                    // if data array is an array of objects then return item.property to represent item in dropdown
-                                    item}
-                            />
-                        </View>
+             
                         
-                        <View
-                            style={{
-                                borderBottomColor: '#2984f2',
-                                borderBottomWidth: 1,
-                                
-                            }}
-                        />
+              
                         <Text style={style.formTooltip}>Nombre del Comercio</Text>
                         <TextInput
                             style={style.secondaryTextInput}
-                            value={values.contacto}
-                            onBlur={handleBlur('contacto')}
-                            onChangeText={handleChange('contacto')}
+                            value={values.nombre}
+                            onBlur={handleBlur('nombre')}
+                            onChangeText={handleChange('nombre')}
                             placeholder="Ingrese el nombre del comercio"
                             underlineColor="#2984f2"
                         />
-                        <Text style={style.formTooltip}>Medios de contacto</Text>
-                        <TextInput
-                            style={style.secondaryTextInput}
-                            value={values.contacto}
-                            onBlur={handleBlur('contacto')}
-                            onChangeText={handleChange('contacto')}
-                            placeholder="Ingresa tu numero"
-                            underlineColor="#2984f2"
-                        />
-                        <Text style={style.formTooltip}>Horarios</Text>
-                        <TextInput
-                            style={style.secondaryTextInput}
-                            value={values.horarios}
-                            onBlur={handleBlur('horarios')}
-                            onChangeText={handleChange('horarios')}
-                            placeholder="Horarios"
-                            underlineColor="#2984f2"
-                        />
-
-
+                        
 
                         {(errors.nombre && touched.nombre)
                             && <Text style={style.errors}>{errors.nombre}</Text>}
+                        <Text style={style.formTooltip}>Medios de contacto</Text>
+                        <TextInput
+                            style={style.secondaryTextInput}
+                            value={values.telefono}
+                            onBlur={handleBlur('telefono')}
+                            onChangeText={handleChange('telefono')}
+                            placeholder="Ingresa tu numero"
+                            underlineColor="#2984f2"
+                        />
+
+
+                        <List.Accordion
+                            title="Horarios"
+                            left={(props) => <List.Icon {...props} icon="clock" />}
+                            expanded={expanded}
+                            onPress={handlePress}
+                        >
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ alignSelf: 'center' }}>Lunes:</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.lunesA}
+                                    onBlur={handleBlur('lunesA')}
+                                    onChangeText={handleChange('lunesA')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                                <Text style={{ alignSelf: 'center' }}>a</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.lunesH}
+                                    onBlur={handleBlur('lunesH')}
+                                    onChangeText={handleChange('lunesH')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ alignSelf: 'center' }}>Martes:</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.martesA}
+                                    onBlur={handleBlur('martesA')}
+                                    onChangeText={handleChange('martesA')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                                <Text style={{ alignSelf: 'center' }}>a</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.martesH}
+                                    onBlur={handleBlur('martesH')}
+                                    onChangeText={handleChange('martesH')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ alignSelf: 'center' }}>Miercoles:</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.miercolesA}
+                                    onBlur={handleBlur('miercolesA')}
+                                    onChangeText={handleChange('miercolesA')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                                <Text style={{ alignSelf: 'center' }}>a</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.miercolesH}
+                                    onBlur={handleBlur('miercolesH')}
+                                    onChangeText={handleChange('miercolesH')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                            </View>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ alignSelf: 'center' }}>Jueves:</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.juevesA}
+                                    onBlur={handleBlur('juevesA')}
+                                    onChangeText={handleChange('juevesA')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                                <Text style={{ alignSelf: 'center' }}>a</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.juevesH}
+                                    onBlur={handleBlur('juevesH')}
+                                    onChangeText={handleChange('juevesH')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                            </View>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ alignSelf: 'center' }}>Viernes:</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.viernesA}
+                                    onBlur={handleBlur('viernesA')}
+                                    onChangeText={handleChange('viernesA')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                                <Text style={{ alignSelf: 'center' }}>a</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.viernesH}
+                                    onBlur={handleBlur('viernesH')}
+                                    onChangeText={handleChange('viernesH')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                            </View>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ alignSelf: 'center' }}>Sabado:</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.sabadoA}
+                                    onBlur={handleBlur('sabadoA')}
+                                    onChangeText={handleChange('sabadoA')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                                <Text style={{ alignSelf: 'center' }}>a</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.sabadoH}
+                                    onBlur={handleBlur('sabadoH')}
+                                    onChangeText={handleChange('sabadoH')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                            </View>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ alignSelf: 'center' }}>Domingo:</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.domingoA}
+                                    onBlur={handleBlur('domingoA')}
+                                    onChangeText={handleChange('domingoA')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                                <Text style={{ alignSelf: 'center' }}>a</Text>
+                                <TextInput
+                                    style={style.secondaryTextInput}
+                                    value={values.domingoH}
+                                    onBlur={handleBlur('domingoH')}
+                                    onChangeText={handleChange('domingoH')}
+                                    placeholder=""
+                                    underlineColor="#2984f2"
+                                />
+                            </View>
+
+                        </List.Accordion>
+
+
                         <Text style={style.formTooltip}>Dirección</Text>
                         <View style={style.primaryTextInput}>
                             <GooglePlacesAutocomplete
@@ -240,6 +355,7 @@ function NuevoComercio(props) {
                                 styles={{
                                     textInputContainer: style.textInputContainer,
                                 }}
+                           
                                 timeout={1000}
                                 query={{
                                     key: GOOGLE_PLACES_API_KEY,
@@ -306,7 +422,7 @@ function NuevoComercio(props) {
                             <></>
                         )}
                         <TouchableOpacity
-                            onPress={() => onSubmit(values)}
+                            onPress={() => onSubmit(values,direccion)}
                             style={style.primaryNavigationButton}
                             disabled={!isValid}
                         >

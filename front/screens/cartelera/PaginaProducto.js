@@ -13,7 +13,8 @@ import logo from '../../assets/avatar.png';
 import thumbnail from '../../assets/avatar.png';
 
 function PaginaProducto(props) {
-    const { navigation } = props;
+    const { navigation, route } = props; // props.navigation
+    const { params } = route;
     const filtros = ['Almacén', 'Abogado', 'Bar', 'Estética'];
     // llama a los datos del perfil
     const fetchApi = async () => {
@@ -23,11 +24,12 @@ function PaginaProducto(props) {
             console.log(e);
         }
     };
-    const [horarios, setHorarios] = useState('-Lunes: 9:00 - 19:00 hs' + '\n' + '-Martes: 9:00 - 19:00 hs ' + '\n' + '-Miercoles: Cerrado' + '\n' + '-Jueves: 9:00 - 22:00hs' + '\n' + '-Sábado: Cerrado' + '\n' + '-Domingo: Cerrado')
-    const [nombre, setNombre] = useState('La Farola')
-    const [descripcion, setDescripcion] = useState("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containig")
-    const [img, setImg] = useState(logo)
-    
+    // const [horarios, setHorarios] = useState('-Lunes: 9:00 - 19:00 hs' + '\n' + '-Martes: 9:00 - 19:00 hs ' + '\n' + '-Miercoles: Cerrado' + '\n' + '-Jueves: 9:00 - 22:00hs' + '\n' + '-Sábado: Cerrado' + '\n' + '-Domingo: Cerrado');
+    const [horarios, setHorarios] = useState(params.publicacion.horarios);
+    const [nombre, setNombre] = useState(params.publicacion.nombre);
+    const [descripcion, setDescripcion] = useState(params.publicacion.descripcion);
+    const [img, setImg] = useState(params.publicacion.img[0]);
+
     useEffect(() => {
         fetchApi();
     });
@@ -40,20 +42,45 @@ function PaginaProducto(props) {
                     <Text style={style.h1Cartelera}>Cartelera</Text>
 
                     <Image
-                        source={img}
+                        source={{ uri: img }}
                         style={{
-                            width: 80, height: 80, resizeMode: 'stretch', justifyContent: 'center', alignSelf: 'center'
+                            width: 120, height: 120, resizeMode: 'stretch', justifyContent: 'center', alignSelf: 'center',
                         }}
                     />
                     <Text style={{ color: '#000', fontSize: 20 }}>{nombre}</Text>
                     <Text style={{ color: '#000' }}>Horarios</Text>
-                    <View>
-                        <Text style={{ color: '#000' }}>{horarios}</Text>
+
+                    <View style={{flexDirection:'row'}}>
+                        <Text>-Lunes </Text>
+                        <Text style={{ color: '#000' }}>{horarios.lunes.desde} - {horarios.lunes.hasta} hs</Text>
                     </View>
-                    <Text style={{ marginTop: 5 }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containig</Text>
+                    <View style={{flexDirection:'row'}}>
+                        <Text>-Martes </Text>
+                        <Text style={{ color: '#000' }}>{horarios.martes.desde} - {horarios.martes.hasta} hs</Text>
+                    </View>
+                    <View style={{flexDirection:'row'}}>
+                        <Text>-Miercoles </Text>
+                        <Text style={{ color: '#000' }}>{horarios.miercoles.desde} - {horarios.miercoles.hasta} hs</Text>
+                    </View>
+                    <View style={{flexDirection:'row'}}>
+                        <Text>-Jueves </Text>
+                        <Text style={{ color: '#000' }}>{horarios.jueves.desde} - {horarios.jueves.hasta} hs</Text>
+                    </View>
+                    <View style={{flexDirection:'row'}}>
+                        <Text>-Viernes </Text>
+                        <Text style={{ color: '#000' }}>{horarios.viernes.desde} - {horarios.viernes.hasta} hs</Text>
+                    </View>
+                    <View style={{flexDirection:'row'}}>
+                        <Text>-Sabado </Text>
+                        <Text style={{ color: '#000' }}>{horarios.sabado.desde} - {horarios.sabado.hasta} hs</Text>
+                    </View>
+                    <View style={{flexDirection:'row'}}>
+                        <Text>-Domingo </Text>
+                        <Text style={{ color: '#000' }}>{horarios.domingo.desde} - {horarios.domingo.hasta} hs</Text>
+                    </View>
+
+                    <Text style={{ marginTop: 5 }}>{descripcion}</Text>
                     <View style={style.carteleraItemContainer}>
-
-
 
                         <TouchableOpacity onPress={() => navigation.navigate('CambiarContraseña')} />
                     </View>

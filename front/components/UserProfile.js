@@ -14,7 +14,7 @@ const UserProfile = (props) => {
     };
 
     if (authToken) {
-        const perfil = JSON.parse(base64.decode(authToken));
+       // const perfil = JSON.parse(base64.decode(authToken));
 
         return (
             <View style={{ flexDirection: 'row' }}>
