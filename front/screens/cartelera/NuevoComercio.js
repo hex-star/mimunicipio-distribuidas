@@ -10,7 +10,7 @@ import {
     View,
     Image,
 } from 'react-native';
-import { TextInput,List } from 'react-native-paper';
+import { TextInput, List } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import base64 from 'react-native-base64';
@@ -31,7 +31,6 @@ import imagesUrls from '../../controllers/images';
 import { crearSitio } from '../../controllers/sitios';
 import { crearDenuncia } from '../../controllers/denuncias';
 
-
 function NuevoComercio(props) {
     const state = useState();
     const { navigation, route } = props;
@@ -48,7 +47,7 @@ function NuevoComercio(props) {
     const rubros = ['Promocion', 'Oferta'];
     const [rubroElegido, setRubroElegido] = useState('');
     const [expanded, setExpanded] = React.useState(true);
-    const [direccion, setdireccion] = useState('')
+    const [direccion, setdireccion] = useState('');
 
     const handlePress = () => setExpanded(!expanded);
 
@@ -63,14 +62,13 @@ function NuevoComercio(props) {
         bootstrapAsync();
     }, [props, isFocused, state]);
 
-    const onSubmit = async function (values,direccion) {
-      
+    const onSubmit = async function (values, direccion) {
+       // console.log(photos)
         const imageUrls = await imagesUrls(photos);
         const sitioRes = await crearSitio(sitio, values.comentariosLugar);
-        console.log(values)
-        console.log(sitioRes)
-        console.log(imageUrls)
-
+       /* console.log(values);
+        console.log(sitioRes);*/
+        console.log(imageUrls);
     };
 
     // API google places
@@ -128,11 +126,11 @@ function NuevoComercio(props) {
             <Formik
                 initialValues={{
                     telefono: '',
-               
+
                     nombre: '',
-            
+
                     descripcion: '',
-                   
+
                     descripcion: '',
                     lunesA: '',
                     lunesH: '',
@@ -147,11 +145,11 @@ function NuevoComercio(props) {
                     sabadoA: '',
                     domingoA: '',
                     domingoH: '',
-                    direccion:'',
+                    direccion: '',
                 }}
                 validationSchema={denunciaValidationSchema}
-                onSubmit={(values,direccion) => {
-                    onSubmit(values,direccion);
+                onSubmit={(values, direccion) => {
+                    onSubmit(values, direccion);
                 }}
             >
                 {({
@@ -169,9 +167,7 @@ function NuevoComercio(props) {
                     >
 
                         <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
-             
-                        
-              
+
                         <Text style={style.formTooltip}>Nombre del Comercio</Text>
                         <TextInput
                             style={style.secondaryTextInput}
@@ -181,7 +177,6 @@ function NuevoComercio(props) {
                             placeholder="Ingrese el nombre del comercio"
                             underlineColor="#2984f2"
                         />
-                        
 
                         {(errors.nombre && touched.nombre)
                             && <Text style={style.errors}>{errors.nombre}</Text>}
@@ -194,7 +189,6 @@ function NuevoComercio(props) {
                             placeholder="Ingresa tu numero"
                             underlineColor="#2984f2"
                         />
-
 
                         <List.Accordion
                             title="Horarios"
@@ -346,7 +340,6 @@ function NuevoComercio(props) {
 
                         </List.Accordion>
 
-
                         <Text style={style.formTooltip}>Dirección</Text>
                         <View style={style.primaryTextInput}>
                             <GooglePlacesAutocomplete
@@ -361,7 +354,7 @@ function NuevoComercio(props) {
                                 styles={{
                                     textInputContainer: style.textInputContainer,
                                 }}
-                           
+
                                 timeout={1000}
                                 query={{
                                     key: GOOGLE_PLACES_API_KEY,
@@ -412,7 +405,7 @@ function NuevoComercio(props) {
                             && <Text style={style.errors}>{errors.descripcion}</Text>}
                         <Text style={style.formTooltip}>Subí las fotos</Text>
                         <TouchableOpacity
-                            onPress={() => { navigation.navigate('ImageBrowser'); }}
+                            onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'NuevoComercio', maxImagenes: 5 }); }}
                             style={style.primaryFormButton}
                         >
                             <Text style={style.primaryFormButtonText}>
@@ -428,7 +421,7 @@ function NuevoComercio(props) {
                             <></>
                         )}
                         <TouchableOpacity
-                            onPress={() => onSubmit(values,direccion)}
+                            onPress={() => onSubmit(values, direccion)}
                             style={style.primaryNavigationButton}
                             disabled={!isValid}
                         >

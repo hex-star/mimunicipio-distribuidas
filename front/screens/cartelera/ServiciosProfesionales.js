@@ -62,14 +62,16 @@ function ServiciosProfesionales(props) {
     }, [props, isFocused, state]);
 
     const onSubmit = async function (values, rubro) {
- 
-     
+      
+       // console.log(photos)
         const imageUrls = await imagesUrls(photos);
+       // console.log(imageUrls)
         const sitioRes = await crearSitio(sitio, values.comentariosLugar);
-        console.log(rubro)
-        console.log(values)
-        console.log(sitioRes)
-        console.log(imageUrls)
+        //console.log(rubro);
+        //console.log(values);
+        //console.log(sitioRes);
+
+       
     };
 
     // API google places
@@ -184,7 +186,6 @@ function ServiciosProfesionales(props) {
                             placeholder="Ingresa tu mail"
                             underlineColor="#2984f2"
                         />
-         
 
                         <List.Accordion
                             title="Horarios"
@@ -344,8 +345,7 @@ function ServiciosProfesionales(props) {
                                 onChangeText={handleChange('rubro')}
                                 onSelect={(selectedItem, index) => {
                                     console.log(selectedItem, index);
-                                    setRubroElegido(selectedItem)
-
+                                    setRubroElegido(selectedItem);
                                 }}
                                 buttonTextAfterSelection={(selectedItem, index) =>
                                     // text represented after item is selected
@@ -377,9 +377,8 @@ function ServiciosProfesionales(props) {
                                 currentLocationLabel="Ubicación actual"
 
                                 onPress={(data = null) => {
-                                    console.log(data)
+                                    console.log(data);
                                     getPlaceDetails(data);
-                            
                                 }}
 
                                 styles={{
@@ -435,7 +434,7 @@ function ServiciosProfesionales(props) {
                             && <Text style={style.errors}>{errors.descripcion}</Text>}
                         <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
                         <TouchableOpacity
-                            onPress={() => { navigation.navigate('ImageBrowser'); }}
+                            onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'ServiciosProfesionales', maxImagenes: 5 }); }}
                             style={style.primaryFormButton}
                         >
                             <Text style={style.primaryFormButtonText}>

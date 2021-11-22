@@ -28,7 +28,7 @@ function PaginaProducto(props) {
     const [horarios, setHorarios] = useState(params.publicacion.horarios);
     const [nombre, setNombre] = useState(params.publicacion.nombre);
     const [descripcion, setDescripcion] = useState(params.publicacion.descripcion);
-    const [img, setImg] = useState(params.publicacion.img[0]);
+    const [img, setImg] = useState(params.publicacion.img);
 
     useEffect(() => {
         fetchApi();
@@ -40,43 +40,106 @@ function PaginaProducto(props) {
                 <MiVecindario noPerfil />
                 <View style={style.paginaProductoContainer}>
                     <Text style={style.h1Cartelera}>Cartelera</Text>
+                    <View style={{ flexDirection: 'row',flexWrap:'wrap',justifyContent:'center' }}>
+                        {
+                            img.map((item) => (
 
-                    <Image
-                        source={{ uri: img }}
-                        style={{
-                            width: 120, height: 120, resizeMode: 'stretch', justifyContent: 'center', alignSelf: 'center',
-                        }}
-                    />
+                                <Image
+                                    source={{ uri: item }}
+                                    style={{
+                                        width: 120, height: 120, resizeMode: 'stretch', justifyContent: 'center', alignSelf: 'center',
+                                    }}
+                                />
+
+                            ))
+                        }
+                    </View>
                     <Text style={{ color: '#000', fontSize: 20 }}>{nombre}</Text>
                     <Text style={{ color: '#000' }}>Horarios</Text>
 
-                    <View style={{flexDirection:'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                         <Text>-Lunes </Text>
-                        <Text style={{ color: '#000' }}>{horarios.lunes.desde} - {horarios.lunes.hasta} hs</Text>
+                        <Text style={{ color: '#000' }}>
+                            {horarios.lunes.desde}
+                            {' '}
+                            -
+                            {' '}
+                            {horarios.lunes.hasta}
+                            {' '}
+                            hs
+                        </Text>
                     </View>
-                    <View style={{flexDirection:'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                         <Text>-Martes </Text>
-                        <Text style={{ color: '#000' }}>{horarios.martes.desde} - {horarios.martes.hasta} hs</Text>
+                        <Text style={{ color: '#000' }}>
+                            {horarios.martes.desde}
+                            {' '}
+                            -
+                            {' '}
+                            {horarios.martes.hasta}
+                            {' '}
+                            hs
+                        </Text>
                     </View>
-                    <View style={{flexDirection:'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                         <Text>-Miercoles </Text>
-                        <Text style={{ color: '#000' }}>{horarios.miercoles.desde} - {horarios.miercoles.hasta} hs</Text>
+                        <Text style={{ color: '#000' }}>
+                            {horarios.miercoles.desde}
+                            {' '}
+                            -
+                            {' '}
+                            {horarios.miercoles.hasta}
+                            {' '}
+                            hs
+                        </Text>
                     </View>
-                    <View style={{flexDirection:'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                         <Text>-Jueves </Text>
-                        <Text style={{ color: '#000' }}>{horarios.jueves.desde} - {horarios.jueves.hasta} hs</Text>
+                        <Text style={{ color: '#000' }}>
+                            {horarios.jueves.desde}
+                            {' '}
+                            -
+                            {' '}
+                            {horarios.jueves.hasta}
+                            {' '}
+                            hs
+                        </Text>
                     </View>
-                    <View style={{flexDirection:'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                         <Text>-Viernes </Text>
-                        <Text style={{ color: '#000' }}>{horarios.viernes.desde} - {horarios.viernes.hasta} hs</Text>
+                        <Text style={{ color: '#000' }}>
+                            {horarios.viernes.desde}
+                            {' '}
+                            -
+                            {' '}
+                            {horarios.viernes.hasta}
+                            {' '}
+                            hs
+                        </Text>
                     </View>
-                    <View style={{flexDirection:'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                         <Text>-Sabado </Text>
-                        <Text style={{ color: '#000' }}>{horarios.sabado.desde} - {horarios.sabado.hasta} hs</Text>
+                        <Text style={{ color: '#000' }}>
+                            {horarios.sabado.desde}
+                            {' '}
+                            -
+                            {' '}
+                            {horarios.sabado.hasta}
+                            {' '}
+                            hs
+                        </Text>
                     </View>
-                    <View style={{flexDirection:'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                         <Text>-Domingo </Text>
-                        <Text style={{ color: '#000' }}>{horarios.domingo.desde} - {horarios.domingo.hasta} hs</Text>
+                        <Text style={{ color: '#000' }}>
+                            {horarios.domingo.desde}
+                            {' '}
+                            -
+                            {' '}
+                            {horarios.domingo.hasta}
+                            {' '}
+                            hs
+                        </Text>
                     </View>
 
                     <Text style={{ marginTop: 5 }}>{descripcion}</Text>

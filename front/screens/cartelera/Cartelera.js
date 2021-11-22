@@ -14,6 +14,7 @@ import thumbnail from '../../assets/avatar.png';
 
 function Cartelera(props) {
     const { navigation } = props;
+    const placeholder = 'https://static.wixstatic.com/media/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.jpg/v1/fill/w_584,h_333,al_c,lg_1,q_90/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.webp';
     const filtros = ['Almacén', 'Abogado', 'Bar', 'Estética'];
     // llama a los datos del perfil
     const [publicaciones, setpublicaciones] = useState([
@@ -90,7 +91,7 @@ function Cartelera(props) {
                     hasta: 18,
                 },
             },
-            img: ['https://static.wixstatic.com/media/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.jpg/v1/fill/w_584,h_333,al_c,lg_1,q_90/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.webp', 'aa'],
+            img: [placeholder, placeholder, placeholder, placeholder, placeholder],
             direccion: 'av falsa',
             telefono: '12121',
             mail: 'falso@gmail.com',
@@ -177,11 +178,8 @@ function Cartelera(props) {
             rubro: '',
             tipo: 'Comercio',
         },
-    ])
+    ]);
 
- 
-
-   
     const fetchApi = async () => {
         try {
 
