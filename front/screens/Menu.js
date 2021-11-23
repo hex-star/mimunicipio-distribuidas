@@ -25,7 +25,7 @@ function Menu(props) {
                     </View>
                     <View style={style.menuItem}>
                         <TouchableOpacity
-                            style={style.menuButtonDisabled}
+                            style={style.menuButton}
                             onPress={() => navigation.navigate('Reclamo')}
                         >
                             <Image style={style.menuImage} source={reclamo} />

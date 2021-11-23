@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import {
     ScrollView,
@@ -56,9 +57,9 @@ function FormularioReclamo(props) {
             nombre: 'Limpieza y recoleción',
             icon: 'trash-can',
             desperfectos: [
-                'Agregar 1',
-                'Agregar 2',
-                'Agregar 3',
+                'Cestos y Contenedores',
+                'Limpieza de vía pública',
+                'Residuos Voluminosos',
             ],
             color: '#90ee90',
         },
@@ -66,9 +67,9 @@ function FormularioReclamo(props) {
             nombre: 'Parques y plazas',
             icon: 'pine-tree',
             desperfectos: [
-                'Agregar 1',
-                'Agregar 2',
-                'Agregar 3',
+                'Horario de apertura y cierre',
+                'Tareas de guardiandes de plaza',
+                'Otros elementos',
             ],
             color: '#90ee90',
         },
@@ -76,9 +77,9 @@ function FormularioReclamo(props) {
             nombre: 'Pluviales',
             icon: 'waves',
             desperfectos: [
-                'Agregar 1',
-                'Agregar 2',
-                'Agregar 3',
+                'Calle anegada',
+                'Calle inundada',
+                'Alcantarillas / sumideros',
             ],
             color: '#0ff',
         },
@@ -86,9 +87,9 @@ function FormularioReclamo(props) {
             nombre: 'Reciclado y protección ambiental',
             icon: 'recycle',
             desperfectos: [
-                'Agregar 1',
-                'Agregar 2',
-                'Agregar 3',
+                'Uso indebido del agua',
+                'Elementos con impacto ambiental',
+                'Establecimientos con impacto ambiental',
             ],
             color: '#90ee90',
         },
@@ -96,9 +97,7 @@ function FormularioReclamo(props) {
             nombre: 'Seguridad',
             icon: 'shield-star',
             desperfectos: [
-                'Agregar 1',
-                'Agregar 2',
-                'Agregar 3',
+                'Presencial policial',
             ],
             color: '#4b0082',
         },
@@ -106,9 +105,9 @@ function FormularioReclamo(props) {
             nombre: 'Tránsito y transporte',
             icon: 'bus',
             desperfectos: [
-                'Agregar 1',
-                'Agregar 2',
-                'Agregar 3',
+                'Denuncia vial',
+                'Cruce peligroso',
+                'Subtes',
             ],
             color: '#191970',
         },
@@ -135,7 +134,7 @@ function FormularioReclamo(props) {
                         <List.Accordion
                             titleNumberOfLines={3}
                             title={rubro.nombre}
-                            left={() => <List.Icon style={{ backgroundColor: rubro.color, borderRadius: '50px' }} icon={rubro.icon} />}
+                            left={() => <List.Icon style={{ backgroundColor: rubro.color, borderRadius: 50 }} icon={rubro.icon} />}
                         >
                             {rubro.desperfectos.map((desperfecto) => (
                                 <List.Item titleNumberOfLines={3} style={{ flexWrap: 'wrap' }} title={desperfecto} onPress={() => navigation.navigate('Reclamo#2', { rubro: rubro.nombre, desperfecto })} />

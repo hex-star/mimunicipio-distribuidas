@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React, { useEffect, useState } from 'react';
 import {
     Alert,
@@ -33,7 +34,7 @@ function FormularioReclamo(props) {
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
 
-    const { documento } = JSON.parse(base64.decode(params.authToken).toString());
+    // const { documento } = JSON.parse(base64.decode(params.authToken).toString());
 
     useEffect(() => {
         // Fetch the token from storage then navigate to our appropriate place
@@ -51,9 +52,14 @@ function FormularioReclamo(props) {
         setLoading(true);
         try {
             const imageUrls = await imagesUrls(photos);
-
             const sitioRes = await crearSitio(sitio, values.comentariosLugar);
-
+            { /* Valores a enviar:
+                    Documento (quien realiza el reclamo)
+                    Rubro -> Params
+                    Desperfecto -> Params
+                    Dirección (Sitio)
+                    Descripcion
+                    Imagenes */ }
             const res = await crearDenuncia({
                 documento,
                 idSitio: sitioRes.idSitio,
@@ -63,7 +69,7 @@ function FormularioReclamo(props) {
             });
 
             if (res.denuncia) {
-                navigation.navigate('Confirmacion', { tipo: 'denuncia', id: res.denuncia.idDenuncia });
+                navigation.navigate('Confirmacion', { tipo: 'reclamo', id: res.denuncia.idDenuncia });
             }
         } catch (e) {
             Alert.alert('Ha habido un error generando tu denuncia');
@@ -116,9 +122,6 @@ function FormularioReclamo(props) {
     };
 
     const denunciaValidationSchema = yup.object().shape({
-        // nombre: yup.string().required('Por favor ingresá un nombre valido'),
-        // direccion: yup.string().required(),
-        fecha: yup.date(),
         descripcion: yup.string().required('Por favor ingresa comentarios acerca del problema'),
     });
 
@@ -127,10 +130,6 @@ function FormularioReclamo(props) {
             <MiVecindario navigation={navigation} />
             <Formik
                 initialValues={{
-                    nombre: '',
-                    direccion: '',
-                    comentariosLugar: '',
-                    fecha: '',
                     descripcion: '',
                 }}
                 validationSchema={denunciaValidationSchema}
@@ -154,14 +153,14 @@ function FormularioReclamo(props) {
 
                         <Text style={style.sectionTitle}>Crear nueva reclamo</Text>
                         <Text style={{
-                            backgroundColor: '#00008b', color: '#fff', fontWeight: 'bold', padding: '10px',
+                            backgroundColor: '#00008b', color: '#fff', fontWeight: 'bold', padding: 10,
                         }}
                         >
                             { rubro }
 
                         </Text>
                         <Text style={{
-                            backgroundColor: '#00008b', color: '#fff', fontWeight: 'bold', padding: '10px',
+                            backgroundColor: '#00008b', color: '#fff', fontWeight: 'bold', padding: 10,
                         }}
                         >
                             { desperfecto }
