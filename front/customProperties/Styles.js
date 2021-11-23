@@ -11,13 +11,40 @@ const style = StyleSheet.create({
 
     formsContainer: {
         flexDirection: 'column',
-        
         paddingLeft: 20,
         paddingRight: 20,
-        
-      
     },
+    carteleraContainer: {
+        flexDirection: 'column',
+        alignContent: 'center',
+        justifyContent: 'center',
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    paginaProductoContainer:{
+        flexDirection: 'column',
+        alignContent: 'center',
+        alignItems:'center',
+        justifyContent: 'center',
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    carteleraItemContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignContent: 'center',
+        justifyContent: 'center',
+        marginTop:10,
+    },
+    carteleraItem: {
+        width:150,
+        backgroundColor:'#d1d1d1',
+        flexDirection:'column',
+        justifyContent:'center',
+        alignItems:'center',
+        margin:1
 
+    },
     homeButtonPrimary: {
         backgroundColor: 'transparent',
         borderColor: 'white',
@@ -58,9 +85,15 @@ const style = StyleSheet.create({
 
     // FONTS
 
-    h1:{
-        fontWeight:'bold',
-        fontSize:15,
+    h1: {
+        fontWeight: 'bold',
+        fontSize: 15,
+    },
+    h1Cartelera: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: '#000',
+        alignSelf: 'center',
     },
 
     whiteFont: {
@@ -108,18 +141,24 @@ const style = StyleSheet.create({
 
     formTooltip: {
         color: '#6e6e6e',
-        fontWeight:'bold',
+        fontWeight: 'bold',
         fontSize: 14,
         marginTop: 10,
-  
+
     },
 
     primaryTextInput: {
-      
+
         fontSize: 16,
         marginBottom: 1,
         backgroundColor: 'transparent',
-        
+
+    },
+    secondaryTextInput:{
+        fontSize: 16,
+        marginBottom: 1,
+        backgroundColor: 'transparent',
+        height:30,
     },
 
     primaryNavigationButton: {
@@ -131,7 +170,7 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         width: 200,
         marginTop: 20,
-        marginBottom:45,
+        marginBottom: 45,
 
     },
     historialButton: {
@@ -146,8 +185,7 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         width: '100%',
         marginTop: 20,
-        color:'#000',
-
+        color: '#000',
 
     },
     primaryHistorialButtonText: {

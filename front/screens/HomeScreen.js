@@ -40,7 +40,7 @@ function MainScreen(props) {
                     <Image source={logo} />
                     <Text style={style.whiteSubtitle1}>MiVecindario</Text>
 
-                    <TouchableOpacity style={style.homeButtonPrimary}>
+                    <TouchableOpacity style={style.homeButtonPrimary} onPress={() => navigation.navigate('Cartelera')}>
                         <Text style={style.homeButtonPrimaryText}>
                             Continuar como invitado
                         </Text>

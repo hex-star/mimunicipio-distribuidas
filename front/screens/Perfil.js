@@ -9,6 +9,8 @@ import style from '../customProperties/Styles';
 import MiVecindario from '../components/MiVecindario';
 import logo from '../assets/avatar.png';
 import { getUsuario } from '../controllers/usuarios';
+import base64 from 'react-native-base64';
+
 
 function Perfil(props) {
     const [nombre, setNombre] = useState('Cargando...');
@@ -20,11 +22,17 @@ function Perfil(props) {
     const [legajo, setLegajo] = useState('111');
     const [fecha, setFecha] = useState('10/09/2021');
     const [rubro, setRubro] = useState('Alumbrado');
+    const [token, setToken] = useState(null)
 
     const { navigation } = props;
     // llama a los datos del perfil
     const fetchApi = async () => {
         try {
+            const async = await AsyncStorage.getItem('authToken');
+            const token = JSON.parse(base64.decode(async));
+            //console.log(token);
+            setToken(token);
+
             const documento = await AsyncStorage.getItem('documento');
             console.log(typeof (documento));
             console.log(`DOCUMENTO: ${documento}`);
@@ -39,6 +47,7 @@ function Perfil(props) {
                 setDocumento(documento);
                 setDireccion(res.vecino.direccion);
             }
+            
         } catch (e) {
             console.log(e);
         }
@@ -46,7 +55,7 @@ function Perfil(props) {
 
     useEffect(() => {
         fetchApi();
-    });
+    },[]);
 
     return (
         <>
@@ -62,7 +71,7 @@ function Perfil(props) {
                             source={logo}
                         />
                     </View>
-                    {isInspector && (
+                    {token && token.tipo !== 'vecino' && (
                         <View>
                             <Text style={style.formTooltip}>Legajo</Text>
                             <Text style={style.textPerfil}>{legajo}</Text>
@@ -76,7 +85,7 @@ function Perfil(props) {
                     <Text style={style.formTooltip}>Apellido</Text>
                     <Text style={style.textPerfil}>{apellido}</Text>
                     <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
-                    {isInspector && (
+                    {token && token.tipo !== 'vecino' && (
                         <View>
                             <Text style={style.formTooltip}>Fecha de ingreso</Text>
                             <Text style={style.textPerfil}>{fecha}</Text>
@@ -86,8 +95,8 @@ function Perfil(props) {
                             <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
                         </View>
                     )}
-                    {!isInspector
-                        && (
+                    {token && token.tipo == 'vecino' &&
+                         (
                             <View>
 
                                 <Text style={style.formTooltip}>Documento</Text>

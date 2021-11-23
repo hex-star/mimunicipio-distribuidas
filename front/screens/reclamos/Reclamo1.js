@@ -131,7 +131,6 @@ function FormularioReclamo(props) {
                 style={style.formsContainer}
                 keyboardShouldPersistTaps="handled"
             >
-
                 {/* <Searchbar
                     placeholder="¿Con qué se relaciona tu reclamo?"
                     onChangeText={onChangeSearch}

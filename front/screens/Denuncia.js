@@ -59,6 +59,7 @@ function FormularioDenuncia(props) {
         setLoading(true);
         try {
             const imageUrls = await imagesUrls(photos);
+            console.log(imageUrls)
 
             const sitioRes = await crearSitio(sitio, values.comentariosLugar);
 
@@ -163,7 +164,7 @@ function FormularioDenuncia(props) {
                         <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
                         <Text style={style.formTooltip}>Nombre / Comercio</Text>
                         <TextInput
-                            style={style.primaryTextInput}
+                            style={style.secondaryTextInput}
                             value={values.nombre}
                             onBlur={handleBlur('nombre')}
                             onChangeText={handleChange('nombre')}
@@ -224,7 +225,7 @@ function FormularioDenuncia(props) {
                         </View>
                         <Text style={style.formTooltip}>Comentarios del lugar</Text>
                         <TextInput
-                            style={style.primaryTextInput}
+                            style={style.secondaryTextInput}
                             value={values.comentariosLugar}
                             onBlur={handleBlur('comentariosLugar')}
                             onChangeText={handleChange('comentariosLugar')}
@@ -233,7 +234,7 @@ function FormularioDenuncia(props) {
                         />
                         <Text style={style.formTooltip}>Comentanos tu problema</Text>
                         <TextInput
-                            style={style.primaryTextInput}
+                            style={style.secondaryTextInput}
                             value={values.descripcion}
                             onBlur={handleBlur('descripcion')}
                             onChangeText={handleChange('descripcion')}

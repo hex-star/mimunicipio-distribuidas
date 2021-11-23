@@ -7,6 +7,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
 import { listarDenuncias } from '../controllers/denuncias';
+import base64 from 'react-native-base64';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Historial(props) {
     const { navigation } = props;
@@ -15,9 +17,21 @@ function Historial(props) {
     const handlePressR = () => setExpandedR(!expandedR);
     const handlePressD = () => setExpandedD(!expandedD);
     const [denuncias, setDenuncias] = useState([]);
+    const [token, setToken] = useState(null)
 
     async function fetchDenuncias() {
+        const async = await AsyncStorage.getItem('authToken');
+        const token = JSON.parse(base64.decode(async));
+        //console.log(token);
+        setToken(token);
+        if (token && token.tipo == 'inspector')
+        {
+            //TODO fetch de todos los reclamos
+        }
+
         const res = await listarDenuncias();
+
+        
 
         if (res.denuncias) {
             setDenuncias(res.denuncias);
@@ -35,14 +49,15 @@ function Historial(props) {
         <ScrollView style={style.formsContainer}>
             <MiVecindario navigation={navigation} />
             <Text style={style.celesteText}>Historial</Text>
-            <TextInput style={style.primaryTextInput} />
-            <View
+          {/** <TextInput style={style.primaryTextInput} />
+                <View
                 style={{
                     borderBottomColor: '#bcbcbc',
                     borderBottomWidth: 1,
                     marginTop: 2,
                 }}
-            />
+            />*/}  
+      
 
             <List.Section>
 

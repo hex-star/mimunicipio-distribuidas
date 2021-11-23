@@ -11,7 +11,7 @@ const uploadImages = async function (images) {
                 method: 'post',
                 body: data,
             });
-
+            console.log(response)
             return response.json();
         }),
     );
