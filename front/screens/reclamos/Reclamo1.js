@@ -1,6 +1,6 @@
 /* eslint-disable no-sequences */
 /* eslint-disable max-len */
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     ScrollView,
     Text,
@@ -113,6 +113,16 @@ function FormularioReclamo(props) {
             color: '#191970',
         },
     ];
+
+
+    
+    const fetchApi = async () => {
+ 
+    };
+
+    useEffect(() => {
+        fetchApi();
+    });
 
     return (
         <>

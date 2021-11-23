@@ -53,9 +53,13 @@ function FormularioReclamo(props) {
 
     const onSubmit = async function (values) {
         setLoading(true);
+     
         try {
+            console.log(photos)
             const imageUrls = await imagesUrls(photos);
+            console.log(values)
             const sitioRes = await crearSitio(sitio, values.comentariosLugar);
+        
             { /* Valores a enviar:
                     Documento (quien realiza el reclamo)
                     Rubro -> Params
@@ -235,7 +239,8 @@ function FormularioReclamo(props) {
                             && <Text style={style.errors}>{errors.descripcion}</Text>}
                         <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
                         <TouchableOpacity
-                            onPress={() => { navigation.navigate('ImageBrowser', { maxImagenes: 7 }); }}
+                    
+                            onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'Reclamo#2', maxImagenes: 7 }); }}
                             style={style.primaryFormButton}
                         >
                             <Text style={style.primaryFormButtonText}>

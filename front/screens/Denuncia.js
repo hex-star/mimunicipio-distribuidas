@@ -245,7 +245,8 @@ function FormularioDenuncia(props) {
                             && <Text style={style.errors}>{errors.descripcion}</Text>}
                         <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
                         <TouchableOpacity
-                            onPress={() => { navigation.navigate('ImageBrowser'); }}
+             
+                            onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'Denuncia', maxImagenes: 99 }); }}
                             style={style.primaryFormButton}
                         >
                             <Text style={style.primaryFormButtonText}>
