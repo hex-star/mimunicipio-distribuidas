@@ -1,3 +1,4 @@
+/* eslint-disable no-sequences */
 /* eslint-disable max-len */
 import React from 'react';
 import {
@@ -116,12 +117,21 @@ function FormularioReclamo(props) {
     return (
         <>
             <MiVecindario navigation={navigation} />
+            <Text style={{
+                color: '#34bdeb',
+                fontSize: 20,
+                paddingLeft: 20,
+            }}
+            // TODO - No usa Styles por el paddingLeft
+            >
+                Crear nuevo reclamo
+
+            </Text>
             <ScrollView
                 style={style.formsContainer}
                 keyboardShouldPersistTaps="handled"
             >
 
-                <Text style={style.sectionTitle}>Crear nuevo reclamo</Text>
                 {/* <Searchbar
                     placeholder="¿Con qué se relaciona tu reclamo?"
                     onChangeText={onChangeSearch}

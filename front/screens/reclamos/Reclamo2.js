@@ -9,6 +9,7 @@ import {
     View,
     Image,
 } from 'react-native';
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 import { TextInput } from 'react-native-paper';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useIsFocused } from '@react-navigation/native';
@@ -33,6 +34,7 @@ function FormularioReclamo(props) {
     const [loading, setLoading] = useState(false);
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
+    const [documentoUsuario, setDocumentoUsuario] = ('');
 
     // const { documento } = JSON.parse(base64.decode(params.authToken).toString());
 
@@ -42,6 +44,7 @@ function FormularioReclamo(props) {
             if (params) {
                 setPhotos(params.photos);
             }
+            setDocumentoUsuario(JSON.parse(base64.decode(await AsyncStorage.getItem('authToken'))).referencia);
         };
         bootstrapAsync();
     }, [props, isFocused, state]);
@@ -153,16 +156,19 @@ function FormularioReclamo(props) {
 
                         <Text style={style.sectionTitle}>Crear nueva reclamo</Text>
                         <Text style={{
-                            backgroundColor: '#00008b', color: '#fff', fontWeight: 'bold', padding: 10,
+                            backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', padding: 10,
                         }}
                         >
+                            {'Rubro: '}
                             { rubro }
 
                         </Text>
                         <Text style={{
-                            backgroundColor: '#00008b', color: '#fff', fontWeight: 'bold', padding: 10,
+                            backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', padding: 10,
                         }}
                         >
+                            {' '}
+                            {'Desperfecto: '}
                             { desperfecto }
 
                         </Text>
@@ -216,7 +222,7 @@ function FormularioReclamo(props) {
                                 </View>
                             )}
                         </View>
-                        <Text style={style.formTooltip}>Comentanos tu problema</Text>
+                        <Text style={style.formTooltip}>Comentanos tu reclamo</Text>
                         <TextInput
                             style={style.primaryTextInput}
                             value={values.descripcion}
@@ -245,7 +251,8 @@ function FormularioReclamo(props) {
                             <></>
                         )}
                         <TouchableOpacity
-                            onPress={() => onSubmit(values)}
+                            // onPress={() => onSubmit(values)} {TODO Comentado para probar front}
+                            onPress={() => navigation.navigate('Confirmacion', { tipo: 'reclamo', id: 1 })} // TODO quitar cuando esté la api
                             style={style.primaryNavigationButton}
                             disabled={!isValid}
                         >
