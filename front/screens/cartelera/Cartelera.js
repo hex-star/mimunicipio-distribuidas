@@ -198,7 +198,7 @@ function Cartelera(props) {
             <ScrollView>
                 <MiVecindario noPerfil />
                 <View style={style.carteleraContainer}>
-                    <Text style={style.h1Cartelera}>Mi perfil</Text>
+                    <Text style={style.h1Cartelera}>Publicaciones</Text>
                     {/* <View style={{ flexDirection: 'row' }}>
                         <TextInput
 

@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-props-no-multi-spaces */
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import {
@@ -44,7 +47,7 @@ function ServiciosProfesionales(props) {
     const [documentoUsuario, setDocumentoUsuario] = useState('');
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
-    const rubros = ['Abogado', 'Auditor', 'Contador', 'Consultor'];
+    const rubros = ['Abogado/a', 'Auditor/a', 'Contador/a', 'Consultor/a', 'Doméstica', 'Mecánico/a'];
     const [rubroElegido, setRubroElegido] = useState('');
     const [expanded, setExpanded] = React.useState(true);
 
@@ -62,16 +65,13 @@ function ServiciosProfesionales(props) {
     }, [props, isFocused, state]);
 
     const onSubmit = async function (values, rubro) {
-      
-       // console.log(photos)
+        // console.log(photos)
         const imageUrls = await imagesUrls(photos);
-        console.log(imageUrls)
+        console.log(imageUrls);
         const sitioRes = await crearSitio(sitio, values.comentariosLugar);
         console.log(rubro);
         console.log(values);
         console.log(sitioRes);
-
-       
     };
 
     // API google places
@@ -145,7 +145,6 @@ function ServiciosProfesionales(props) {
                     domingoH: '',
                     direccion: '',
                     descripcion: '',
-                   
 
                 }}
                 validationSchema={denunciaValidationSchema}
@@ -167,7 +166,7 @@ function ServiciosProfesionales(props) {
                         keyboardShouldPersistTaps="handled"
                     >
 
-                        <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
+                        <Text style={style.sectionTitle}>Crear nueva publicación</Text>
                         <Text style={style.formTooltip}>Medios de contacto</Text>
                         <TextInput
                             style={style.secondaryTextInput}
@@ -347,6 +346,7 @@ function ServiciosProfesionales(props) {
                                     console.log(selectedItem, index);
                                     setRubroElegido(selectedItem);
                                 }}
+                                defaultButtonText="Seleccione"
                                 buttonTextAfterSelection={(selectedItem, index) =>
                                     // text represented after item is selected
                                     // if data array is an array of objects then return selectedItem.property to render after item is selected
@@ -432,7 +432,7 @@ function ServiciosProfesionales(props) {
 
                         {(errors.descripcion && touched.descripcion)
                             && <Text style={style.errors}>{errors.descripcion}</Text>}
-                        <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
+                        <Text style={style.formTooltip}>Subí fotos relacionadas al servicio</Text>
                         <TouchableOpacity
                             onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'ServiciosProfesionales', maxImagenes: 5 }); }}
                             style={style.primaryFormButton}

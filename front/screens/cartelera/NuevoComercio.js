@@ -166,7 +166,7 @@ function NuevoComercio(props) {
                         keyboardShouldPersistTaps="handled"
                     >
 
-                        <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
+                        <Text style={style.sectionTitle}>Crear nueva publicación</Text>
 
                         <Text style={style.formTooltip}>Nombre del Comercio</Text>
                         <TextInput

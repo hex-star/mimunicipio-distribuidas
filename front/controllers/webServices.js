@@ -1,5 +1,5 @@
 import { REACT_APP_API_URL } from '@env';
-const urlApi = REACT_APP_API_URL || 'http://192.168.1.23:8000';
+const urlApi = REACT_APP_API_URL || 'http://192.168.0.212:8000';
 
 const urlWebServices = {
     login: `${urlApi}/api/usuarios/login`,
