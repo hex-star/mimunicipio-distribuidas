@@ -17,7 +17,7 @@ function Menu(props) {
             <View style={{ flexDirection: 'column', height: '90%', justifyContent: 'center' }}>
                 <View style={style.menuContainer}>
                     <View style={style.menuItem}>
-                        <TouchableOpacity style={style.menuButtonDisabled} onPress={() => navigation.navigate('Cartelera')}>
+                        <TouchableOpacity style={style.menuButton} onPress={() => navigation.navigate('Cartelera')}>
                             <Image style={style.menuImage} source={cartelera} />
 
                         </TouchableOpacity>
