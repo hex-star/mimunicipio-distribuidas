@@ -65,11 +65,11 @@ function ServiciosProfesionales(props) {
       
        // console.log(photos)
         const imageUrls = await imagesUrls(photos);
-       // console.log(imageUrls)
+        console.log(imageUrls)
         const sitioRes = await crearSitio(sitio, values.comentariosLugar);
-        //console.log(rubro);
-        //console.log(values);
-        //console.log(sitioRes);
+        console.log(rubro);
+        console.log(values);
+        console.log(sitioRes);
 
        
     };
@@ -145,7 +145,7 @@ function ServiciosProfesionales(props) {
                     domingoH: '',
                     direccion: '',
                     descripcion: '',
-                    descripcion: '',
+                   
 
                 }}
                 validationSchema={denunciaValidationSchema}

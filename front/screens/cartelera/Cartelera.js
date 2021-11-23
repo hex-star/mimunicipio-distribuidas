@@ -7,6 +7,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInput } from 'react-native-paper';
 import SelectDropdown from 'react-native-select-dropdown';
+import base64 from 'react-native-base64';
 import style from '../../customProperties/Styles';
 import MiVecindario from '../../components/MiVecindario';
 import logo from '../../assets/avatar.png';
@@ -16,6 +17,7 @@ function Cartelera(props) {
     const { navigation } = props;
     const placeholder = 'https://static.wixstatic.com/media/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.jpg/v1/fill/w_584,h_333,al_c,lg_1,q_90/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.webp';
     const filtros = ['Almacén', 'Abogado', 'Bar', 'Estética'];
+    const [token, setToken] = useState(null);
     // llama a los datos del perfil
     const [publicaciones, setpublicaciones] = useState([
         {
@@ -51,7 +53,7 @@ function Cartelera(props) {
                     hasta: 18,
                 },
             },
-            img: ['https://static.wixstatic.com/media/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.jpg/v1/fill/w_584,h_333,al_c,lg_1,q_90/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.webp', 'aa'],
+            img: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUeuUC0Cyo9qaCHvyrrLrLvVNXE23-IXd708cGFY_FbMVOqjhGu_akGmMHvhNX8omv5qk&usqp=CAU', 'https://static.wixstatic.com/media/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.jpg/v1/fill/w_584,h_333,al_c,lg_1,q_90/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.webp'],
             direccion: 'av falsa',
             telefono: '12121',
             mail: 'falso@gmail.com',
@@ -171,7 +173,7 @@ function Cartelera(props) {
                     hasta: 18,
                 },
             },
-            img: ['https://static.wixstatic.com/media/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.jpg/v1/fill/w_584,h_333,al_c,lg_1,q_90/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.webp', 'aa'],
+            img: ['https://static.wixstatic.com/media/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.jpg/v1/fill/w_584,h_333,al_c,lg_1,q_90/bb1bd6_74deb77a5d6648749c5358f5f26944fa~mv2.webp'],
             direccion: 'av falsa',
             telefono: '12121',
             mail: 'falso@gmail.com',
@@ -181,11 +183,10 @@ function Cartelera(props) {
     ]);
 
     const fetchApi = async () => {
-        try {
-
-        } catch (e) {
-            console.log(e);
-        }
+        const res = await AsyncStorage.getItem('authToken');
+        const token = JSON.parse(base64.decode(res));
+        // console.log(token);
+        setToken(token);
     };
 
     useEffect(() => {
@@ -198,7 +199,7 @@ function Cartelera(props) {
                 <MiVecindario noPerfil />
                 <View style={style.carteleraContainer}>
                     <Text style={style.h1Cartelera}>Mi perfil</Text>
-                    <View style={{ flexDirection: 'row' }}>
+                    {/* <View style={{ flexDirection: 'row' }}>
                         <TextInput
 
                             style={{
@@ -211,7 +212,7 @@ function Cartelera(props) {
                             }}
                             underlineColor="transparent"
                         />
-                        <View style={{ flex: 0.99 }}>
+                       <View style={{ flex: 0.99 }}>
                             <SelectDropdown
                                 data={filtros}
                                 defaultValue="a"
@@ -229,20 +230,20 @@ function Cartelera(props) {
                             />
                         </View>
 
-                    </View>
-                    <View
+                    </View>  */}
+                    {/* <View
                         style={{
                             borderBottomColor: '#2984f2',
                             borderBottomWidth: 1,
                         }}
-                    />
+                    /> */}
                     <View style={style.carteleraItemContainer}>
 
                         {
                             publicaciones.map((publicacion) => (
                                 <TouchableOpacity style={style.carteleraItem} onPress={() => navigation.navigate('PaginaProducto', { publicacion })}>
                                     <Image
-                                        source={publicacion.img[0]}
+                                        source={{ uri: publicacion.img[0] }}
                                         style={{
                                             width: 80, height: 80, resizeMode: 'stretch', justifyContent: 'center',
                                         }}
@@ -264,15 +265,16 @@ function Cartelera(props) {
                             <Text style={{ textAlign: 'center' }}>Lorem ipsum is simply dummy text of the printing an pesetting</Text>
                         </TouchableOpacity>
                    */}
-
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('NuevaPublicacion')}
-                            style={style.primaryNavigationButton}
-                        >
-                            <Text style={style.primaryNavigationButtonText}>
-                                Siguiente
-                            </Text>
-                        </TouchableOpacity>
+                        {token && token.tipo === 'vecino' && (
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('NuevaPublicacion')}
+                                style={style.primaryNavigationButton}
+                            >
+                                <Text style={style.primaryNavigationButtonText}>
+                                    Nueva publicación
+                                </Text>
+                            </TouchableOpacity>
+                        )}
 
                         <TouchableOpacity onPress={() => navigation.navigate('CambiarContraseña')} />
                     </View>
