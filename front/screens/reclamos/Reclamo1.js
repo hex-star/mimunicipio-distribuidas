@@ -1,3 +1,5 @@
+/* eslint-disable no-sequences */
+/* eslint-disable max-len */
 import React from 'react';
 import {
     ScrollView,
@@ -42,17 +44,93 @@ function FormularioReclamo(props) {
             ],
             color: '#d3d3d3',
         },
+        {
+            nombre: 'Educación',
+            icon: 'school',
+            desperfectos: [
+                'Patio/jardín',
+                'Baños',
+                'Filtraciones',
+            ],
+            color: '#1e90ff',
+        },
+        {
+            nombre: 'Limpieza y recoleción',
+            icon: 'trash-can',
+            desperfectos: [
+                'Cestos y Contenedores',
+                'Limpieza de vía pública',
+                'Residuos Voluminosos',
+            ],
+            color: '#90ee90',
+        },
+        {
+            nombre: 'Parques y plazas',
+            icon: 'pine-tree',
+            desperfectos: [
+                'Horario de apertura y cierre',
+                'Tareas de guardiandes de plaza',
+                'Otros elementos',
+            ],
+            color: '#90ee90',
+        },
+        {
+            nombre: 'Pluviales',
+            icon: 'waves',
+            desperfectos: [
+                'Calle anegada',
+                'Calle inundada',
+                'Alcantarillas / sumideros',
+            ],
+            color: '#0ff',
+        },
+        {
+            nombre: 'Reciclado y protección ambiental',
+            icon: 'recycle',
+            desperfectos: [
+                'Uso indebido del agua',
+                'Elementos con impacto ambiental',
+                'Establecimientos con impacto ambiental',
+            ],
+            color: '#90ee90',
+        },
+        {
+            nombre: 'Seguridad',
+            icon: 'shield-star',
+            desperfectos: [
+                'Presencial policial',
+            ],
+            color: '#4b0082',
+        },
+        {
+            nombre: 'Tránsito y transporte',
+            icon: 'bus',
+            desperfectos: [
+                'Denuncia vial',
+                'Cruce peligroso',
+                'Subtes',
+            ],
+            color: '#191970',
+        },
     ];
 
     return (
         <>
             <MiVecindario navigation={navigation} />
+            <Text style={{
+                color: '#34bdeb',
+                fontSize: 20,
+                paddingLeft: 20,
+            }}
+            // TODO - No usa Styles por el paddingLeft
+            >
+                Crear nuevo reclamo
+
+            </Text>
             <ScrollView
                 style={style.formsContainer}
                 keyboardShouldPersistTaps="handled"
             >
-
-                <Text style={style.sectionTitle}>Crear nuevo reclamo</Text>
                 {/* <Searchbar
                     placeholder="¿Con qué se relaciona tu reclamo?"
                     onChangeText={onChangeSearch}
@@ -65,7 +143,7 @@ function FormularioReclamo(props) {
                         <List.Accordion
                             titleNumberOfLines={3}
                             title={rubro.nombre}
-                            left={() => <List.Icon style={{ backgroundColor: rubro.color, borderRadius: '50px' }} icon={rubro.icon} />}
+                            left={() => <List.Icon style={{ backgroundColor: rubro.color, borderRadius: 50 }} icon={rubro.icon} />}
                         >
                             {rubro.desperfectos.map((desperfecto) => (
                                 <List.Item titleNumberOfLines={3} style={{ flexWrap: 'wrap' }} title={desperfecto} onPress={() => navigation.navigate('Reclamo#2', { rubro: rubro.nombre, desperfecto })} />
@@ -73,40 +151,6 @@ function FormularioReclamo(props) {
                         </List.Accordion>
                     ))
                 }
-
-                {/* <List.Accordion
-                    title="Alumbrado"
-                    left={(props) => <List.Icon style={{ backgroundColor: '#fafad2', borderRadius: '50px' }} {...props} icon="led-on" />}
-                >
-                    <List.Item title="Limpieza de equipamiento de alumbrado" />
-                    <List.Item title="Mayor iluminación en calle" />
-                    <List.Item title="Reparación de luminaria" />
-                </List.Accordion>
-                <List.Accordion
-                    title="Arbolado"
-                    left={(props) => <List.Icon style={{ backgroundColor: '#90ee90', borderRadius: '50px' }} {...props} icon="tree" />}
-                >
-                    <List.Item title="Poda de árbol y despeje de luminaria" />
-                    <List.Item title="Plantación de árbol" />
-                    <List.Item title="Extracción de árbol" />
-                </List.Accordion>
-                <List.Accordion
-                    title="Control edilicio, obras y catastro"
-                    left={(props) => <List.Icon style={{ backgroundColor: '#d3d3d3', borderRadius: '50px' }} {...props} icon="office-building" />}
-                >
-                    <List.Item title="Edificios" />
-                    <List.Item title="Registro de obras y catastro" />
-                    <List.Item title="Construcciones e instalaciones" />
-                </List.Accordion>
-                <List.Accordion
-                    title="Educación"
-                    left={(props) => <List.Icon style={{ backgroundColor: '#1e90ff', borderRadius: '50px' }}{...props} icon="school" />}
-                >
-                    <List.Item title="Patio/jardín" />
-                    <List.Item title="Baños" />
-                    <List.Item title="Filtraciones" />
-                </List.Accordion> */}
-
             </ScrollView>
         </>
     );

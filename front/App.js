@@ -21,6 +21,8 @@ import ImageBrowser from './components/ImageBrowser';
 import Confirmacion from './components/Confirmacion';
 import PrimerInicio from './screens/PrimerInicio';
 import CambiarContraseña from './screens/CambiarContraseña';
+import Reclamo from './screens/reclamos/Reclamo1';
+import Reclamo2 from './screens/reclamos/Reclamo2';
 import Cartelera from './screens/cartelera/Cartelera';
 import NuevaPublicacion from './screens/cartelera/NuevaPublicacion';
 import ServiciosProfesionales from './screens/cartelera/ServiciosProfesionales';
@@ -83,6 +85,18 @@ export default function App() {
                         name="Denuncia"
                         component={Denuncia}
                         options={options}
+                    />
+                    <Stack.Screen
+                        name="Reclamo"
+                        component={Reclamo}
+                        options={options}
+                        initialParams={{ authToken }}
+                    />
+                    <Stack.Screen
+                        name="Reclamo#2"
+                        component={Reclamo2}
+                        options={options}
+                        initialParams={{ authToken }}
                     />
                     <Stack.Screen
                         name="Historial"
