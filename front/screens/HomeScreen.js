@@ -52,9 +52,9 @@ function MainScreen(props) {
                         </Text>
                     </TouchableOpacity>
 
-                    <Text style={style.whiteFont} onPress={() => navigation.navigate('Registrar')}>¿No estas registrado? Registrate aca</Text>
+                    <Text style={style.whiteFont} onPress={() => navigation.navigate('Registrar')}>¿No estas registrado? Registrate acá</Text>
                     <Text style={style.whiteFontFooter}>
-                        Una aplicacion del Municipio de Posadas
+                        Una aplicación del Municipio de Posadas
                     </Text>
                 </View>
             )}

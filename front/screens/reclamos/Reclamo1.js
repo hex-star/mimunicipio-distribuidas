@@ -119,7 +119,7 @@ function FormularioReclamo(props) {
             <MiVecindario navigation={navigation} />
             <Text style={{
                 color: '#34bdeb',
-                fontSize: 20,
+                fontSize: 25,
                 paddingLeft: 20,
             }}
             // TODO - No usa Styles por el paddingLeft

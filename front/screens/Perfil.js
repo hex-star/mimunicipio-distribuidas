@@ -108,7 +108,7 @@ function Perfil(props) {
                             </View>
 
                         )}
-                    <Text style={{ fontSize: 13, textAlign: 'center' }}> *Para cambiar sus datos, deberá acercarse al Municipio.</Text>
+                    <Text style={{ fontSize: 16, textAlign: 'center' }}> *Para cambiar sus datos, deberá acercarse al Municipio.</Text>
 
                     <TouchableOpacity onPress={() => navigation.navigate('CambiarContraseña')}>
                         <Text style={style.subtitle2}>Cambiar Contraseña</Text>
