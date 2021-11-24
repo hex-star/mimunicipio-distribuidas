@@ -136,3 +136,23 @@ create table imagenesDenuncia(
 	url varchar(300),
 	constraint fk_imagenenesDenuncia_denuncias foreign key (idDenuncia) references denuncias
 )
+
+create table publicaciones(
+	idPublicacion int not null identity,
+	documento varchar(20) not null,
+	idSitio int null,
+	descripcion varchar(2000) null,
+	titulo varchar(150) null,
+	estado varchar(150),
+	rubro varchar(50),
+	horarios varchar(50),
+	constraint pk_publicaciones primary key (idPublicacion),
+	constraint fk_publicaciones_sitios foreign key (idSitio) references sitios
+)
+
+create table imagenesPublicaciones(
+	id int not null identity,
+	idPublicacion int not null,
+	url varchar(300),
+	constraint fk_imagenenesPublicaciones_publicaciones foreign key (idPublicacion) references publicaciones
+)

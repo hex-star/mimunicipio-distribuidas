@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('denuncias', {
-    idDenuncia: {
+  return sequelize.define('publicaciones', {
+    idPublicacion: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
@@ -11,6 +11,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(20),
       allowNull: false
     },
+    telefono: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    },
+    titulo: {
+      type: DataTypes.STRING(150),
+      allowNull: true
+    },
+    mail: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
     idSitio: {
       type: DataTypes.INTEGER,
       allowNull: true
@@ -19,29 +31,29 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(2000),
       allowNull: true
     },
-    titulo: {
-      type: DataTypes.STRING(150),
-      allowNull: true
-    },
     estado: {
       type: DataTypes.STRING(150),
       allowNull: true
     },
-    aceptaResponsabilidad: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
+    rubro: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    horarios: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
   }, {
     sequelize,
-    tableName: 'denuncias',
+    tableName: 'publicaciones',
     schema: 'dbo',
     timestamps: false,
     indexes: [
       {
-        name: "pk_denuncias",
+        name: "pk_publicaciones",
         unique: true,
         fields: [
-          { name: "idDenuncia" },
+          { name: "idPublicacion" },
         ]
       },
     ]

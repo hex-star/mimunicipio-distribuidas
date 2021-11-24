@@ -1,13 +1,13 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('imagenesReclamo', {
+  return sequelize.define('imagenesPublicacion', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    idReclamo: {
+    idPublicacion: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
   }, {
     sequelize,
-    tableName: 'imagenesReclamo',
+    tableName: 'imagenesPublicacion',
     schema: 'dbo',
     timestamps: false
   });

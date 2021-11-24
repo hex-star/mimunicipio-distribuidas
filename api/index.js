@@ -10,6 +10,8 @@ const rubros = require('./routes/rubros');
 const usuarios = require('./routes/usuarios');
 const sitios = require('./routes/sitios');
 const denuncias = require('./routes/denuncias');
+const reclamos = require('./routes/reclamos');
+const publicaciones = require('./routes/publicaciones');
 
 var corsOptions = {
   origin: '*'
@@ -34,6 +36,8 @@ app.use('/api/rubros', rubros);
 app.use('/api/usuarios', usuarios);
 app.use('/api/sitios', sitios);
 app.use('/api/denuncias', denuncias);
+app.use('/api/reclamos', reclamos);
+app.use('/api/publicaciones', publicaciones);
 
 app.listen(port, () => {
   console.log('Listening on port ' + port);

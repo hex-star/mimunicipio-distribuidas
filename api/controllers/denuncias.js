@@ -55,15 +55,31 @@ exports.crearDenuncia = async function (req, res, next) {
 };
 
 exports.listarDenuncias = async function (req, res, next) {
-  try {
-    const denuncias = await Denuncias.findAll({
-      include: [ImagenesDenuncia, DetalleDenuncias, MovimientosDenuncia],
-    });
-    res.status(200).json({ denuncias });
-  } catch (err) {
-    if (!err.statusCode) {
-      err.statusCode = 500;
+  const documento = req.params.documento;
+  if (documento){  
+    try {
+      const denuncias = await Denuncias.findAll({ where: { documento },
+        include: [ImagenesDenuncia, DetalleDenuncias, MovimientosDenuncia],
+      });
+      res.status(200).json({ denuncias });
+    } catch (err) {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
     }
-    next(err);
+  }
+  else {  
+    try {
+      const denuncias = await Denuncias.findAll({
+        include: [ImagenesDenuncia, DetalleDenuncias, MovimientosDenuncia],
+      });
+      res.status(200).json({ denuncias });
+    } catch (err) {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    }
   }
 };
