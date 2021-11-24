@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-multi-spaces */
 /* eslint-disable no-lone-blocks */
 import React, { useEffect, useState } from 'react';
 import {
@@ -9,7 +10,7 @@ import {
     View,
     Image,
 } from 'react-native';
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInput } from 'react-native-paper';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useIsFocused } from '@react-navigation/native';
@@ -23,7 +24,7 @@ import style from '../../customProperties/Styles';
 import MiVecindario from '../../components/MiVecindario';
 import imagesUrls from '../../controllers/images';
 import { crearSitio } from '../../controllers/sitios';
-import { crearDenuncia } from '../../controllers/denuncias';
+import { crearReclamos } from '../../controllers/reclamos';
 
 function FormularioReclamo(props) {
     const state = useState();
@@ -44,22 +45,21 @@ function FormularioReclamo(props) {
             if (params) {
                 setPhotos(params.photos);
             }
-            setDocumentoUsuario(JSON.parse(base64.decode(await AsyncStorage.getItem('authToken'))).referencia);
         };
         bootstrapAsync();
     }, [props, isFocused, state]);
 
-    const { rubro, desperfecto } = params;
+    const { rubroD, desperfectoD, desperfectoI } = params;
 
     const onSubmit = async function (values) {
         setLoading(true);
-     
         try {
-            console.log(photos)
+            console.log(photos);
             const imageUrls = await imagesUrls(photos);
-            console.log(values)
+            console.log(values);
             const sitioRes = await crearSitio(sitio, values.comentariosLugar);
-        
+            const documento = (JSON.parse(base64.decode(await AsyncStorage.getItem('authToken'))).referencia);
+            console.log(documento);
             { /* Valores a enviar:
                     Documento (quien realiza el reclamo)
                     Rubro -> Params
@@ -67,19 +67,21 @@ function FormularioReclamo(props) {
                     Dirección (Sitio)
                     Descripcion
                     Imagenes */ }
-            const res = await crearDenuncia({
+            const res = await crearReclamos({
                 documento,
                 idSitio: sitioRes.idSitio,
+                idDesperfecto: desperfectoI,
                 descripcion: values.descripcion,
-                nombreDenunciado: values.nombre,
-                imagenesDenuncia: imageUrls,
+                imagenesReclamos: imageUrls,
             });
+            console.log('AGUUUUUUUUUUUUUS');
+            console.log(res.reclamos);
 
-            if (res.denuncia) {
-                navigation.navigate('Confirmacion', { tipo: 'reclamo', id: res.denuncia.idDenuncia });
+            if (res.reclamos) {
+                navigation.navigate('Confirmacion', { tipo: 'reclamo', id: res.reclamo.idReclamo });
             }
         } catch (e) {
-            Alert.alert('Ha habido un error generando tu denuncia');
+            Alert.alert('Ha habido un error generando tu reclamo');
             console.log(e);
         } finally {
             setLoading(false);
@@ -147,7 +149,6 @@ function FormularioReclamo(props) {
                 {({
                     handleChange,
                     handleBlur,
-                    handleSubmit,
                     values,
                     errors,
                     touched,
@@ -164,7 +165,7 @@ function FormularioReclamo(props) {
                         }}
                         >
                             {'Rubro: '}
-                            { rubro }
+                            { rubroD }
 
                         </Text>
                         <Text style={{
@@ -173,7 +174,7 @@ function FormularioReclamo(props) {
                         >
                             {' '}
                             {'Desperfecto: '}
-                            { desperfecto }
+                            { desperfectoD }
 
                         </Text>
                         <Text style={style.formTooltip}>Dirección</Text>
@@ -239,7 +240,7 @@ function FormularioReclamo(props) {
                             && <Text style={style.errors}>{errors.descripcion}</Text>}
                         <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
                         <TouchableOpacity
-                    
+
                             onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'Reclamo#2', maxImagenes: 7 }); }}
                             style={style.primaryFormButton}
                         >
@@ -256,8 +257,7 @@ function FormularioReclamo(props) {
                             <></>
                         )}
                         <TouchableOpacity
-                            // onPress={() => onSubmit(values)} {TODO Comentado para probar front}
-                            onPress={() => navigation.navigate('Confirmacion', { tipo: 'reclamo', id: 1 })} // TODO quitar cuando esté la api
+                            onPress={() => onSubmit(values)}
                             style={style.primaryNavigationButton}
                             disabled={!isValid}
                         >
