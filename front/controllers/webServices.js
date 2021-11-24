@@ -1,5 +1,6 @@
 import { REACT_APP_API_URL } from '@env';
-const urlApi = REACT_APP_API_URL || 'http://192.168.0.212:8000';
+// const urlApi = 'http://192.168.1.17:8000';
+const urlApi = 'https://mimunicipio-api.herokuapp.com';
 
 const urlWebServices = {
     login: `${urlApi}/api/usuarios/login`,
@@ -9,6 +10,8 @@ const urlWebServices = {
     registrarUsuario: `${urlApi}/api/usuarios/create`,
     cambiarPassword: `${urlApi}/api/usuarios/cambiarPassword/`,
     buscarUsuario: `${urlApi}/api/usuarios/buscar/`,
+    buscarPublicacionesHabilitadas: `${urlApi}/api/publicaciones/habilitadas`,
+    crearNuevaPublicacion:`${urlApi}/api/publicaciones/create`,
 };
 
 export default urlWebServices;

@@ -12,6 +12,7 @@ import style from '../../customProperties/Styles';
 import MiVecindario from '../../components/MiVecindario';
 import logo from '../../assets/avatar.png';
 import thumbnail from '../../assets/avatar.png';
+import {listarPublicacionesHabilitadas} from './../../controllers/publicaciones'
 
 function Cartelera(props) {
     const { navigation } = props;
@@ -19,7 +20,8 @@ function Cartelera(props) {
     const filtros = ['Almacén', 'Abogado', 'Bar', 'Estética'];
     const [token, setToken] = useState(null);
     // llama a los datos del perfil
-    const [publicaciones, setpublicaciones] = useState([
+    const [publicaciones,setpublicaciones] = useState(null)
+  /*  const [publicaciones, setpublicaciones] = useState([
         {
             nombre: 'La farola',
             descripcion: 'Lorem ipsum is simply dummy text of the printing an pesetting',
@@ -181,17 +183,28 @@ function Cartelera(props) {
             tipo: 'Comercio',
         },
     ]);
-
+*/
     const fetchApi = async () => {
         const res = await AsyncStorage.getItem('authToken');
         const token = JSON.parse(base64.decode(res));
-        // console.log(token);
+       // console.log(token);
         setToken(token);
+
+        const res2 = await listarPublicacionesHabilitadas();
+        console.log(res2.publicaciones);
+        setpublicaciones(res2.publicaciones)
+
+       /* if (res) {
+            setDenuncias(res.denuncias);
+            // console.log(typeof (res))
+            console.log('*********************************');
+            console.log(typeof (res.denuncias[0].movimientosDenuncia[0].fecha));
+        }*/
     };
 
     useEffect(() => {
         fetchApi();
-    });
+    },[]);
 
     return (
         <>
@@ -239,16 +252,16 @@ function Cartelera(props) {
                     /> */}
                     <View style={style.carteleraItemContainer}>
 
-                        {
+                        { publicaciones &&
                             publicaciones.map((publicacion) => (
                                 <TouchableOpacity style={style.carteleraItem} onPress={() => navigation.navigate('PaginaProducto', { publicacion })}>
                                     <Image
-                                        source={{ uri: publicacion.img[0] }}
+                                        source={{ uri: publicacion.imagenesPublicacions[0].url }}
                                         style={{
                                             width: 80, height: 80, resizeMode: 'stretch', justifyContent: 'center',
                                         }}
                                     />
-                                    <Text>{publicacion.nombre}</Text>
+                                    <Text>{publicacion.titulo}</Text>
                                     <Text style={{ textAlign: 'center' }}>{publicacion.descripcion}</Text>
                                 </TouchableOpacity>
                             ))

@@ -28,7 +28,7 @@ function PaginaProducto(props) {
     const [horarios, setHorarios] = useState(params.publicacion.horarios);
     const [nombre, setNombre] = useState(params.publicacion.nombre);
     const [descripcion, setDescripcion] = useState(params.publicacion.descripcion);
-    const [img, setImg] = useState(params.publicacion.img);
+    const [img, setImg] = useState(params.publicacion.imagenesPublicacions);
 
     useEffect(() => {
         fetchApi();
@@ -40,12 +40,12 @@ function PaginaProducto(props) {
                 <MiVecindario noPerfil />
                 <View style={style.paginaProductoContainer}>
                     <Text style={style.h1Cartelera}>Cartelera</Text>
-                    <View style={{ flexDirection: 'row',flexWrap:'wrap',justifyContent:'center' }}>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
                         {
                             img.map((item) => (
 
                                 <Image
-                                    source={{ uri: item }}
+                                    source={{ uri: item.url }}
                                     style={{
                                         width: 120, height: 120, resizeMode: 'stretch', justifyContent: 'center', alignSelf: 'center',
                                     }}
@@ -60,86 +60,197 @@ function PaginaProducto(props) {
                     <View style={{ flexDirection: 'row' }}>
                         <Text>-Lunes </Text>
                         <Text style={{ color: '#000' }}>
-                            {horarios.lunes.desde}
-                            {' '}
-                            -
-                            {' '}
-                            {horarios.lunes.hasta}
-                            {' '}
-                            hs
+                        {
+                            horarios.split(',')[0] === '' && horarios.split(',')[1] === ''
+                            && (
+                                <Text style={{ color: '#000' }}>
+                                   Cerrado
+                                </Text>
+                            )
+
+                        }
+                        {
+                            horarios.split(',')[0] !== '' && horarios.split(',')[1] !== ''
+                            &&(
+                                <Text style={{ color: '#000' }}>
+                                    {horarios.split(',')[0]}
+                                    {' '}
+                                    -
+                                    {' '}
+                                    {horarios.split(',')[1]}
+                                    {' '}
+                                    hs
+                                </Text>
+                            )
+                        }
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
                         <Text>-Martes </Text>
                         <Text style={{ color: '#000' }}>
-                            {horarios.martes.desde}
-                            {' '}
-                            -
-                            {' '}
-                            {horarios.martes.hasta}
-                            {' '}
-                            hs
+                        {
+                            horarios.split(',')[2] === '' && horarios.split(',')[3] === ''
+                            && (
+                                <Text style={{ color: '#000' }}>
+                                   Cerrado
+                                </Text>
+                            )
+
+                        }
+                        {
+                            horarios.split(',')[2] !== '' && horarios.split(',')[3] !== ''
+                            &&(
+                                <Text style={{ color: '#000' }}>
+                                    {horarios.split(',')[2]}
+                                    {' '}
+                                    -
+                                    {' '}
+                                    {horarios.split(',')[3]}
+                                    {' '}
+                                    hs
+                                </Text>
+                            )
+                        }
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
                         <Text>-Miercoles </Text>
                         <Text style={{ color: '#000' }}>
-                            {horarios.miercoles.desde}
-                            {' '}
-                            -
-                            {' '}
-                            {horarios.miercoles.hasta}
-                            {' '}
-                            hs
+                        {
+                            horarios.split(',')[4] === '' && horarios.split(',')[5] === ''
+                            && (
+                                <Text style={{ color: '#000' }}>
+                                   Cerrado
+                                </Text>
+                            )
+
+                        }
+                        {
+                            horarios.split(',')[4] !== '' && horarios.split(',')[5] !== ''
+                            &&(
+                                <Text style={{ color: '#000' }}>
+                                    {horarios.split(',')[4]}
+                                    {' '}
+                                    -
+                                    {' '}
+                                    {horarios.split(',')[5]}
+                                    {' '}
+                                    hs
+                                </Text>
+                            )
+                        }
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
                         <Text>-Jueves </Text>
                         <Text style={{ color: '#000' }}>
-                            {horarios.jueves.desde}
-                            {' '}
-                            -
-                            {' '}
-                            {horarios.jueves.hasta}
-                            {' '}
-                            hs
+                        {
+                            horarios.split(',')[6] === '' && horarios.split(',')[7] === ''
+                            && (
+                                <Text style={{ color: '#000' }}>
+                                   Cerrado
+                                </Text>
+                            )
+
+                        }
+                        {
+                            horarios.split(',')[6] !== '' && horarios.split(',')[7] !== ''
+                            &&(
+                                <Text style={{ color: '#000' }}>
+                                    {horarios.split(',')[6]}
+                                    {' '}
+                                    -
+                                    {' '}
+                                    {horarios.split(',')[7]}
+                                    {' '}
+                                    hs
+                                </Text>
+                            )
+                        }
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
                         <Text>-Viernes </Text>
                         <Text style={{ color: '#000' }}>
-                            {horarios.viernes.desde}
-                            {' '}
-                            -
-                            {' '}
-                            {horarios.viernes.hasta}
-                            {' '}
-                            hs
+                        {
+                            horarios.split(',')[8] === '' && horarios.split(',')[9] === ''
+                            && (
+                                <Text style={{ color: '#000' }}>
+                                   Cerrado
+                                </Text>
+                            )
+
+                        }
+                        {
+                            horarios.split(',')[8] !== '' && horarios.split(',')[9] !== ''
+                            &&(
+                                <Text style={{ color: '#000' }}>
+                                    {horarios.split(',')[8]}
+                                    {' '}
+                                    -
+                                    {' '}
+                                    {horarios.split(',')[9]}
+                                    {' '}
+                                    hs
+                                </Text>
+                            )
+                        }
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
                         <Text>-Sabado </Text>
                         <Text style={{ color: '#000' }}>
-                            {horarios.sabado.desde}
-                            {' '}
-                            -
-                            {' '}
-                            {horarios.sabado.hasta}
-                            {' '}
-                            hs
+                        {
+                            horarios.split(',')[10] === '' && horarios.split(',')[11] === ''
+                            && (
+                                <Text style={{ color: '#000' }}>
+                                   Cerrado
+                                </Text>
+                            )
+
+                        }
+                        {
+                            horarios.split(',')[10] !== '' && horarios.split(',')[11] !== ''
+                            &&(
+                                <Text style={{ color: '#000' }}>
+                                    {horarios.split(',')[10]}
+                                    {' '}
+                                    -
+                                    {' '}
+                                    {horarios.split(',')[11]}
+                                    {' '}
+                                    hs
+                                </Text>
+                            )
+                        }
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
                         <Text>-Domingo </Text>
-                        <Text style={{ color: '#000' }}>
-                            {horarios.domingo.desde}
-                            {' '}
-                            -
-                            {' '}
-                            {horarios.domingo.hasta}
-                            {' '}
-                            hs
-                        </Text>
+                        {
+                            horarios.split(',')[12] === '' && horarios.split(',')[13] === ''
+                            && (
+                                <Text style={{ color: '#000' }}>
+                                   Cerrado
+                                </Text>
+                            )
+
+                        }
+                        {
+                            horarios.split(',')[12] !== '' && horarios.split(',')[13] !== ''
+                            &&(
+                                <Text style={{ color: '#000' }}>
+                                    {horarios.split(',')[12]}
+                                    {' '}
+                                    -
+                                    {' '}
+                                    {horarios.split(',')[13]}
+                                    {' '}
+                                    hs
+                                </Text>
+                            )
+                        }
+
                     </View>
 
                     <Text style={{ marginTop: 5 }}>{descripcion}</Text>
