@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-lone-blocks */
 import React, { useEffect, useState } from 'react';
 import {
     Alert,
-    Button,
     Dimensions,
     ScrollView,
     Text,
@@ -10,39 +9,34 @@ import {
     View,
     Image,
 } from 'react-native';
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 import { TextInput } from 'react-native-paper';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import base64 from 'react-native-base64';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
-import { ImageBrowser } from 'expo-image-picker-multiple';
-import { format, isValid } from 'date-fns';
 import { GOOGLE_PLACES_API_KEY } from '@env';
 import Qs from 'qs';
-import * as ImagePicker from 'expo-image-picker';
+import base64 from 'react-native-base64';
 import * as yup from 'yup';
 import { Formik } from 'formik';
-import style from '../customProperties/Styles';
-import MiVecindario from '../components/MiVecindario';
-import imagesUrls from '../controllers/images';
-import { crearSitio } from '../controllers/sitios';
-import { crearDenuncia } from '../controllers/denuncias';
+import style from '../../customProperties/Styles';
+import MiVecindario from '../../components/MiVecindario';
+import imagesUrls from '../../controllers/images';
+import { crearSitio } from '../../controllers/sitios';
+import { crearDenuncia } from '../../controllers/denuncias';
 
-function FormularioDenuncia(props) {
+function FormularioReclamo(props) {
     const state = useState();
     const { navigation, route } = props;
     const { params } = route;
     const [photos, setPhotos] = useState([]);
     const [sitio, setSitio] = useState();
-    // const [date, setDate] = useState();
-    // const [datePickerMode, setDatePickerMode] = useState('date');
-    // const [showDatePicker, setShowDatePicker] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [documentoUsuario, setDocumentoUsuario] = useState('');
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
+    const [documentoUsuario, setDocumentoUsuario] = ('');
+
+    // const { documento } = JSON.parse(base64.decode(params.authToken).toString());
 
     useEffect(() => {
         // Fetch the token from storage then navigate to our appropriate place
@@ -55,16 +49,26 @@ function FormularioDenuncia(props) {
         bootstrapAsync();
     }, [props, isFocused, state]);
 
+    const { rubro, desperfecto } = params;
+
     const onSubmit = async function (values) {
         setLoading(true);
+     
         try {
+            console.log(photos)
             const imageUrls = await imagesUrls(photos);
-            console.log(imageUrls)
-
+            console.log(values)
             const sitioRes = await crearSitio(sitio, values.comentariosLugar);
-
+        
+            { /* Valores a enviar:
+                    Documento (quien realiza el reclamo)
+                    Rubro -> Params
+                    Desperfecto -> Params
+                    Dirección (Sitio)
+                    Descripcion
+                    Imagenes */ }
             const res = await crearDenuncia({
-                documento: documentoUsuario,
+                documento,
                 idSitio: sitioRes.idSitio,
                 descripcion: values.descripcion,
                 nombreDenunciado: values.nombre,
@@ -72,7 +76,7 @@ function FormularioDenuncia(props) {
             });
 
             if (res.denuncia) {
-                navigation.navigate('Confirmacion', { tipo: 'denuncia', id: res.denuncia.idDenuncia });
+                navigation.navigate('Confirmacion', { tipo: 'reclamo', id: res.denuncia.idDenuncia });
             }
         } catch (e) {
             Alert.alert('Ha habido un error generando tu denuncia');
@@ -125,9 +129,6 @@ function FormularioDenuncia(props) {
     };
 
     const denunciaValidationSchema = yup.object().shape({
-        nombre: yup.string().required('Por favor ingresá un nombre valido'),
-        // direccion: yup.string().required(),
-        fecha: yup.date(),
         descripcion: yup.string().required('Por favor ingresa comentarios acerca del problema'),
     });
 
@@ -136,10 +137,6 @@ function FormularioDenuncia(props) {
             <MiVecindario navigation={navigation} />
             <Formik
                 initialValues={{
-                    nombre: '',
-                    direccion: '',
-                    comentariosLugar: '',
-                    fecha: '',
                     descripcion: '',
                 }}
                 validationSchema={denunciaValidationSchema}
@@ -161,23 +158,29 @@ function FormularioDenuncia(props) {
                         keyboardShouldPersistTaps="handled"
                     >
 
-                        <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
-                        <Text style={style.formTooltip}>Nombre / Comercio</Text>
-                        <TextInput
-                            style={style.secondaryTextInput}
-                            value={values.nombre}
-                            onBlur={handleBlur('nombre')}
-                            onChangeText={handleChange('nombre')}
-                            placeholder="Ingresá el nombre del vecino o comercio"
-                            underlineColor="#2984f2"
-                        />
-                        {(errors.nombre && touched.nombre)
-                            && <Text style={style.errors}>{errors.nombre}</Text>}
+                        <Text style={style.sectionTitle}>Crear nueva reclamo</Text>
+                        <Text style={{
+                            backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', padding: 10,
+                        }}
+                        >
+                            {'Rubro: '}
+                            { rubro }
+
+                        </Text>
+                        <Text style={{
+                            backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', padding: 10,
+                        }}
+                        >
+                            {' '}
+                            {'Desperfecto: '}
+                            { desperfecto }
+
+                        </Text>
                         <Text style={style.formTooltip}>Dirección</Text>
                         <View style={style.primaryTextInput}>
                             <GooglePlacesAutocomplete
                                 // https://github.com/FaridSafi/react-native-google-places-autocomplete
-                                placeholder="Buscar"
+                                placeholder="Ingresar una dirección"
                                 disableScroll
                                 isRowScrollable={false}
                                 currentLocationLabel="Ubicación actual"
@@ -223,30 +226,21 @@ function FormularioDenuncia(props) {
                                 </View>
                             )}
                         </View>
-                        <Text style={style.formTooltip}>Comentarios del lugar</Text>
+                        <Text style={style.formTooltip}>Comentanos tu reclamo</Text>
                         <TextInput
-                            style={style.secondaryTextInput}
-                            value={values.comentariosLugar}
-                            onBlur={handleBlur('comentariosLugar')}
-                            onChangeText={handleChange('comentariosLugar')}
-                            placeholder="Ingresá mas info del lugar"
-                            underlineColor="#2984f2"
-                        />
-                        <Text style={style.formTooltip}>Comentanos tu problema</Text>
-                        <TextInput
-                            style={style.secondaryTextInput}
+                            style={style.primaryTextInput}
                             value={values.descripcion}
                             onBlur={handleBlur('descripcion')}
                             onChangeText={handleChange('descripcion')}
-                            placeholder="Ingresa el motivo de la denuncia"
+                            placeholder="Ingresa el motivo de tu reclamo"
                             underlineColor="#2984f2"
                         />
                         {(errors.descripcion && touched.descripcion)
                             && <Text style={style.errors}>{errors.descripcion}</Text>}
                         <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
                         <TouchableOpacity
-             
-                            onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'Denuncia', maxImagenes: 99 }); }}
+                    
+                            onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'Reclamo#2', maxImagenes: 7 }); }}
                             style={style.primaryFormButton}
                         >
                             <Text style={style.primaryFormButtonText}>
@@ -262,7 +256,8 @@ function FormularioDenuncia(props) {
                             <></>
                         )}
                         <TouchableOpacity
-                            onPress={() => onSubmit(values)}
+                            // onPress={() => onSubmit(values)} {TODO Comentado para probar front}
+                            onPress={() => navigation.navigate('Confirmacion', { tipo: 'reclamo', id: 1 })} // TODO quitar cuando esté la api
                             style={style.primaryNavigationButton}
                             disabled={!isValid}
                         >
@@ -285,4 +280,4 @@ function FormularioDenuncia(props) {
     );
 }
 
-export default FormularioDenuncia;
+export default FormularioReclamo;

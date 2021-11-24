@@ -11,13 +11,40 @@ const style = StyleSheet.create({
 
     formsContainer: {
         flexDirection: 'column',
-        
         paddingLeft: 20,
         paddingRight: 20,
-        
-      
     },
+    carteleraContainer: {
+        flexDirection: 'column',
+        alignContent: 'center',
+        justifyContent: 'center',
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    paginaProductoContainer: {
+        flexDirection: 'column',
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    carteleraItemContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignContent: 'center',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+    carteleraItem: {
+        width: 150,
+        backgroundColor: '#d1d1d1',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 1,
 
+    },
     homeButtonPrimary: {
         backgroundColor: 'transparent',
         borderColor: 'white',
@@ -33,6 +60,7 @@ const style = StyleSheet.create({
         padding: 2,
         margin: 5,
         alignSelf: 'center',
+        fontSize: 18,
     },
 
     homeButtonSecondary: {
@@ -46,7 +74,7 @@ const style = StyleSheet.create({
     },
 
     homeButtonSecondaryText: {
-        fontSize: 15,
+        fontSize: 18,
         fontFamily: 'sans-serif',
         borderColor: 'white',
         borderWidth: 2,
@@ -58,26 +86,33 @@ const style = StyleSheet.create({
 
     // FONTS
 
-    h1:{
-        fontWeight:'bold',
-        fontSize:15,
+    h1: {
+        fontWeight: 'bold',
+        fontSize: 15,
+    },
+    h1Cartelera: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: '#000',
+        alignSelf: 'center',
     },
 
     whiteFont: {
         color: '#fff',
         marginTop: 20,
+        fontSize: 16,
     },
 
     whiteFontFooter: {
         color: '#fff',
-        fontSize: 10,
+        fontSize: 16,
         top: 80,
         paddingVertical: 1,
     },
 
     sectionTitle: {
         color: '#34bdeb',
-        fontSize: 14,
+        fontSize: 25,
     },
 
     subtitle1: {
@@ -88,38 +123,44 @@ const style = StyleSheet.create({
 
     subtitle2: {
         alignSelf: 'center',
-        fontSize: 14,
+        fontSize: 18,
         marginVertical: 15,
     },
 
     whiteSubtitle1: {
         color: 'white',
         alignSelf: 'center',
-        fontSize: 22,
+        fontSize: 25,
         marginVertical: 10,
     },
 
     whiteSubtitle2: {
         color: 'white',
         alignSelf: 'center',
-        fontSize: 14,
+        fontSize: 18,
         marginVertical: 10,
     },
 
     formTooltip: {
         color: '#6e6e6e',
-        fontWeight:'bold',
-        fontSize: 14,
+        fontWeight: 'bold',
+        fontSize: 18,
         marginTop: 10,
-  
+
     },
 
     primaryTextInput: {
-      
-        fontSize: 16,
+
+        fontSize: 20,
         marginBottom: 1,
         backgroundColor: 'transparent',
-        
+
+    },
+    secondaryTextInput: {
+        fontSize: 18,
+        marginBottom: 1,
+        backgroundColor: 'transparent',
+        height: 30,
     },
 
     primaryNavigationButton: {
@@ -131,7 +172,7 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         width: 200,
         marginTop: 20,
-        marginBottom:45,
+        marginBottom: 45,
 
     },
     historialButton: {
@@ -146,8 +187,7 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         width: '100%',
         marginTop: 20,
-        color:'#000',
-
+        color: '#000',
 
     },
     primaryHistorialButtonText: {
@@ -241,14 +281,14 @@ const style = StyleSheet.create({
 
     menuText: {
         color: '#6e6e6e',
-        fontSize: 16,
+        fontSize: 20,
         marginBottom: 25,
         marginTop: 5,
     },
 
     celesteText: {
         color: '#4287f5',
-        fontSize: 16,
+        fontSize: 25,
         marginBottom: 5,
         marginTop: 0,
     },

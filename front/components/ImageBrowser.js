@@ -9,7 +9,10 @@ export default class ImageBrowserScreen extends Component {
     );
 
   imagesCallback = (callback) => {
-    const { navigation } = this.props;
+    const {route,navigation} = this.props
+    const {params} = route;
+    //console.log(params)
+    const {navigateBackTo} = params
     this.props.navigation.setOptions({
       headerRight: () => this._getHeaderLoader()
     });
@@ -24,7 +27,9 @@ export default class ImageBrowserScreen extends Component {
           type: 'image/jpg'
         })
       }
-      navigation.navigate('Denuncia', { photos: cPhotos});
+      //navigation.goBack( { photos: cPhotos})
+      //console.log(navigation.navigate.history())
+      navigation.navigate(navigateBackTo, { photos: cPhotos});
     })
     .catch((e) => console.log(e));
   };
@@ -60,11 +65,20 @@ export default class ImageBrowserScreen extends Component {
 
   render() {
     const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
+   
+   
+      const {route} = this.props
+    
+      const {params} = route;
+      //console.log(params)
+      const {maxImagenes} = params
+      //console.log(maxImagenes)
+ 
 
     return (
       <View style={[styles.flex, styles.container]}>
         <ImageBrowser
-          max={4}
+          max={maxImagenes}
           onChange={this.updateHandler}
           callback={this.imagesCallback}
           renderSelectedComponent={this.renderSelectedComponent}

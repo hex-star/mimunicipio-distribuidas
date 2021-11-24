@@ -40,7 +40,7 @@ function MainScreen(props) {
                     <Image source={logo} />
                     <Text style={style.whiteSubtitle1}>MiVecindario</Text>
 
-                    <TouchableOpacity style={style.homeButtonPrimary}>
+                    <TouchableOpacity style={style.homeButtonPrimary} onPress={() => navigation.navigate('Cartelera')}>
                         <Text style={style.homeButtonPrimaryText}>
                             Continuar como invitado
                         </Text>
@@ -52,9 +52,9 @@ function MainScreen(props) {
                         </Text>
                     </TouchableOpacity>
 
-                    <Text style={style.whiteFont} onPress={() => navigation.navigate('Registrar')}>¿No estas registrado? Registrate aca</Text>
+                    <Text style={style.whiteFont} onPress={() => navigation.navigate('Registrar')}>¿No estas registrado? Registrate acá</Text>
                     <Text style={style.whiteFontFooter}>
-                        Una aplicacion del Municipio de Posadas
+                        Una aplicación del Municipio de Posadas
                     </Text>
                 </View>
             )}

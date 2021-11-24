@@ -17,14 +17,17 @@ function Menu(props) {
             <View style={{ flexDirection: 'column', height: '90%', justifyContent: 'center' }}>
                 <View style={style.menuContainer}>
                     <View style={style.menuItem}>
-                        <TouchableOpacity style={style.menuButtonDisabled}>
+                        <TouchableOpacity style={style.menuButton} onPress={() => navigation.navigate('Cartelera')}>
                             <Image style={style.menuImage} source={cartelera} />
 
                         </TouchableOpacity>
                         <Text style={style.menuText}>Cartelera</Text>
                     </View>
                     <View style={style.menuItem}>
-                        <TouchableOpacity style={style.menuButtonDisabled}>
+                        <TouchableOpacity
+                            style={style.menuButton}
+                            onPress={() => navigation.navigate('Reclamo')}
+                        >
                             <Image style={style.menuImage} source={reclamo} />
 
                         </TouchableOpacity>
@@ -45,15 +48,14 @@ function Menu(props) {
                         </TouchableOpacity>
                         <Text style={style.menuText}>Historial</Text>
                     </View>
-                   {/*<View style={style.menuItem}>
+                    {/* <View style={style.menuItem}>
                         <TouchableOpacity style={style.menuButton}>
                             <Image style={style.menuImage} source={historial} />
-
                         </TouchableOpacity>
                         <Text style={style.menuText}>Historial</Text>
-                    </View>*/ } 
+                    </View> */ }
                 </View>
-       
+
             </View>
 
         </>
