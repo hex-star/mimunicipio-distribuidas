@@ -59,6 +59,28 @@ exports.login = (req, res) => {
     }
   })
     .then(usuario => {
+      if (usuario.tipo !== 'vecino'){
+        return Personal.findOne({
+          where: {
+            legajo: usuario.referencia,
+          }
+        })
+        .then(personal => {
+          const token = Buffer.from(JSON.stringify({
+            id: usuario.id,
+            estado: usuario.estado,
+            password: usuario.password,
+            email: usuario.email,
+            avatar: usuario.avatar,
+            tipo: usuario.tipo,
+            referencia: usuario.referencia,
+            rubro: personal.sector,
+          })).toString('base64');
+          return res.status(203).json({ token, documento: usuario.referencia });
+        })
+        .catch((e) => res.status(500).json({ error: e }))
+
+      }
       switch (usuario.estado) { // 0 habilitado, 1 requiere cambio pw, 2 vecino pendiente, 3 inhabilitado
         case 0: {
           if (usuario.password === req.body.password) {
