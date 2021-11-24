@@ -19,10 +19,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(2000),
       allowNull: true
     },
-    titulo: {
-      type: DataTypes.STRING(150),
-      allowNull: true
-    },
     estado: {
       type: DataTypes.STRING(150),
       allowNull: true
