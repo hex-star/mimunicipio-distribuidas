@@ -6,7 +6,7 @@ import { List } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import MiVecindario from '../components/MiVecindario';
 import style from '../customProperties/Styles';
-import { listarDenuncias } from '../controllers/denuncias';
+import { listarDenuncias,listarDenunciasUser } from '../controllers/denuncias';
 import base64 from 'react-native-base64';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -21,23 +21,36 @@ function Historial(props) {
 
     async function fetchDenuncias() {
         const async = await AsyncStorage.getItem('authToken');
-        const token = JSON.parse(base64.decode(async));
-        //console.log(token);
+        console.log( JSON.parse(base64.decode(async)))
+        const token = await JSON.parse(base64.decode(async));
+        console.log("TOKEN")
+        console.log(token);
         setToken(token);
+        var res = null;
         if (token && token.tipo == 'inspector')
         {
             //TODO fetch de todos los reclamos
+            var res = await listarDenuncias();
         }
-
-        const res = await listarDenuncias();
-
+        else
+        {
+            if (token && token.tipo == 'vecino')
+            {
+                
+                console.log(token.referencia)
+                var res = await listarDenunciasUser({
+                    documento: token.referencia,
+                });
+            }
+        }
         
 
-        if (res.denuncias) {
+        if (res && res.denuncias) {
+            console.log("RES")
+            console.log(res.denuncias)
             setDenuncias(res.denuncias);
             // console.log(typeof (res))
-            console.log('*********************************');
-            console.log(typeof (res.denuncias[0].movimientosDenuncia[0].fecha));
+
         }
     }
 

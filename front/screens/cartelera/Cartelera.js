@@ -186,9 +186,15 @@ function Cartelera(props) {
 */
     const fetchApi = async () => {
         const res = await AsyncStorage.getItem('authToken');
-        const token = JSON.parse(base64.decode(res));
-       // console.log(token);
-        setToken(token);
+        if (res)
+        {
+            const token = JSON.parse(base64.decode(res));
+            console.log(token)
+            // console.log(token);
+             setToken(token);
+        }
+
+     
 
         const res2 = await listarPublicacionesHabilitadas();
         console.log(res2.publicaciones);

@@ -31,8 +31,6 @@ export const listarDenuncias = async function () {
     myHeaders.append('Content-Type', 'application/json');
     myHeaders.append('Accept', 'application/json');
 
-
-
     const response = await fetch(url, {
         method: 'GET',
         mode: 'cors',
@@ -40,6 +38,27 @@ export const listarDenuncias = async function () {
     });
 
     return response.json();
-}
+};
+
+export const listarDenunciasUser = async function (values) {
+    try {
+        const url = urlWebServices.listarDenunciasUser + '/'+values.documento;
+        console.log(url)
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Accept', 'application/json');
+
+        const response = await fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            headers: myHeaders,
+        });
+        console.log("RESPONSEE")
+        console.log(response)
+        return response.json();
+    } catch (e) {
+        console.log(e);
+    }
+};
 
 export default crearDenuncia;
