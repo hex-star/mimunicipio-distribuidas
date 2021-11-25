@@ -3,7 +3,7 @@ const ImagenesPublicacion = require('../models').imagenesPublicacion;
 const Sitios = require('../models').sitios;
 
 Publicaciones.hasMany(ImagenesPublicacion, { foreignKey: 'idPublicacion' });
-Publicaciones.hasOne(Sitios, { as: "sitios", foreignKey: "idSitio"});
+Publicaciones.belongsTo(Sitios, { foreignKey: "idSitio"});
 
 exports.crearPublicacion = async function (req, res, next) {
   console.log(req.body);
@@ -67,7 +67,7 @@ exports.listarPublicaciones = async function (req, res, next) {
   if (documento){  
     try {
       const publicaciones = await Publicaciones.findAll({ where: { documento },
-        include: [ImagenesPublicacion],
+        include: [Sitios, ImagenesPublicacion],
       });
       res.status(200).json({ publicaciones });
     } catch (err) {
@@ -80,7 +80,7 @@ exports.listarPublicaciones = async function (req, res, next) {
   else {  
     try {
       const publicaciones = await Publicaciones.findAll({
-        include: [ImagenesPublicacion],
+        include: [Sitios, ImagenesPublicacion],
       });
       res.status(200).json({ publicaciones });
     } catch (err) {
