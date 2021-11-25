@@ -1,6 +1,8 @@
 const Reclamos = require('../models').reclamos;
 const ImagenesReclamo = require('../models').imagenesReclamo;
 const MovimientosReclamo = require('../models').movimientosReclamo;
+const Desperfectos = require('../models').desperfectos;
+const Rubros = require('../models').rubros;
 const Vecinos = require('../models').vecinos;
 const Sitios = require('../models').sitios;
 
@@ -11,6 +13,9 @@ Reclamos.hasMany(MovimientosReclamo, { foreignKey: "idReclamo"});
 
 Vecinos.hasMany(Reclamos, { as: "reclamos", foreignKey: "documento"});
 Reclamos.hasOne(Sitios, { as: "sitios", foreignKey: "idSitio"});
+
+Reclamos.belongsTo(Desperfectos, { foreignKey: "idDesperfecto"});
+Desperfectos.belongsTo(Rubros, { foreignKey: "idRubro"});
 
 exports.crearReclamo = async function (req, res, next) {
   console.log(req.body);
@@ -48,7 +53,7 @@ exports.listarReclamos = async function (req, res, next) {
   if (documento){  
     try {
       const reclamos = await Reclamos.findAll({ where: { documento },
-        include: [ImagenesReclamo, MovimientosReclamo],
+        include: [{model: Desperfectos, include: [Rubros] }, ImagenesReclamo, MovimientosReclamo],
       });
       res.status(200).json({ reclamos });
     } catch (err) {
@@ -61,7 +66,7 @@ exports.listarReclamos = async function (req, res, next) {
   else {  
     try {
       const reclamos = await Reclamos.findAll({
-        include: [ImagenesReclamo, MovimientosReclamo],
+        include: [{model: Desperfectos, include: [Rubros] }, ImagenesReclamo, MovimientosReclamo],
       });
       res.status(200).json({ reclamos });
     } catch (err) {

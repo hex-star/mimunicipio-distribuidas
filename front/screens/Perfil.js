@@ -5,12 +5,11 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import base64 from 'react-native-base64';
 import style from '../customProperties/Styles';
 import MiVecindario from '../components/MiVecindario';
 import logo from '../assets/avatar.png';
 import { getUsuario } from '../controllers/usuarios';
-import base64 from 'react-native-base64';
-
 
 function Perfil(props) {
     const [nombre, setNombre] = useState('Cargando...');
@@ -19,10 +18,10 @@ function Perfil(props) {
     const [direccion, setDireccion] = useState('Cargando...');
     const [isInspector, setIsInspector] = useState(false);
     // INSPECTOR
-    const [legajo, setLegajo] = useState('111');
-    const [fecha, setFecha] = useState('10/09/2021');
-    const [rubro, setRubro] = useState('Alumbrado');
-    const [token, setToken] = useState(null)
+    const [legajo, setLegajo] = useState('Cargando...');
+    const [fecha, setFecha] = useState('Cargando...');
+    const [rubro, setRubro] = useState('Cargando...');
+    const [token, setToken] = useState(null);
 
     const { navigation } = props;
     // llama a los datos del perfil
@@ -30,24 +29,32 @@ function Perfil(props) {
         try {
             const async = await AsyncStorage.getItem('authToken');
             const token = JSON.parse(base64.decode(async));
-            //console.log(token);
+            /* console.log("TOKEN")
+              console.log(token); */
             setToken(token);
 
             const documento = await AsyncStorage.getItem('documento');
             console.log(typeof (documento));
             console.log(`DOCUMENTO: ${documento}`);
-            const res = await getUsuario(documento);
-
-            if (res && res.vecino) {
+            console.log(token);
+            if (token && token.tipo === 'inspector') {
+                setLegajo(token.referencia);
+                setNombre(token.email);
+                setRubro(token.rubro);
+            } else {
+                const res = await getUsuario(documento);
+                console.log('RES');
                 console.log(res);
-                console.log(`REEEEES: ${res}`);
-                setNombre(res.vecino.nombre);
-                console.log(res.vecino.nombre);
-                setApellido(res.vecino.apellido);
-                setDocumento(documento);
-                setDireccion(res.vecino.direccion);
+                if (res && res.vecino) {
+                    console.log(res);
+                    console.log(`REEEEES: ${res}`);
+                    setNombre(res.vecino.nombre);
+                    console.log(res.vecino.nombre);
+                    setApellido(res.vecino.apellido);
+                    setDocumento(documento);
+                    setDireccion(res.vecino.direccion);
+                }
             }
-            
         } catch (e) {
             console.log(e);
         }
@@ -55,7 +62,7 @@ function Perfil(props) {
 
     useEffect(() => {
         fetchApi();
-    },[]);
+    }, []);
 
     return (
         <>
@@ -73,34 +80,47 @@ function Perfil(props) {
                     </View>
                     {token && token.tipo !== 'vecino' && (
                         <View>
+
+                            <Text style={style.formTooltip}>Email</Text>
+                            <Text style={style.textPerfil}>{nombre}</Text>
+                            <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
                             <Text style={style.formTooltip}>Legajo</Text>
                             <Text style={style.textPerfil}>{legajo}</Text>
+                            <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
+                            <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
+                        </View>
+                    )}
+                    {token && token.tipo == 'vecino' && (
+                        <View>
+                            <Text style={style.formTooltip}>Nombre</Text>
+                            <Text style={style.textPerfil}>{nombre}</Text>
+                            <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
+                            <Text style={style.formTooltip}>Apellido</Text>
+                            <Text style={style.textPerfil}>{apellido}</Text>
                             <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
                         </View>
                     )}
 
-                    <Text style={style.formTooltip}>Nombre</Text>
-                    <Text style={style.textPerfil}>{nombre}</Text>
                     <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
-                    <Text style={style.formTooltip}>Apellido</Text>
-                    <Text style={style.textPerfil}>{apellido}</Text>
+
                     <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
                     {token && token.tipo !== 'vecino' && (
                         <View>
-                            <Text style={style.formTooltip}>Fecha de ingreso</Text>
-                            <Text style={style.textPerfil}>{fecha}</Text>
+
                             <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
                             <Text style={style.formTooltip}>Rubro</Text>
                             <Text style={style.textPerfil}>{rubro}</Text>
                             <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
+                            
                         </View>
                     )}
-                    {token && token.tipo == 'vecino' &&
-                         (
+                    {token && token.tipo == 'vecino'
+                        && (
                             <View>
 
                                 <Text style={style.formTooltip}>Documento</Text>
                                 <Text value="123" style={style.textPerfil}>{documento}</Text>
+                                <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
                                 <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
                                 <Text style={style.formTooltip}>Dirección</Text>
                                 <Text style={style.textPerfil}>{direccion}</Text>
@@ -108,7 +128,7 @@ function Perfil(props) {
                             </View>
 
                         )}
-                    <Text style={{ fontSize: 16, textAlign: 'center' }}> *Para cambiar sus datos, deberá acercarse al Municipio.</Text>
+                    <Text style={{ fontSize: 13, textAlign: 'center' }}> *Para cambiar sus datos, deberá acercarse al Municipio.</Text>
 
                     <TouchableOpacity onPress={() => navigation.navigate('CambiarContraseña')}>
                         <Text style={style.subtitle2}>Cambiar Contraseña</Text>

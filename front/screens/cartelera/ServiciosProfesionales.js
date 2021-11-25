@@ -33,6 +33,7 @@ import MiVecindario from '../../components/MiVecindario';
 import imagesUrls from '../../controllers/images';
 import { crearSitio } from '../../controllers/sitios';
 import { crearDenuncia } from '../../controllers/denuncias';
+import { crearPublicacion } from '../../controllers/publicaciones';
 
 function ServiciosProfesionales(props) {
     const state = useState();
@@ -55,6 +56,7 @@ function ServiciosProfesionales(props) {
 
     useEffect(() => {
         // Fetch the token from storage then navigate to our appropriate place
+        fetchApi();
         const bootstrapAsync = async () => {
             if (params) {
                 setPhotos(params.photos);
@@ -64,14 +66,37 @@ function ServiciosProfesionales(props) {
         bootstrapAsync();
     }, [props, isFocused, state]);
 
+    const fetchApi = async function () {
+
+    };
+
     const onSubmit = async function (values, rubro) {
-        // console.log(photos)
+        console.log("PHOTOS")
+        console.log(photos)
         const imageUrls = await imagesUrls(photos);
+        const aux = JSON.parse(base64.decode(await AsyncStorage.getItem('authToken')));
         console.log(imageUrls);
         const sitioRes = await crearSitio(sitio, values.comentariosLugar);
-        console.log(rubro);
-        console.log(values);
-        console.log(sitioRes);
+        /*  console.log(rubro);
+        console.log(values.descripcion);
+        console.log(`sitiores: ${sitioRes}`);*/
+
+        horarios =  values.lunesA + ','+ values.lunesH + ',' + values.martesA + ',' + values.martesH + ',' + values.miercolesA + ',' + values.miercolesH + ',' + values.juevesA + ',' + values.juevesH + ',' + values.viernesA +',' + values.viernesH +',' + values.sabadoA +',' + values.sabadoH +','+values.domingoA+','+values.domingoH
+        console.log(horarios)
+
+        const res = await crearPublicacion({
+            documento: aux.referencia,
+            idSitio: sitioRes.idSitio,
+            descripcion: values.descripcion,
+            titulo: values.titulo,
+            telefono: values.numero,
+            mail: values.mail,
+            horarios: horarios,
+            rubro: rubro,
+            imagenesPublicacion: imageUrls,
+        })
+
+        console.log(res);
     };
 
     // API google places
@@ -120,7 +145,8 @@ function ServiciosProfesionales(props) {
 
         // direccion: yup.string().required(),
         fecha: yup.date(),
-        descripcion: yup.string().required('Por favor ingresa comentarios acerca del problema'),
+        descripcion: yup.string().required('Por favor ingresa una descripcion'),
+        titulo: yup.string().required('Por favor ingresa un titulo'),
     });
 
     return (
@@ -141,10 +167,12 @@ function ServiciosProfesionales(props) {
                     viernesA: '',
                     viernesH: '',
                     sabadoA: '',
+                    sabadoH: '',
                     domingoA: '',
                     domingoH: '',
                     direccion: '',
                     descripcion: '',
+                    titulo: '',
 
                 }}
                 validationSchema={denunciaValidationSchema}
@@ -419,6 +447,17 @@ function ServiciosProfesionales(props) {
                                     </MapView>
                                 </View>
                             )}
+                            <Text style={style.formTooltip}>Titulo</Text>
+                            <TextInput
+                                style={style.secondaryTextInput}
+                                value={values.titulo}
+                                onBlur={handleBlur('titulo')}
+                                onChangeText={handleChange('titulo')}
+                                placeholder="Ingresa el nombre del servicio"
+                                underlineColor="#2984f2"
+                            />
+                            {(errors.titulo && touched.titulo)
+                            && <Text style={style.errors}>{errors.titulo}</Text>}
                         </View>
                         <Text style={style.formTooltip}>Descripción</Text>
                         <TextInput

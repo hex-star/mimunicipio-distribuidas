@@ -30,6 +30,7 @@ import MiVecindario from '../../components/MiVecindario';
 import imagesUrls from '../../controllers/images';
 import { crearSitio } from '../../controllers/sitios';
 import { crearDenuncia } from '../../controllers/denuncias';
+import { crearPublicacion } from '../../controllers/publicaciones';
 
 function NuevoComercio(props) {
     const state = useState();
@@ -64,11 +65,36 @@ function NuevoComercio(props) {
 
     const onSubmit = async function (values, direccion) {
        // console.log(photos)
-        const imageUrls = await imagesUrls(photos);
-        const sitioRes = await crearSitio(sitio, values.comentariosLugar);
+ 
+ 
        /* console.log(values);
         console.log(sitioRes);*/
+        //console.log(imageUrls);
+        console.log("PHOTOS")
+        console.log(photos)
+        const imageUrls = await imagesUrls(photos);
+        const aux = JSON.parse(base64.decode(await AsyncStorage.getItem('authToken')));
         console.log(imageUrls);
+        const sitioRes = await crearSitio(sitio, values.comentariosLugar);
+        /*  console.log(rubro);
+        console.log(values.descripcion);
+        console.log(`sitiores: ${sitioRes}`);*/
+        console.log(values)
+       const horarios =  values.lunesA + ','+ values.lunesH + ',' + values.martesA + ',' + values.martesH + ',' + values.miercolesA + ',' + values.miercolesH + ',' + values.juevesA + ',' + values.juevesH + ',' + values.viernesA +',' + values.viernesH +',' + values.sabadoA +',' + values.sabadoH +','+values.domingoA+','+values.domingoH
+        console.log(horarios)
+
+        const res = await crearPublicacion({
+            documento: aux.referencia,
+            idSitio: sitioRes.idSitio,
+            descripcion: values.descripcion,
+            titulo: values.nombre,
+            telefono: values.telefono,
+            horarios: horarios,
+            rubro: "",
+            imagenesPublicacion: imageUrls,
+        })
+        console.log(res);
+        
     };
 
     // API google places

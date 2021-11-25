@@ -50,6 +50,7 @@ function FormularioDenuncia(props) {
             if (params) {
                 setPhotos(params.photos);
             }
+         
             setDocumentoUsuario(JSON.parse(base64.decode(await AsyncStorage.getItem('authToken'))).referencia);
         };
         bootstrapAsync();
