@@ -75,7 +75,7 @@ function ServiciosProfesionales(props) {
             imagenesPublicacion: imageUrls,
         });
 
-        console.log(res);
+        navigation.navigate('Confirmacion', { tipo: 'publicacion', id: res.publicacion.idPublicacion });
     };
 
     // API google places
@@ -92,6 +92,7 @@ function ServiciosProfesionales(props) {
             });
 
             const response = await request.json();
+            console.log(JSON.stringify(response))
 
             if (response) {
                 // console.log(JSON.stringify(response));
@@ -202,7 +203,7 @@ function ServiciosProfesionales(props) {
                             >
 
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Lunes:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Lunes:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.lunesA}
@@ -222,7 +223,7 @@ function ServiciosProfesionales(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Martes:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Martes:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.martesA}
@@ -242,7 +243,7 @@ function ServiciosProfesionales(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Miercoles:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Miercoles:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.miercolesA}
@@ -262,7 +263,7 @@ function ServiciosProfesionales(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Jueves:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Jueves:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.juevesA}
@@ -282,7 +283,7 @@ function ServiciosProfesionales(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Viernes:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Viernes:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.viernesA}
@@ -302,7 +303,7 @@ function ServiciosProfesionales(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Sabado:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Sabado:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.sabadoA}
@@ -322,7 +323,7 @@ function ServiciosProfesionales(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Domingo:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Domingo:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.domingoA}

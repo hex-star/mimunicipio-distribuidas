@@ -10,12 +10,14 @@ import {
 import { ScrollView } from 'react-native-gesture-handler';
 import style from '../../customProperties/Styles';
 import MiVecindario from '../../components/MiVecindario';
+import listarRubros from '../../controllers/reclamos';
 
 function PaginaProducto(props) {
     const { navigation, route } = props; // props.navigation
     const { params } = route;
+ 
     const {
-        horarios, titulo, descripcion, imagenesPublicacions,
+        horarios, titulo, descripcion, imagenesPublicacions,rubro,telefono,sitio
     } = params.publicacion;
     const _renderItem = ({ item, index }) => {
         return (
@@ -34,15 +36,19 @@ function PaginaProducto(props) {
                 <MiVecindario noPerfil />
                 <View style={style.paginaProductoContainer}>
                     <Text style={{ fontWeight: 'bold', fontSize: 35, color: '#000f' }}>{titulo}</Text>
+                    <Text style={{fontSize: 20, color: '#000f' }}>{rubro ? rubro : 'Comercio' }</Text>
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <View style={{flexDirection:'column'}}>
                         <Carousel
                             data={imagenesPublicacions}
                             layout={'default'}
                             renderItem={_renderItem}
-                            itemWidth={150}
-                            sliderWidth={130}
+                            itemWidth={120}
+                            sliderWidth={400}
                         />
+                        </View>
                     </View>
+                 
                     <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 20 }}>Horarios</Text>
                     <View style={{ alignItems: 'flex-start' }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -241,8 +247,11 @@ function PaginaProducto(props) {
 
                         </View>
                     </View>
-
-                    <Text style={{ fontSize: 22, marginTop: 20, textAlign:'center' }}>{descripcion}</Text>
+                    <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 20 }}>Direccion</Text>
+                    <Text style={{fontSize:18}}> {sitio.calle} {sitio.numero}</Text>
+                    <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 20,marginTop:10 }}>Telefono</Text>
+                    <Text style={{fontSize:18}}>{telefono}</Text>
+                    <Text style={{ fontSize: 22, marginTop: 16, textAlign:'center' }}>{descripcion}</Text>
                     <View style={style.carteleraItemContainer}>
 
                         <TouchableOpacity onPress={() => navigation.navigate('CambiarContraseña')} />

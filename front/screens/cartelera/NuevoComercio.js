@@ -72,6 +72,7 @@ function NuevoComercio(props) {
             rubro: '',
             imagenesPublicacion: imageUrls,
         });
+        navigation.navigate('Confirmacion', { tipo: 'publicacion', id: res.publicacion.idPublicacion });
     };
 
     // API google places
@@ -141,6 +142,7 @@ function NuevoComercio(props) {
                     viernesA: '',
                     viernesH: '',
                     sabadoA: '',
+                    sabadoH:'',
                     domingoA: '',
                     domingoH: '',
                     direccion: '',
@@ -197,7 +199,7 @@ function NuevoComercio(props) {
                             >
 
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Lunes:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Lunes:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.lunesA}
@@ -217,7 +219,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Martes:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Martes:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.martesA}
@@ -237,7 +239,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Miercoles:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Miercoles:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.miercolesA}
@@ -257,7 +259,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Jueves:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Jueves:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.juevesA}
@@ -277,7 +279,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Viernes:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Viernes:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.viernesA}
@@ -297,7 +299,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Sabado:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Sabado:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.sabadoA}
@@ -317,7 +319,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center' }}>Domingo:</Text>
+                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Domingo:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.domingoA}

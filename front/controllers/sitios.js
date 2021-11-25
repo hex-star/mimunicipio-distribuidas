@@ -10,7 +10,7 @@ export const crearSitio = async function (sitio, comentarios) {
         latitud: sitio.latitud,
         longitud: sitio.longitud,
         calle: sitio.calle,
-        numero: 456,
+        numero: sitio.numero,
         descripcion: sitio.descripcion,
         comentarios,
     });
