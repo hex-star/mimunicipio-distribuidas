@@ -71,7 +71,7 @@ function NuevoComercio(props) {
             imagenesPublicacion: imageUrls,
         });
         setLoading(false);
-        navigation.navigate('Confirmacion', { tipo: 'publicacion', id: res.publicacion.idPublicacion });
+        navigation.navigate('ConfirmacionPublicacion', { tipo: 'publicacion', id: res.publicacion.idPublicacion });
     };
 
     // API google places

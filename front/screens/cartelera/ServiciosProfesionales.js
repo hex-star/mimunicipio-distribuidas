@@ -75,7 +75,7 @@ function ServiciosProfesionales(props) {
             imagenesPublicacion: imageUrls,
         });
 
-        navigation.navigate('Confirmacion', { tipo: 'publicacion', id: res.publicacion.idPublicacion });
+        navigation.navigate('ConfirmacionPublicacion', { tipo: 'publicacion', id: res.publicacion.idPublicacion });
     };
 
     // API google places

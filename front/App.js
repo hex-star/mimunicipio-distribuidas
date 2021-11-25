@@ -19,6 +19,7 @@ import Contraseña from './screens/Contraseña';
 import UserProfile from './components/UserProfile';
 import ImageBrowser from './components/ImageBrowser';
 import Confirmacion from './components/Confirmacion';
+import Confirmacion2 from './components/ConfirmacionPublicacion';
 import PrimerInicio from './screens/PrimerInicio';
 import CambiarContraseña from './screens/CambiarContraseña';
 import Reclamo from './screens/reclamos/Reclamo1';
@@ -113,6 +114,11 @@ export default function App() {
                     <Stack.Screen
                         name="Confirmacion"
                         component={Confirmacion}
+                        options={options}
+                    />
+                    <Stack.Screen
+                        name="ConfirmacionPublicacion"
+                        component={Confirmacion2}
                         options={options}
                     />
 
