@@ -10,6 +10,7 @@ const urlWebServices = {
     buscarUsuario: `${urlApi}/api/usuarios/buscar/`,
     crearReclamo: `${urlApi}/api/reclamos/create`,
     listarRubros: `${urlApi}/api/rubros/list`,
+    listarReclamo: `${urlApi}/api/reclamos/list`,
 };
 
 export default urlWebServices;

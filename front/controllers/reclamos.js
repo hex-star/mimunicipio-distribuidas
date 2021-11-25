@@ -1,6 +1,6 @@
 import urlWebServices from './webServices';
 
-export const crearReclamos = async function (values) {
+export const crearReclamo = async function (values) {
     const url = urlWebServices.crearReclamo;
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -20,6 +20,24 @@ export const crearReclamos = async function (values) {
         headers: myHeaders,
         body: raw,
 
+    });
+    console.log(raw);
+    console.log('RESPONSE');
+    console.log(response);
+
+    return response.json();
+};
+
+export const listarReclamos = async function () {
+    const url = urlWebServices.listarReclamo;
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('Accept', 'application/json');
+
+    const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        headers: myHeaders,
     });
 
     return response.json();

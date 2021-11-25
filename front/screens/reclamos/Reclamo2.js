@@ -24,7 +24,7 @@ import style from '../../customProperties/Styles';
 import MiVecindario from '../../components/MiVecindario';
 import imagesUrls from '../../controllers/images';
 import { crearSitio } from '../../controllers/sitios';
-import { crearReclamos } from '../../controllers/reclamos';
+import { crearReclamo } from '../../controllers/reclamos';
 
 function FormularioReclamo(props) {
     const state = useState();
@@ -35,7 +35,8 @@ function FormularioReclamo(props) {
     const [loading, setLoading] = useState(false);
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
-    const [documentoUsuario, setDocumentoUsuario] = ('');
+    const { rubroD, desperfectoD, desperfectoI } = params;
+    const [rubro, setRubro] = useState({ });
 
     // const { documento } = JSON.parse(base64.decode(params.authToken).toString());
 
@@ -44,40 +45,29 @@ function FormularioReclamo(props) {
         const bootstrapAsync = async () => {
             if (params) {
                 setPhotos(params.photos);
+                if (params.rubroD) {
+                    setRubro({ rubroD, desperfectoD, desperfectoI });
+                }
             }
         };
         bootstrapAsync();
-    }, [props, isFocused, state]);
-
-    const { rubroD, desperfectoD, desperfectoI } = params;
+    }, [props, isFocused]);
 
     const onSubmit = async function (values) {
         setLoading(true);
         try {
-            console.log(photos);
             const imageUrls = await imagesUrls(photos);
-            console.log(values);
             const sitioRes = await crearSitio(sitio, values.comentariosLugar);
             const documento = (JSON.parse(base64.decode(await AsyncStorage.getItem('authToken'))).referencia);
-            console.log(documento);
-            { /* Valores a enviar:
-                    Documento (quien realiza el reclamo)
-                    Rubro -> Params
-                    Desperfecto -> Params
-                    Dirección (Sitio)
-                    Descripcion
-                    Imagenes */ }
-            const res = await crearReclamos({
-                documento,
+            const body = {
+                documento: String(documento),
                 idSitio: sitioRes.idSitio,
-                idDesperfecto: desperfectoI,
+                idDesperfecto: rubro.desperfectoI,
                 descripcion: values.descripcion,
-                imagenesReclamos: imageUrls,
-            });
-            console.log('AGUUUUUUUUUUUUUS');
-            console.log(res.reclamos);
-
-            if (res.reclamos) {
+                imagenesReclamo: imageUrls,
+            };
+            const res = await crearReclamo(body);
+            if (res.reclamo) {
                 navigation.navigate('Confirmacion', { tipo: 'reclamo', id: res.reclamo.idReclamo });
             }
         } catch (e) {
@@ -140,6 +130,7 @@ function FormularioReclamo(props) {
             <Formik
                 initialValues={{
                     descripcion: '',
+                    comentariosLugar: '',
                 }}
                 validationSchema={denunciaValidationSchema}
                 onSubmit={(values) => {
@@ -159,22 +150,22 @@ function FormularioReclamo(props) {
                         keyboardShouldPersistTaps="handled"
                     >
 
-                        <Text style={style.sectionTitle}>Crear nueva reclamo</Text>
+                        <Text style={style.sectionTitle}>Crear nuevo reclamo</Text>
                         <Text style={{
-                            backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', padding: 10,
+                            backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', fontSize: 18, padding: 10,
                         }}
                         >
                             {'Rubro: '}
-                            { rubroD }
+                            { rubro.rubroD }
 
                         </Text>
                         <Text style={{
-                            backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', padding: 10,
+                            backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', fontSize: 18, padding: 10,
                         }}
                         >
                             {' '}
                             {'Desperfecto: '}
-                            { desperfectoD }
+                            { rubro.desperfectoD }
 
                         </Text>
                         <Text style={style.formTooltip}>Dirección</Text>
@@ -227,6 +218,15 @@ function FormularioReclamo(props) {
                                 </View>
                             )}
                         </View>
+                        <Text style={style.formTooltip}>Comentarios del lugar</Text>
+                        <TextInput
+                            style={style.secondaryTextInput}
+                            value={values.comentariosLugar}
+                            onBlur={handleBlur('comentariosLugar')}
+                            onChangeText={handleChange('comentariosLugar')}
+                            placeholder="Ingresá mas info del lugar"
+                            underlineColor="#2984f2"
+                        />
                         <Text style={style.formTooltip}>Comentanos tu reclamo</Text>
                         <TextInput
                             style={style.primaryTextInput}
