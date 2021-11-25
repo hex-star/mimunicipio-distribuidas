@@ -66,10 +66,10 @@ function Perfil(props) {
 
     return (
         <>
+            <MiVecindario noPerfil />
+            <Text style={style.sectionTitle}>Mi perfil</Text>
             <ScrollView>
-                <MiVecindario noPerfil />
                 <View style={style.formsContainer}>
-                    <Text style={style.sectionTitle}>Mi perfil</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <Image
                             style={{
@@ -86,8 +86,6 @@ function Perfil(props) {
                             <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
                             <Text style={style.formTooltip}>Legajo</Text>
                             <Text style={style.textPerfil}>{legajo}</Text>
-                            <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
-                            <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
                         </View>
                     )}
                     {token && token.tipo == 'vecino' && (
@@ -101,9 +99,6 @@ function Perfil(props) {
                         </View>
                     )}
 
-                    <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
-
-                    <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
                     {token && token.tipo !== 'vecino' && (
                         <View>
 
@@ -111,7 +106,7 @@ function Perfil(props) {
                             <Text style={style.formTooltip}>Rubro</Text>
                             <Text style={style.textPerfil}>{rubro}</Text>
                             <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
-                            
+                            <View style={{ borderBottomColor: '#24b6ff', borderBottomWidth: 0.5 }} />
                         </View>
                     )}
                     {token && token.tipo == 'vecino'
@@ -128,7 +123,7 @@ function Perfil(props) {
                             </View>
 
                         )}
-                    <Text style={{ fontSize: 13, textAlign: 'center' }}> *Para cambiar sus datos, deberá acercarse al Municipio.</Text>
+                    <Text style={{ marginTop: 20, fontSize: 17, textAlign: 'center' }}> *Para cambiar sus datos, deberá acercarse al Municipio.</Text>
 
                     <TouchableOpacity onPress={() => navigation.navigate('CambiarContraseña')}>
                         <Text style={style.subtitle2}>Cambiar Contraseña</Text>

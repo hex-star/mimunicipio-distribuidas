@@ -179,15 +179,8 @@ function FormularioReclamo(props) {
     return (
         <>
             <MiVecindario navigation={navigation} />
-            <Text style={{
-                color: '#34bdeb',
-                fontSize: 25,
-                paddingLeft: 20,
-            }}
-            // TODO - No usa Styles por el paddingLeft
-            >
+            <Text style={style.sectionTitle}>
                 Crear nuevo reclamo
-
             </Text>
             <ScrollView
                 style={style.formsContainer}

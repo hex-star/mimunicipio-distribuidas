@@ -38,8 +38,8 @@ function Login(props) {
                 navigation.navigate('PrimerInicio');
                 return;
             }
-            if (res && res.error === 'Contraseña incorrecta'){
-                Alert.alert("Contraseña o Mail incorrecto")
+            if (res && res.error === 'Contraseña incorrecta') {
+                Alert.alert('Contraseña o Mail incorrecto');
             }
 
             if (res && res.token) {
@@ -48,7 +48,7 @@ function Login(props) {
                 await AsyncStorage.setItem('documento', JSON.stringify(res.documento));
                 navigation.popToTop();
             } else {
-                Alert.alert("Contraseña o Mail incorrecto")
+                Alert.alert('Contraseña o Mail incorrecto');
                 setOnLoading(false);
             }
         } catch (e) {
@@ -81,7 +81,7 @@ function Login(props) {
                         </Text>
                         <TextInput
                             style={style.primaryTextInput}
-                            placeholder="Email/Legajo"
+                            placeholder="Email"
                             onChangeText={handleChange('email')}
                             onBlur={handleBlur('email')}
                             value={values.email}

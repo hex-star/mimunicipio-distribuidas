@@ -50,7 +50,7 @@ function FormularioDenuncia(props) {
             if (params) {
                 setPhotos(params.photos);
             }
-         
+
             setDocumentoUsuario(JSON.parse(base64.decode(await AsyncStorage.getItem('authToken'))).referencia);
         };
         bootstrapAsync();
@@ -60,7 +60,7 @@ function FormularioDenuncia(props) {
         setLoading(true);
         try {
             const imageUrls = await imagesUrls(photos);
-            console.log(imageUrls)
+            console.log(imageUrls);
 
             const sitioRes = await crearSitio(sitio, values.comentariosLugar);
 
@@ -157,128 +157,130 @@ function FormularioDenuncia(props) {
                     touched,
                     isValid,
                 }) => (
-                    <ScrollView
-                        style={style.formsContainer}
-                        keyboardShouldPersistTaps="handled"
-                    >
-
+                    <>
                         <Text style={style.sectionTitle}>Crear nueva denuncia</Text>
-                        <Text style={style.formTooltip}>Nombre / Comercio</Text>
-                        <TextInput
-                            style={style.secondaryTextInput}
-                            value={values.nombre}
-                            onBlur={handleBlur('nombre')}
-                            onChangeText={handleChange('nombre')}
-                            placeholder="Ingresá el nombre del vecino o comercio"
-                            underlineColor="#2984f2"
-                        />
-                        {(errors.nombre && touched.nombre)
-                            && <Text style={style.errors}>{errors.nombre}</Text>}
-                        <Text style={style.formTooltip}>Dirección</Text>
-                        <View style={style.primaryTextInput}>
-                            <GooglePlacesAutocomplete
-                                // https://github.com/FaridSafi/react-native-google-places-autocomplete
-                                placeholder="Buscar"
-                                disableScroll
-                                isRowScrollable={false}
-                                currentLocationLabel="Ubicación actual"
-                                onPress={(data = null) => {
-                                    getPlaceDetails(data);
-                                }}
-                                styles={{
-                                    textInputContainer: style.textInputContainer,
-                                }}
-                                timeout={1000}
-                                query={{
-                                    key: GOOGLE_PLACES_API_KEY,
-                                    language: 'es',
-                                    components: 'country:arg',
-                                }}
+                        <ScrollView
+                            style={style.formsContainer}
+                            keyboardShouldPersistTaps="handled"
+                        >
+                            <Text style={style.formTooltip}>Nombre / Comercio</Text>
+                            <TextInput
+                                style={style.secondaryTextInput}
+                                value={values.nombre}
+                                onBlur={handleBlur('nombre')}
+                                onChangeText={handleChange('nombre')}
+                                placeholder="Ingresá el nombre del vecino o comercio"
+                                underlineColor="#2984f2"
                             />
-                        </View>
+                            {(errors.nombre && touched.nombre)
+                            && <Text style={style.errors}>{errors.nombre}</Text>}
+                            <Text style={style.formTooltip}>Dirección</Text>
+                            <View style={style.primaryTextInput}>
+                                <GooglePlacesAutocomplete
+                                // https://github.com/FaridSafi/react-native-google-places-autocomplete
+                                    placeholder="Buscar"
+                                    disableScroll
+                                    isRowScrollable={false}
+                                    currentLocationLabel="Ubicación actual"
+                                    onPress={(data = null) => {
+                                        getPlaceDetails(data);
+                                    }}
+                                    styles={{
+                                        textInputContainer: style.textInputContainer,
+                                    }}
+                                    timeout={1000}
+                                    query={{
+                                        key: GOOGLE_PLACES_API_KEY,
+                                        language: 'es',
+                                        components: 'country:arg',
+                                    }}
+                                />
+                            </View>
 
-                        <View>
-                            {coordinates && (
+                            <View>
+                                {coordinates && (
                                 // https://github.com/react-native-maps/react-native-maps
-                                <View style={{ flexDirection: 'row' }}>
-                                    <MapView
-                                        style={{
-                                            width: (Dimensions.get('window').width - 4),
-                                            height: 150,
-                                            margin: 2,
-                                        }}
-                                        initialRegion={{
-                                            latitude: coordinates[0],
-                                            longitude: coordinates[1],
-                                            latitudeDelta: 0.003,
-                                            longitudeDelta: 0.0015,
-                                        }}
-                                    >
-                                        <Marker
-                                            coordinate={{
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <MapView
+                                            style={{
+                                                width: (Dimensions.get('window').width - 4),
+                                                height: 150,
+                                                margin: 2,
+                                            }}
+                                            initialRegion={{
                                                 latitude: coordinates[0],
                                                 longitude: coordinates[1],
+                                                latitudeDelta: 0.003,
+                                                longitudeDelta: 0.0015,
                                             }}
-                                        />
-                                    </MapView>
-                                </View>
-                            )}
-                        </View>
-                        <Text style={style.formTooltip}>Comentarios del lugar</Text>
-                        <TextInput
-                            style={style.secondaryTextInput}
-                            value={values.comentariosLugar}
-                            onBlur={handleBlur('comentariosLugar')}
-                            onChangeText={handleChange('comentariosLugar')}
-                            placeholder="Ingresá mas info del lugar"
-                            underlineColor="#2984f2"
-                        />
-                        <Text style={style.formTooltip}>Comentanos tu problema</Text>
-                        <TextInput
-                            style={style.secondaryTextInput}
-                            value={values.descripcion}
-                            onBlur={handleBlur('descripcion')}
-                            onChangeText={handleChange('descripcion')}
-                            placeholder="Ingresa el motivo de la denuncia"
-                            underlineColor="#2984f2"
-                        />
-                        {(errors.descripcion && touched.descripcion)
-                            && <Text style={style.errors}>{errors.descripcion}</Text>}
-                        <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
-                        <TouchableOpacity
-             
-                            onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'Denuncia', maxImagenes: 99 }); }}
-                            style={style.primaryFormButton}
-                        >
-                            <Text style={style.primaryFormButtonText}>
-                                Seleccionar imágenes
-                            </Text>
-
-                        </TouchableOpacity>
-                        {photos ? (
-                            <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                                {photos.map((item, i) => renderImage(item, i))}
+                                        >
+                                            <Marker
+                                                coordinate={{
+                                                    latitude: coordinates[0],
+                                                    longitude: coordinates[1],
+                                                }}
+                                            />
+                                        </MapView>
+                                    </View>
+                                )}
                             </View>
-                        ) : (
-                            <></>
-                        )}
-                        <TouchableOpacity
-                            onPress={() => onSubmit(values)}
-                            style={style.primaryNavigationButton}
-                            disabled={!isValid}
-                        >
-                            {loading ? (
-                                <Text style={style.primaryNavigationButtonText}>
-                                    Cargando
-                                </Text>
-                            ) : (
-                                <Text style={style.primaryNavigationButtonText}>
-                                    Siguiente
-                                </Text>
-                            ) }
+                            <Text style={style.formTooltip}>Comentarios del lugar</Text>
+                            <TextInput
+                                style={style.secondaryTextInput}
+                                value={values.comentariosLugar}
+                                onBlur={handleBlur('comentariosLugar')}
+                                onChangeText={handleChange('comentariosLugar')}
+                                placeholder="Ingresá mas info del lugar"
+                                underlineColor="#2984f2"
+                            />
+                            <Text style={style.formTooltip}>Comentanos tu problema</Text>
+                            <TextInput
+                                style={style.secondaryTextInput}
+                                value={values.descripcion}
+                                onBlur={handleBlur('descripcion')}
+                                onChangeText={handleChange('descripcion')}
+                                placeholder="Ingresa el motivo de la denuncia"
+                                underlineColor="#2984f2"
+                            />
+                            {(errors.descripcion && touched.descripcion)
+                            && <Text style={style.errors}>{errors.descripcion}</Text>}
+                            <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
+                            <TouchableOpacity
 
-                        </TouchableOpacity>
-                    </ScrollView>
+                                onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'Denuncia', maxImagenes: 99 }); }}
+                                style={style.primaryFormButton}
+                            >
+                                <Text style={style.primaryFormButtonText}>
+                                    Seleccionar imágenes
+                                </Text>
+
+                            </TouchableOpacity>
+                            {photos ? (
+                                <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                                    {photos.map((item, i) => renderImage(item, i))}
+                                </View>
+                            ) : (
+                                <></>
+                            )}
+                            <TouchableOpacity
+                                onPress={() => onSubmit(values)}
+                                style={style.primaryNavigationButton}
+                                disabled={!isValid}
+                            >
+                                {loading ? (
+                                    <Text style={style.primaryNavigationButtonText}>
+                                        Cargando
+                                    </Text>
+                                ) : (
+                                    <Text style={style.primaryNavigationButtonText}>
+                                        Siguiente
+                                    </Text>
+                                )}
+
+                            </TouchableOpacity>
+                        </ScrollView>
+
+                    </>
                 )}
 
             </Formik>

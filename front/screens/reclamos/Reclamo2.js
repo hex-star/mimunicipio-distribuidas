@@ -145,134 +145,137 @@ function FormularioReclamo(props) {
                     touched,
                     isValid,
                 }) => (
-                    <ScrollView
-                        style={style.formsContainer}
-                        keyboardShouldPersistTaps="handled"
-                    >
-
+                    <>
                         <Text style={style.sectionTitle}>Crear nuevo reclamo</Text>
-                        <Text style={{
-                            backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', fontSize: 18, padding: 10,
-                        }}
+                        <ScrollView
+                            style={style.formsContainer}
+                            keyboardShouldPersistTaps="handled"
                         >
-                            {'Rubro: '}
-                            { rubro.rubroD }
 
-                        </Text>
-                        <Text style={{
-                            backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', fontSize: 18, padding: 10,
-                        }}
-                        >
-                            {' '}
-                            {'Desperfecto: '}
-                            { rubro.desperfectoD }
+                            <Text style={{
+                                backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', fontSize: 18, padding: 10,
+                            }}
+                            >
+                                {'Rubro: '}
+                                {rubro.rubroD}
 
-                        </Text>
-                        <Text style={style.formTooltip}>Dirección</Text>
-                        <View style={style.primaryTextInput}>
-                            <GooglePlacesAutocomplete
+                            </Text>
+                            <Text style={{
+                                backgroundColor: '#1A4472', color: '#fff', fontWeight: 'bold', fontSize: 18, padding: 10,
+                            }}
+                            >
+                                {' '}
+                                {'Desperfecto: '}
+                                {rubro.desperfectoD}
+
+                            </Text>
+                            <Text style={style.formTooltip}>Dirección</Text>
+                            <View style={style.primaryTextInput}>
+                                <GooglePlacesAutocomplete
                                 // https://github.com/FaridSafi/react-native-google-places-autocomplete
-                                placeholder="Ingresar una dirección"
-                                disableScroll
-                                isRowScrollable={false}
-                                currentLocationLabel="Ubicación actual"
-                                onPress={(data = null) => {
-                                    getPlaceDetails(data);
-                                }}
-                                styles={{
-                                    textInputContainer: style.textInputContainer,
-                                }}
-                                timeout={1000}
-                                query={{
-                                    key: GOOGLE_PLACES_API_KEY,
-                                    language: 'es',
-                                    components: 'country:arg',
-                                }}
-                            />
-                        </View>
+                                    placeholder="Ingresar una dirección"
+                                    disableScroll
+                                    isRowScrollable={false}
+                                    currentLocationLabel="Ubicación actual"
+                                    onPress={(data = null) => {
+                                        getPlaceDetails(data);
+                                    }}
+                                    styles={{
+                                        textInputContainer: style.textInputContainer,
+                                    }}
+                                    timeout={1000}
+                                    query={{
+                                        key: GOOGLE_PLACES_API_KEY,
+                                        language: 'es',
+                                        components: 'country:arg',
+                                    }}
+                                />
+                            </View>
 
-                        <View>
-                            {coordinates && (
+                            <View>
+                                {coordinates && (
                                 // https://github.com/react-native-maps/react-native-maps
-                                <View style={{ flexDirection: 'row' }}>
-                                    <MapView
-                                        style={{
-                                            width: (Dimensions.get('window').width - 4),
-                                            height: 150,
-                                            margin: 2,
-                                        }}
-                                        initialRegion={{
-                                            latitude: coordinates[0],
-                                            longitude: coordinates[1],
-                                            latitudeDelta: 0.003,
-                                            longitudeDelta: 0.0015,
-                                        }}
-                                    >
-                                        <Marker
-                                            coordinate={{
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <MapView
+                                            style={{
+                                                width: (Dimensions.get('window').width - 4),
+                                                height: 150,
+                                                margin: 2,
+                                            }}
+                                            initialRegion={{
                                                 latitude: coordinates[0],
                                                 longitude: coordinates[1],
+                                                latitudeDelta: 0.003,
+                                                longitudeDelta: 0.0015,
                                             }}
-                                        />
-                                    </MapView>
-                                </View>
-                            )}
-                        </View>
-                        <Text style={style.formTooltip}>Comentarios del lugar</Text>
-                        <TextInput
-                            style={style.secondaryTextInput}
-                            value={values.comentariosLugar}
-                            onBlur={handleBlur('comentariosLugar')}
-                            onChangeText={handleChange('comentariosLugar')}
-                            placeholder="Ingresá mas info del lugar"
-                            underlineColor="#2984f2"
-                        />
-                        <Text style={style.formTooltip}>Comentanos tu reclamo</Text>
-                        <TextInput
-                            style={style.primaryTextInput}
-                            value={values.descripcion}
-                            onBlur={handleBlur('descripcion')}
-                            onChangeText={handleChange('descripcion')}
-                            placeholder="Ingresa el motivo de tu reclamo"
-                            underlineColor="#2984f2"
-                        />
-                        {(errors.descripcion && touched.descripcion)
-                            && <Text style={style.errors}>{errors.descripcion}</Text>}
-                        <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
-                        <TouchableOpacity
-
-                            onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'Reclamo#2', maxImagenes: 7 }); }}
-                            style={style.primaryFormButton}
-                        >
-                            <Text style={style.primaryFormButtonText}>
-                                Seleccionar imágenes
-                            </Text>
-
-                        </TouchableOpacity>
-                        {photos ? (
-                            <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                                {photos.map((item, i) => renderImage(item, i))}
+                                        >
+                                            <Marker
+                                                coordinate={{
+                                                    latitude: coordinates[0],
+                                                    longitude: coordinates[1],
+                                                }}
+                                            />
+                                        </MapView>
+                                    </View>
+                                )}
                             </View>
-                        ) : (
-                            <></>
-                        )}
-                        <TouchableOpacity
-                            onPress={() => onSubmit(values)}
-                            style={style.primaryNavigationButton}
-                            disabled={!isValid}
-                        >
-                            {loading ? (
-                                <Text style={style.primaryNavigationButtonText}>
-                                    Cargando
-                                </Text>
-                            ) : (
-                                <Text style={style.primaryNavigationButtonText}>
-                                    Siguiente
-                                </Text>
-                            ) }
+                            <Text style={style.formTooltip}>Comentarios del lugar</Text>
+                            <TextInput
+                                style={style.secondaryTextInput}
+                                value={values.comentariosLugar}
+                                onBlur={handleBlur('comentariosLugar')}
+                                onChangeText={handleChange('comentariosLugar')}
+                                placeholder="Ingresá mas info del lugar"
+                                underlineColor="#2984f2"
+                            />
+                            <Text style={style.formTooltip}>Comentanos tu reclamo</Text>
+                            <TextInput
+                                style={style.primaryTextInput}
+                                value={values.descripcion}
+                                onBlur={handleBlur('descripcion')}
+                                onChangeText={handleChange('descripcion')}
+                                placeholder="Ingresa el motivo de tu reclamo"
+                                underlineColor="#2984f2"
+                            />
+                            {(errors.descripcion && touched.descripcion)
+                            && <Text style={style.errors}>{errors.descripcion}</Text>}
+                            <Text style={style.formTooltip}>Subí los archivos de prueba</Text>
+                            <TouchableOpacity
 
-                        </TouchableOpacity>
-                    </ScrollView>
+                                onPress={() => { navigation.navigate('ImageBrowser', { navigateBackTo: 'Reclamo#2', maxImagenes: 7 }); }}
+                                style={style.primaryFormButton}
+                            >
+                                <Text style={style.primaryFormButtonText}>
+                                    Seleccionar imágenes
+                                </Text>
+
+                            </TouchableOpacity>
+                            {photos ? (
+                                <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                                    {photos.map((item, i) => renderImage(item, i))}
+                                </View>
+                            ) : (
+                                <></>
+                            )}
+                            <TouchableOpacity
+                                onPress={() => onSubmit(values)}
+                                style={style.primaryNavigationButton}
+                                disabled={!isValid}
+                            >
+                                {loading ? (
+                                    <Text style={style.primaryNavigationButtonText}>
+                                        Cargando
+                                    </Text>
+                                ) : (
+                                    <Text style={style.primaryNavigationButtonText}>
+                                        Siguiente
+                                    </Text>
+                                )}
+
+                            </TouchableOpacity>
+                        </ScrollView>
+
+                    </>
                 )}
 
             </Formik>

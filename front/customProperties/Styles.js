@@ -32,17 +32,21 @@ const style = StyleSheet.create({
     carteleraItemContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        alignContent: 'center',
+        alignContent: 'flex-start',
         justifyContent: 'center',
         marginTop: 10,
     },
     carteleraItem: {
-        width: 150,
+        width: '48%',
         backgroundColor: '#d1d1d1',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        margin: 1,
+        alignContent: 'flex-start',
+        margin: 3,
+        maxHeight: 215,
+        minHeight: 215,
+        padding: 3,
 
     },
     homeButtonPrimary: {
@@ -88,12 +92,13 @@ const style = StyleSheet.create({
 
     h1: {
         fontWeight: 'bold',
-        fontSize: 15,
+        fontSize: 21,
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'double',
     },
     h1Cartelera: {
-        fontWeight: 'bold',
-        fontSize: 20,
-        color: '#000',
+        fontSize: 25,
+        color: '#34bdeb',
         alignSelf: 'center',
     },
 
@@ -113,6 +118,7 @@ const style = StyleSheet.create({
     sectionTitle: {
         color: '#34bdeb',
         fontSize: 25,
+        paddingLeft: 20,
     },
 
     subtitle1: {
@@ -189,6 +195,14 @@ const style = StyleSheet.create({
         marginTop: 20,
         color: '#000',
 
+    },
+    historialPrimary: {
+        fontSize: 17,
+        fontWeight: 'bold',
+    },
+    historialSecondary: {
+        fontSize: 16,
+        maxWidth: '100%',
     },
     primaryHistorialButtonText: {
         color: 'white',
@@ -297,7 +311,7 @@ const style = StyleSheet.create({
         color: 'red',
     },
     textPerfil: {
-        fontSize: 15,
+        fontSize: 17,
         color: 'black',
         marginBottom: 2,
     },
