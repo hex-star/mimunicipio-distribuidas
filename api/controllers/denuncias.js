@@ -14,7 +14,7 @@ DetalleDenuncias.belongsTo(Denuncias, { foreignKey: "idDenuncia"});
 Denuncias.hasMany(DetalleDenuncias, { foreignKey: "idDenuncia"});
 
 Vecinos.hasMany(Denuncias, { as: "denuncias", foreignKey: "documento"});
-Denuncias.hasOne(Sitios, { as: "sitios", foreignKey: "idSitio"});
+Denuncias.belongsTo(Sitios, { foreignKey: "idSitio"});
 
 exports.crearDenuncia = async function (req, res, next) {
   console.log(req.body);
@@ -59,7 +59,7 @@ exports.listarDenuncias = async function (req, res, next) {
   if (documento){  
     try {
       const denuncias = await Denuncias.findAll({ where: { documento },
-        include: [ImagenesDenuncia, DetalleDenuncias, MovimientosDenuncia],
+        include: [Sitios, ImagenesDenuncia, DetalleDenuncias, MovimientosDenuncia],
       });
       res.status(200).json({ denuncias });
     } catch (err) {
@@ -72,7 +72,7 @@ exports.listarDenuncias = async function (req, res, next) {
   else {  
     try {
       const denuncias = await Denuncias.findAll({
-        include: [ImagenesDenuncia, DetalleDenuncias, MovimientosDenuncia],
+        include: [Sitios, ImagenesDenuncia, DetalleDenuncias, MovimientosDenuncia],
       });
       res.status(200).json({ denuncias });
     } catch (err) {

@@ -12,7 +12,7 @@ MovimientosReclamo.belongsTo(Reclamos, { foreignKey: "idReclamo"});
 Reclamos.hasMany(MovimientosReclamo, { foreignKey: "idReclamo"});
 
 Vecinos.hasMany(Reclamos, { as: "reclamos", foreignKey: "documento"});
-Reclamos.hasOne(Sitios, { as: "sitios", foreignKey: "idSitio"});
+Reclamos.belongsTo(Sitios, { foreignKey: "idSitio"});
 
 Reclamos.belongsTo(Desperfectos, { foreignKey: "idDesperfecto"});
 Desperfectos.belongsTo(Rubros, { foreignKey: "idRubro"});
@@ -53,7 +53,7 @@ exports.listarReclamos = async function (req, res, next) {
   if (documento){  
     try {
       const reclamos = await Reclamos.findAll({ where: { documento },
-        include: [{model: Desperfectos, include: [Rubros] }, ImagenesReclamo, MovimientosReclamo],
+        include: [{model: Desperfectos, include: [Rubros] }, Sitios, ImagenesReclamo, MovimientosReclamo],
       });
       res.status(200).json({ reclamos });
     } catch (err) {
@@ -66,7 +66,7 @@ exports.listarReclamos = async function (req, res, next) {
   else {  
     try {
       const reclamos = await Reclamos.findAll({
-        include: [{model: Desperfectos, include: [Rubros] }, ImagenesReclamo, MovimientosReclamo],
+        include: [{model: Desperfectos, include: [Rubros] }, Sitios, ImagenesReclamo, MovimientosReclamo],
       });
       res.status(200).json({ reclamos });
     } catch (err) {
