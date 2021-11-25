@@ -34,13 +34,9 @@ function NuevoComercio(props) {
     // const [datePickerMode, setDatePickerMode] = useState('date');
     // const [showDatePicker, setShowDatePicker] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [documentoUsuario, setDocumentoUsuario] = useState('');
     const [coordinates, setCoordinates] = useState();
     const isFocused = useIsFocused();
-    const rubros = ['Promocion', 'Oferta'];
-    const [rubroElegido, setRubroElegido] = useState('');
     const [expanded, setExpanded] = React.useState(true);
-    const [direccion, setdireccion] = useState('');
 
     const handlePress = () => setExpanded(!expanded);
 
@@ -50,15 +46,17 @@ function NuevoComercio(props) {
             if (params) {
                 setPhotos(params.photos);
             }
-            setDocumentoUsuario(JSON.parse(base64.decode(await AsyncStorage.getItem('authToken'))).referencia);
         };
         bootstrapAsync();
     }, [props, isFocused, state]);
 
-    const onSubmit = async function (values, direccion) {
+    const onSubmit = async function (values) {
+        setLoading(true);
         const imageUrls = await imagesUrls(photos);
         const aux = JSON.parse(base64.decode(await AsyncStorage.getItem('authToken')));
-        const sitioRes = await crearSitio(sitio, values.comentariosLugar);
+        console.log('Sitio' + sitio);
+        const sitioRes = await crearSitio(sitio, '');
+        console.log('SitioRes' + String(sitioRes));
         const horarios = values.lunesA + ',' + values.lunesH + ',' + values.martesA + ',' + values.martesH + ',' + values.miercolesA + ',' + values.miercolesH + ',' + values.juevesA + ',' + values.juevesH + ',' + values.viernesA + ',' + values.viernesH + ',' + values.sabadoA + ',' + values.sabadoH + ',' + values.domingoA + ',' + values.domingoH;
         console.log(horarios);
 
@@ -72,6 +70,7 @@ function NuevoComercio(props) {
             rubro: '',
             imagenesPublicacion: imageUrls,
         });
+        setLoading(false);
         navigation.navigate('Confirmacion', { tipo: 'publicacion', id: res.publicacion.idPublicacion });
     };
 
@@ -89,6 +88,7 @@ function NuevoComercio(props) {
             });
 
             const response = await request.json();
+            console.log('Google' + JSON.stringify(response));
 
             if (response) {
                 const { location } = response.result.geometry;
@@ -142,14 +142,13 @@ function NuevoComercio(props) {
                     viernesA: '',
                     viernesH: '',
                     sabadoA: '',
-                    sabadoH:'',
+                    sabadoH: '',
                     domingoA: '',
                     domingoH: '',
-                    direccion: '',
                 }}
                 validationSchema={denunciaValidationSchema}
-                onSubmit={(values, direccion) => {
-                    onSubmit(values, direccion);
+                onSubmit={(values) => {
+                    onSubmit(values);
                 }}
             >
                 {({
@@ -199,7 +198,7 @@ function NuevoComercio(props) {
                             >
 
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Lunes:</Text>
+                                    <Text style={{ alignSelf: 'center', minWidth: 70 }}>Lunes:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.lunesA}
@@ -219,7 +218,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Martes:</Text>
+                                    <Text style={{ alignSelf: 'center', minWidth: 70 }}>Martes:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.martesA}
@@ -239,7 +238,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Miercoles:</Text>
+                                    <Text style={{ alignSelf: 'center', minWidth: 70 }}>Miercoles:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.miercolesA}
@@ -259,7 +258,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Jueves:</Text>
+                                    <Text style={{ alignSelf: 'center', minWidth: 70 }}>Jueves:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.juevesA}
@@ -279,7 +278,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Viernes:</Text>
+                                    <Text style={{ alignSelf: 'center', minWidth: 70 }}>Viernes:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.viernesA}
@@ -299,7 +298,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Sabado:</Text>
+                                    <Text style={{ alignSelf: 'center', minWidth: 70 }}>Sabado:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.sabadoA}
@@ -319,7 +318,7 @@ function NuevoComercio(props) {
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ alignSelf: 'center',minWidth:70 }}>Domingo:</Text>
+                                    <Text style={{ alignSelf: 'center', minWidth: 70 }}>Domingo:</Text>
                                     <TextInput
                                         style={style.secondaryTextInput}
                                         value={values.domingoA}
@@ -422,7 +421,7 @@ function NuevoComercio(props) {
                                 <></>
                             )}
                             <TouchableOpacity
-                                onPress={() => onSubmit(values, direccion)}
+                                onPress={() => onSubmit(values)}
                                 style={style.primaryNavigationButton}
                                 disabled={!isValid}
                             >

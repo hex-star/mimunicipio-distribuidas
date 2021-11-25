@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import {
@@ -10,7 +11,7 @@ import {
     View,
     Image,
 } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Modal } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import base64 from 'react-native-base64';
@@ -42,6 +43,7 @@ function FormularioDenuncia(props) {
     const [loading, setLoading] = useState(false);
     const [documentoUsuario, setDocumentoUsuario] = useState('');
     const [coordinates, setCoordinates] = useState();
+    const [modalOpen, setModalOpen] = useState(true);
     const isFocused = useIsFocused();
 
     useEffect(() => {
